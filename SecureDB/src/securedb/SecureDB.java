@@ -5,6 +5,9 @@
  */
 package securedb;
 
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.SQLException;
 /**
  *
  * @author Thayson
@@ -14,8 +17,15 @@ public class SecureDB {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-    
+    public static void main(String[] args){
+        
+        Connection connection = null;
+        
+        try {
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "admin");
+            System.out.println("Conexão bem sucedida!");      
+        } catch (SQLException e) {
+                System.out.println("Falha na conexão!");
+        }
+    } 
 }
