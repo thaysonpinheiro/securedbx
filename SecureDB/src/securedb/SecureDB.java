@@ -22,9 +22,13 @@ public class SecureDB {
         SecureOracle teste = new SecureOracle();
         
         /* verificar parametros de segurança do Oracle */
+        System.out.print("Senhas padrões em uso: ");
         teste.pwdDefault();
+        System.out.print("Dicionário de dados livre: ");
         teste.dataDictionary();
+        System.out.print("Limites de tentativas: ");
         teste.loginAttemptsLimit();
+        System.out.print("Acesso remoto permitido: ");
         teste.remoteAccess();
         //teste.moveTheAuditTable();
         

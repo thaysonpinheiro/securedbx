@@ -34,7 +34,7 @@ public class SecureOracle {
     }
        
     /* verifica os usuários que ainda estão com senha padrão*/
-    public void pwdDefault(){
+    public void pwdDefault() {
         try {
             stat = connection.createStatement();
             result = stat.executeQuery("SELECT * FROM DBA_USERS_WITH_DEFPWD");  
@@ -48,11 +48,11 @@ public class SecureOracle {
     }
     
     /* verifica se o dicionário de dados do sgbd está desativado */
-    public void dataDictionary(){     
+    public void dataDictionary() {     
         try {
             stat = connection.createStatement();
             result = stat.executeQuery("SELECT value FROM v$parameter WHERE name = 'O7_DICTIONARY_ACCESSIBILITY'");  
-            if(result.next()){
+            if(result.next()) {
         	System.out.println(result.getString(1));  
             }          
         } catch (SQLException ex) {
@@ -61,14 +61,14 @@ public class SecureOracle {
     }
     
     /* move a tabela de AUD$ para outro local */
-    public void moveTheAuditTable(){}
+    public void moveTheAuditTable() {}
     
     /* verifica se o acesso remoto está livre para qualquer usuário da rede */
-    public void remoteAccess(){
+    public void remoteAccess() {
         try {
             stat = connection.createStatement();
             result = stat.executeQuery("SELECT value FROM v$parameter WHERE name = 'remote_os_authent'");  
-            if(result.next()){
+            if(result.next()) {
         	System.out.println(result.getString(1));  
             }          
         } catch (SQLException ex) {
@@ -77,17 +77,18 @@ public class SecureOracle {
     }
     
     /* verifica se já existe um limite de tentativas de login no sgbd */
-    public void loginAttemptsLimit(){
+    public void loginAttemptsLimit() {
         try {
             stat = connection.createStatement();
-            result = stat.executeQuery("SELECT value FROM v$parameter WHERE name = 'remote_os_authent'");  
-            if(result.next()){
-        	System.out.println(result.getString(1));  
+            result = stat.executeQuery("SELECT profile, resource_name, limit FROM dba_profiles WHERE profile='DEFAULT'");  
+            while(result.next()){
+                if(result.getString(2).equalsIgnoreCase("FAILED_LOGIN_ATTEMPTS")) {
+                    System.out.println(result.getString(3)); 
+                } 
             }          
         } catch (SQLException ex) {
             Logger.getLogger(SecureOracle.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
     }
     
     /* algoritmo que auxilia na verificação de senhas comuns utilizadas por usuários relevantes */
