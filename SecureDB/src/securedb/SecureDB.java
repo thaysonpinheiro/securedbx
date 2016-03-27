@@ -5,9 +5,8 @@
  */
 package securedb;
 
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
+import oracle.SecureOracle;
+
 /**
  *
  * @author Thayson
@@ -19,13 +18,15 @@ public class SecureDB {
      */
     public static void main(String[] args){
         
-        Connection connection = null;
+        /* Criando um objeto para teste */
+        SecureOracle teste = new SecureOracle();
         
-        try {
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "admin");
-            System.out.println("Conexão bem sucedida!");      
-        } catch (SQLException e) {
-                System.out.println("Falha na conexão!");
-        }
+        /* verificar parametros de segurança do Oracle */
+        teste.pwdDefault();
+        teste.dataDictionary();
+        teste.loginAttemptsLimit();
+        teste.remoteAccess();
+        //teste.moveTheAuditTable();
+        
     } 
 }
