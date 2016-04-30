@@ -2,6 +2,7 @@ package sgbd;
 
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,32 +10,33 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import libraries.Configuration;
+import libraries.ConnectionSGBD;
+
+
 /**
  *
  * @author Thayson
  */
 public class SecureOracle {
     
+    protected ConnectionSGBD driver;
+    public final Configuration config;
+    
     Connection connection = null;
     Statement stat = null;
     ResultSet result;
-    
-    public SecureOracle() {
-        try {
-            System.out.println("Conectando...");     
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "admin");
-            System.out.println("Conexão bem sucedida!\n");      
-        } catch (SQLException e) {
-                System.out.println("Falha na conexão!");
-        } 
+
+    public SecureOracle() { 
+        this.config = new Configuration(); 
+        this.driver = new ConnectionSGBD("localhost", "1521", "xe", "system", "admin", "oracle");
     }
        
     /* verifica os usuários que ainda estão com senha padrão*/
     public void pwdDefault() {
         try {
-            stat = connection.createStatement();
-            result = stat.executeQuery("SELECT * FROM DBA_USERS_WITH_DEFPWD");  
-            
+            String sql = config.getProperty("getUsersPwdDefaultoracle");
+            PreparedStatement preparedStatement = driver.prepareStatement(sql);
             if(result.next()){
         	System.out.println("Há usuário com senha padrão!");  
             }
