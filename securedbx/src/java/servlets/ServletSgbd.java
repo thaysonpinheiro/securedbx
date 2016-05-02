@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
+import sgbd.SecureOracle;
 
 
 /**
@@ -77,18 +77,22 @@ public class ServletSgbd extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         processRequest(request, response);
         PrintWriter out = response.getWriter();
-        /*        
-        String localhost = "localhost";
+           
+        String host = "localhost";
         String port = "";
         String base = request.getParameter("base");
         String user = request.getParameter("user");
         String password = request.getParameter("password");
-        String sgbd = "oracle";*/
+        String sgbd = "oracle";
+        System.out.print("TEste");
+        SecureOracle orl = new SecureOracle(host, port, base, user, password, sgbd);
+        String pwdDefault = orl.pwdDefault();
         
         //JOptionPane.showMessageDialog(null, "Teste");
-        out.println("<div>Conectado</div>");
+        out.println(pwdDefault+" T H A Y S O N");
     }
 
     /**

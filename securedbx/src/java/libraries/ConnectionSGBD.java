@@ -72,7 +72,7 @@ public class ConnectionSGBD {
 
     public PreparedStatement prepareStatement(String query) {
         try {
-            return ConnectionSGBD.connection.prepareStatement(config.getProperty("signature") + " " + query);
+            return ConnectionSGBD.connection.prepareStatement(query);
         } catch (SQLException e) {
             //log.error(e);
             return null;
@@ -83,7 +83,7 @@ public class ConnectionSGBD {
         try {
             Statement statement = ConnectionSGBD.connection.createStatement();
             statement.closeOnCompletion();
-            return statement.executeQuery(config.getProperty("signature") + " " + query);
+            return statement.executeQuery(query);
         } catch (SQLException e) {
             //log.msg(query);
             //log.error(e);

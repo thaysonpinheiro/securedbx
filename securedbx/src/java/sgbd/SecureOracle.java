@@ -1,7 +1,5 @@
 package sgbd;
 
-
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,24 +23,29 @@ public class SecureOracle {
     
     Connection connection = null;
     Statement stat = null;
-    ResultSet result;
+    ResultSet result = null;
 
-    public SecureOracle() { 
+    public SecureOracle(String host, String port, String base, String user, String password, String sgbd){ 
+        System.out.print("TEste");
         this.config = new Configuration(); 
-        this.driver = new ConnectionSGBD("localhost", "1521", "xe", "system", "admin", "oracle");
+        this.driver = new ConnectionSGBD(host, port, base, user, password, sgbd);
     }
        
     /* verifica os usuários que ainda estão com senha padrão*/
-    public void pwdDefault() {
-        try {
-            String sql = config.getProperty("getUsersPwdDefaultoracle");
+    public String pwdDefault() {
+        try { 
+            String sql = "SELECT * FROM DBA_USERS_WITH_DEFPWD";
             PreparedStatement preparedStatement = driver.prepareStatement(sql);
+            System.out.print("TEste");
+            result = driver.executeQuery(preparedStatement);
             if(result.next()){
-        	System.out.println("Há usuário com senha padrão!");  
+        	return("Há usuário com senha padrão!");  
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SecureOracle.class.getName()).log(Level.SEVERE, null, ex);
+            return("Erro");
+            //Logger.getLogger(SecureOracle.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return("Não há usuário com senha padrão");
     }
     
     /* verifica se o dicionário de dados do sgbd está desativado */

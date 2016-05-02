@@ -25,8 +25,8 @@
                     alert("Comeco");
                     $.post("ServletSgbd", {base: $("#base").val(),
                                           user: $("#user").val(),
-                                          password: $('#password')}, function( data ){
-                        alert(data);
+                                          password: $('#password').val()}, function( data ){
+                        $('#result').html(data);
                     });
                 });
             });
@@ -53,7 +53,7 @@
                         <button type="button" id="btn_cancel" class="btn btn-default">cancelar</button>
                     </div>
                 </div>
-                <div class="row" id="resultado">
+                <div class="row" id="result">
                 </div>
             </div>   
         </section>
