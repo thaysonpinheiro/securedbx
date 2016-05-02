@@ -1,17 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import libraries.ConnectionSGBD;
 import sgbd.SecureOracle;
 
 
@@ -80,19 +79,25 @@ public class ServletSgbd extends HttpServlet {
         
         processRequest(request, response);
         PrintWriter out = response.getWriter();
-           
-        String host = "localhost";
-        String port = "";
+        
+        String host = request.getParameter("host");
+        String port = request.getParameter("port");
         String base = request.getParameter("base");
         String user = request.getParameter("user");
         String password = request.getParameter("password");
-        String sgbd = "oracle";
-        System.out.print("TEste");
-        SecureOracle orl = new SecureOracle(host, port, base, user, password, sgbd);
-        String pwdDefault = orl.pwdDefault();
+        String sgbd = request.getParameter("sgbd");
+        System.out.println(host+port+base+user+password+sgbd);
         
-        //JOptionPane.showMessageDialog(null, "Teste");
-        out.println(pwdDefault+" T H A Y S O N");
+        SecureOracle orl = null;
+        orl = new SecureOracle(host, port, base, user, password, sgbd);
+        
+        if(orl.getDriver().status == 1){
+            out.println("CONNECTED");
+
+        }else{
+            out.println("FAIL");
+
+        }        
     }
 
     /**

@@ -1,7 +1,3 @@
-/*
- * DBX - Database eXternal Tuning
- * BioBD Lab - PUC-Rio && DC - UFC  *
- */
 package libraries;
 
 import java.sql.Connection;
@@ -22,16 +18,17 @@ public class ConnectionSGBD {
     private String user;
     private String password;
     private String sgbd;
+    public int status = 0;
     
     public ConnectionSGBD(String host, String port, String base, String user, String password, String sgbd) {
+        System.out.println("Criando conexoes...");
         this.config = new Configuration();
-        //this.log = new Log(this.config);
         
         this.host = host;
-        this.host = port;
-        this.host = base;
-        this.host = user;
-        this.host = password;
+        this.port = port;
+        this.base = base;
+        this.user = user;
+        this.password = password;
         this.sgbd = sgbd;
         connect();
     }
@@ -41,28 +38,33 @@ public class ConnectionSGBD {
     private void connect() {
         try {
             if (connection == null) {
-                //System.out.println(config.getProperty("sgbd"));
                 switch (this.sgbd) {
                     case "sqlserver":
+                        this.status = 1;
+                        Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); 
                         connection = DriverManager.getConnection("jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base + ";", this.user, this.password);
-                        //log.msg("Conectado ao bd " + config.getProperty("urlSQLServer") + ":" + config.getProperty("databaseName"));
+                        System.out.println("Conectado ao bd " + "jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base);
                         break;
                     case "postgresql":
+                        this.status = 1;
                         Class.forName("org.postgresql.Driver");
                         connection = DriverManager.getConnection("jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base, this.user, this.password);
-                        //log.msg("Conectado ao bd " + config.getProperty("urlPostgres") + ":" + config.getProperty("databaseName"));
+                        System.out.println("Conectado ao bd " + "jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base);
                         break;
                     case "oracle":
+                        this.status = 1;
+                        Class.forName("oracle.jdbc.driver.OracleDriver");
                         connection = DriverManager.getConnection("jdbc:oracle:thin:@" + this.host + ":" + this.port + ":" + this.base, this.user, this.password);
-                        //log.msg("Conectado ao bd " + config.getProperty("urlOracle") + config.getProperty("databaseName"));
+                        System.out.println("Conectado ao bd " + "jdbc:oracle:thin:@" + this.host + ":" + this.port + ":" + this.base);
                         break;
                     default:
+                        this.status = 1;
                         throw new UnsupportedOperationException("Atributo SGBD do arquivo de parâmetros (.properties) nao foi atribuido corretamente.");
                 }
-                //log.msg("Aplicação versão: " + config.getProperty("versao"));
             }
         } catch (SQLException | ClassNotFoundException e) {
-            //log.error(e);
+            this.status = 0;
+            System.out.println("Erro: " + e);
         }
     }
 
@@ -74,7 +76,7 @@ public class ConnectionSGBD {
         try {
             return ConnectionSGBD.connection.prepareStatement(query);
         } catch (SQLException e) {
-            //log.error(e);
+            System.out.println("Erro: "+e);
             return null;
         }
     }
@@ -85,8 +87,7 @@ public class ConnectionSGBD {
             statement.closeOnCompletion();
             return statement.executeQuery(query);
         } catch (SQLException e) {
-            //log.msg(query);
-            //log.error(e);
+            System.out.println("Erro: "+e);
             return null;
         }
     }
@@ -95,12 +96,12 @@ public class ConnectionSGBD {
         try {
             prepared.executeUpdate();
         } catch (SQLException e) {
-            //log.error(e);
+            System.out.println("Erro: "+e);
         } finally {
             try {
                 prepared.close();
             } catch (SQLException ex) {
-                //log.error(ex);
+                System.out.println("Erro: "+ex);
             }
         }
     }
@@ -110,13 +111,13 @@ public class ConnectionSGBD {
         try {
             prepared.executeUpdate();
         } catch (SQLException e) {
-            //log.msg("Query com erro:" + query);
-            //log.error(e);
+            System.out.println("Query com erro:" + query);
+            System.out.println("Erro: "+e);
         } finally {
             try {
                 prepared.close();
             } catch (SQLException ex) {
-                //log.error(ex);
+                System.out.println("Erro: "+ex);
             }
         }
     }
@@ -125,7 +126,7 @@ public class ConnectionSGBD {
         try {
             return prepared.executeQuery();
         } catch (SQLException e) {
-            //log.error(e);
+            System.out.println("Erro: "+e);
             return null;
         }
     }
@@ -136,7 +137,7 @@ public class ConnectionSGBD {
             statement.closeOnCompletion();
             return statement;
         } catch (SQLException ex) {
-            //log.error(ex);
+            System.out.println("Erro: "+ex);
             return null;
         }
     }

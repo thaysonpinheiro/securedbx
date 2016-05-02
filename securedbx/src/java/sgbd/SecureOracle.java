@@ -18,15 +18,15 @@ import libraries.ConnectionSGBD;
  */
 public class SecureOracle {
     
-    protected ConnectionSGBD driver;
+    private ConnectionSGBD driver;
     public final Configuration config;
     
     Connection connection = null;
     Statement stat = null;
     ResultSet result = null;
+    
 
     public SecureOracle(String host, String port, String base, String user, String password, String sgbd){ 
-        System.out.print("TEste");
         this.config = new Configuration(); 
         this.driver = new ConnectionSGBD(host, port, base, user, password, sgbd);
     }
@@ -35,9 +35,9 @@ public class SecureOracle {
     public String pwdDefault() {
         try { 
             String sql = "SELECT * FROM DBA_USERS_WITH_DEFPWD";
-            PreparedStatement preparedStatement = driver.prepareStatement(sql);
+            PreparedStatement preparedStatement = getDriver().prepareStatement(sql);
             System.out.print("TEste");
-            result = driver.executeQuery(preparedStatement);
+            result = getDriver().executeQuery(preparedStatement);
             if(result.next()){
         	return("Há usuário com senha padrão!");  
             }
@@ -85,7 +85,7 @@ public class SecureOracle {
             while(result.next()){
                 if(result.getString(2).equalsIgnoreCase("FAILED_LOGIN_ATTEMPTS")) {
                     System.out.println(result.getString(3)); 
-                } 
+                }
             }          
         } catch (SQLException ex) {
             Logger.getLogger(SecureOracle.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,5 +94,19 @@ public class SecureOracle {
     
     /* algoritmo que auxilia na verificação de senhas comuns utilizadas por usuários relevantes */
     public void bruteForce(){}
+
+    /**
+     * @return the driver
+     */
+    public ConnectionSGBD getDriver() {
+        return driver;
+    }
+
+    /**
+     * @param driver the driver to set
+     */
+    public void setDriver(ConnectionSGBD driver) {
+        this.driver = driver;
+    }
     
 }
