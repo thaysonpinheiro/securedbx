@@ -23,7 +23,7 @@
             $( document ).ready(function() {
                 $('#btn_connection').click(function(){
                      $('#result').html("");
-                    alert($('#sgbd').val()+" "+ $('#host').val()+" "+ $('#password').val()+" "+$('#port').val() +" "+ $("#base").val()+" "+$("#user").val());
+                    //alert($('#sgbd').val()+" "+ $('#host').val()+" "+ $('#password').val()+" "+$('#port').val() +" "+ $("#base").val()+" "+$("#user").val());
                     $.post("ServletSgbd", {host: $('#host').val(),
                                           port: $('#port').val(),
                                           base: $("#base").val(),

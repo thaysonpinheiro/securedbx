@@ -36,7 +36,6 @@ public class SecureOracle {
         try { 
             String sql = "SELECT * FROM DBA_USERS_WITH_DEFPWD";
             PreparedStatement preparedStatement = getDriver().prepareStatement(sql);
-            System.out.print("TEste");
             result = getDriver().executeQuery(preparedStatement);
             if(result.next()){
         	return("Há usuário com senha padrão!");  
