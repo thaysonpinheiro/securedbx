@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import libraries.Configuration;
 import libraries.ConnectionSGBD;
 
 
@@ -19,7 +17,6 @@ import libraries.ConnectionSGBD;
 public class SecureOracle {
     
     private ConnectionSGBD driver;
-    public final Configuration config;
     
     Connection connection = null;
     Statement stat = null;
@@ -27,7 +24,6 @@ public class SecureOracle {
     
 
     public SecureOracle(String host, String port, String base, String user, String password, String sgbd){ 
-        this.config = new Configuration(); 
         this.driver = new ConnectionSGBD(host, port, base, user, password, sgbd);
     }
        

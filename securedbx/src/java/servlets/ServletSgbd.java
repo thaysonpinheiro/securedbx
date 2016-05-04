@@ -86,18 +86,22 @@ public class ServletSgbd extends HttpServlet {
         String user = request.getParameter("user");
         String password = request.getParameter("password");
         String sgbd = request.getParameter("sgbd");
-        System.out.println(host+port+base+user+password+sgbd);
         
-        SecureOracle orl = null;
-        orl = new SecureOracle(host, port, base, user, password, sgbd);
+        String result = null;
         
-        if(orl.getDriver().status == 1){
-            out.println("CONNECTED");
-
-        }else{
-            out.println("FAIL");
-
-        }        
+        ConnectionSGBD test = new ConnectionSGBD(host, port, base, user, password, sgbd);
+        
+        try {
+            if(test.connection.isValid(0)){
+                test.getStatement().close();
+                test.closeConnection();
+                out.print("CONNECTED");
+            }else{
+                out.print("FAIL");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -108,6 +112,5 @@ public class ServletSgbd extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

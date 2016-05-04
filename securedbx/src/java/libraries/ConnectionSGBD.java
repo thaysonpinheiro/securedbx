@@ -9,9 +9,7 @@ import java.sql.Statement;
 
 public class ConnectionSGBD {
 
-    private final Configuration config;
-    //private final Log log;
-    
+    private final Configuration config;    
     private String host;
     private String port;
     private String base;
@@ -33,11 +31,11 @@ public class ConnectionSGBD {
         connect();
     }
 
-    protected static Connection connection = null;
+    public static Connection connection = null;
 
     private void connect() {
         try {
-            if (connection == null) {
+            //if (connection == null) {
                 switch (this.sgbd) {
                     case "sqlserver":
                         this.status = 1;
@@ -48,7 +46,11 @@ public class ConnectionSGBD {
                     case "postgresql":
                         this.status = 1;
                         Class.forName("org.postgresql.Driver");
+                        
+                        System.out.println("XXXX");
                         connection = DriverManager.getConnection("jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base, this.user, this.password);
+                        System.out.println("JJJJJ");
+                        
                         System.out.println("Conectado ao bd " + "jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base);
                         break;
                     case "oracle":
@@ -61,7 +63,7 @@ public class ConnectionSGBD {
                         this.status = 1;
                         throw new UnsupportedOperationException("Atributo SGBD do arquivo de parâmetros (.properties) nao foi atribuido corretamente.");
                 }
-            }
+            //}
         } catch (SQLException | ClassNotFoundException e) {
             this.status = 0;
             System.out.println("Erro: " + e);
@@ -69,6 +71,7 @@ public class ConnectionSGBD {
     }
 
     public void closeConnection() throws SQLException {
+        System.out.println("Fechando conexão");
         ConnectionSGBD.connection.close();
     }
 
