@@ -86,21 +86,27 @@ public class ServletSgbd extends HttpServlet {
         String user = request.getParameter("user");
         String password = request.getParameter("password");
         String sgbd = request.getParameter("sgbd");
-        
-        String result = null;
-        
-        ConnectionSGBD test = new ConnectionSGBD(host, port, base, user, password, sgbd);
-        
-        try {
-            if(test.connection.isValid(0)){
-                test.getStatement().close();
-                test.closeConnection();
-                out.print(1);
+
+        if(host!="" && port!="" && base!=""){
+            if(user!="" && password!=""){
+                ConnectionSGBD test = new ConnectionSGBD(host, port, base, user, password, sgbd);
+                
+                try {
+                    if(test.connection.isValid(0)){
+                        test.getStatement().close();
+                        test.closeConnection();
+                        out.print(1);
+                    }else{
+                        out.print(0);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }else{
                 out.print(0);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            out.print(0);
         }
     }
 

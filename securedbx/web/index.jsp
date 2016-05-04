@@ -8,35 +8,43 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>SecureDB</title>
+        <title>DBS</title>
+        <link href="scripts/img/min.png" rel="icon">
+        
         <!-- Bootstrap Core JavaScript -->
         <script src="scripts/js/bootstrap.js"></script>
 
         <!-- Bootstrap Core CSS -->
         <link href="scripts/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-
+        
+        <!-- Custom Core CSS -->
+        <link href="scripts/css/custom.css" rel="stylesheet" type="text/css"/>
+        
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script>
             $( document ).ready(function() {
+                $("#parameters").hide();
                 $('#btn_connection').click(function(){
                     $.post("ServletSgbd", {host: $('#host').val(),
                                           port: $('#port').val(),
                                           base: $("#base").val(),
                                           user: $("#user").val(),
                                           password: $('#password').val(),
-                                          sgbd: $('#sgbd').val()}, function( data ){
-                        if(data==1){
-                            $('#result').html("CONNECTED");
-                            $('#result').addClass("alert-success");
-                            $('#result').removeClass("alert-danger");
-                            $("#connection").hide("slow");
-                        }else{
-                            $('#result').html("FAIL");
-                            $('#result').removeClass("alert-success");
-                            $('#result').addClass("alert-danger");
-                        }
-                    });
+                                          sgbd: $('#sgbd').val()}, function( data ){    
+                                                    if(data==1){
+                                                        $('#result').html("CONNECTED");
+                                                        $('#result').addClass("alert-success");
+                                                        $('#result').removeClass("alert-danger");
+                                                        $("#connection").hide("slow");
+                                                        $("#parameters").show("slow");
+                                                    }else{
+
+                                                        $('#result').html("FAIL");
+                                                        $('#result').removeClass("alert-success");
+                                                        $('#result').addClass("alert-danger");
+                                                    }
+                                                });
                 });
 
                 $('#btn_cancel').click(function(){
@@ -55,7 +63,21 @@
         </script>
     </head>
     <body>
-        <div  class="container">
+        
+        <!-- Menu -->
+        <header class="navbar navbar-default navbar-fixed">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><img src="scripts/img/logo.png" alt="DBS"></a>
+                </div>
+                <div class="navbar-left">
+                    <p>to security</p>
+                </div>
+            </div>
+        </header>
+        
+        <div  class="container"> 
+            <!-- Database Connection -->
             <div class="col-md-12">            
                     <div id="result" class="col-md-4 col-sm-offset-4 text-center alert">
                     </div>
@@ -110,9 +132,45 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Parameters Table -->
             <div class="container" id="parameters">
-                
+                <div class="col-md-6 col-sm-offset-3">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Options
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td class="col-md-1">
+                                <input type="checkbox">
+                            </td>
+                            <td>
+                                Login Default
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-1">
+                                <input type="checkbox">
+                            </td>
+                            <td>
+                                Login Default Login Default
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="col-md-4 col-sm-offset-4">
+                        <center>
+                        <button type="button" id="btn_connection" class="btn btn-primary">confirm</button>
+                        </center>
+                    </div>
+                </div>
             </div>
-        </div>    
+        </div>        
     </body>
 </html>
