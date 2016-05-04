@@ -95,9 +95,9 @@ public class ServletSgbd extends HttpServlet {
             if(test.connection.isValid(0)){
                 test.getStatement().close();
                 test.closeConnection();
-                out.print("CONNECTED");
+                out.print(1);
             }else{
-                out.print("FAIL");
+                out.print(0);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);
