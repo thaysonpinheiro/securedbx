@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import libraries.ConnectionSGBD;
 import sgbd.SecureOracle;
+import sgbd.SecurePostgreSql;
+import sgbd.SecureSqlServer;
 
 
 /**
@@ -73,6 +75,21 @@ public class ServletSgbd extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    protected ConnectionSGBD testConnection(ConnectionSGBD test){
+         
+        try {
+            if(test.connection.isValid(0)){
+                return test;
+            } else {
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        test = null;
+        return test;
+    }
+     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -86,22 +103,30 @@ public class ServletSgbd extends HttpServlet {
         String user = request.getParameter("user");
         String password = request.getParameter("password");
         String sgbd = request.getParameter("sgbd");
+        
+        if(host!="" && port!="" && base!="" && user!="" && password!=""){
+            ConnectionSGBD con = new ConnectionSGBD(host, port, base, user, password, sgbd); 
+            con = testConnection(con);
 
-        if(host!="" && port!="" && base!=""){
-            if(user!="" && password!=""){
-                ConnectionSGBD test = new ConnectionSGBD(host, port, base, user, password, sgbd);
-                
-                try {
-                    if(test.connection.isValid(0)){
-                        test.getStatement().close();
-                        test.closeConnection();
-                        out.print(1);
-                    }else{
-                        out.print(0);
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            if(con!=null){
+                out.print(1);
+                switch(sgbd){
+                    case "postgresql":
+                        SecurePostgreSql postgredb = new SecurePostgreSql(con);
+                        String a = postgredb.pwdDefault();
+                        System.out.println(a);
+                        break;
+                    case "oracle":
+                        SecureOracle oracledb = new SecureOracle(con);
+                        String resul = oracledb.pwdDefault();
+                        System.out.println(resul);
+                        break;
+                    case "sqlserver":
+                        SecureSqlServer sqlserverdb = new SecureSqlServer(con);
+                        break;
+                    default: 
+                        break;
+                }  
             }else{
                 out.print(0);
             }
@@ -109,7 +134,6 @@ public class ServletSgbd extends HttpServlet {
             out.print(0);
         }
     }
-
     /**
      * Returns a short description of the servlet.
      *

@@ -19,48 +19,11 @@
         
         <!-- Custom Core CSS -->
         <link href="scripts/css/custom.css" rel="stylesheet" type="text/css"/>
+        <script src="scripts/js/jquery.js" type="text/javascript"></script>
+        <!-- jQuery 
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>-->
         
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script>
-            $( document ).ready(function() {
-                $("#parameters").hide();
-                $('#btn_connection').click(function(){
-                    $.post("ServletSgbd", {host: $('#host').val(),
-                                          port: $('#port').val(),
-                                          base: $("#base").val(),
-                                          user: $("#user").val(),
-                                          password: $('#password').val(),
-                                          sgbd: $('#sgbd').val()}, function( data ){    
-                                                    if(data==1){
-                                                        $('#result').html("CONNECTED");
-                                                        $('#result').addClass("alert-success");
-                                                        $('#result').removeClass("alert-danger");
-                                                        $("#connection").hide("slow");
-                                                        $("#parameters").show("slow");
-                                                    }else{
-
-                                                        $('#result').html("FAIL");
-                                                        $('#result').removeClass("alert-success");
-                                                        $('#result').addClass("alert-danger");
-                                                    }
-                                                });
-                });
-
-                $('#btn_cancel').click(function(){
-                    $('#result').removeClass("alert-danger");
-                    $('#result').removeClass("alert-success");
-                    $('#result').html("");
-                    $('#host').val("");
-                    $('#port').val("");
-                    $("#base").val("");
-                    $("#user").val("");
-                    $('#password').val("");
-                    $('#sgbd').val("oracle");
-
-                });
-            });
-        </script>
+        <script src="scripts/js/custom.js" type="text/javascript"></script>
     </head>
     <body>
         
@@ -71,7 +34,7 @@
                     <a class="navbar-brand" href="#"><img src="scripts/img/logo.png" alt="DBS"></a>
                 </div>
                 <div class="navbar-left">
-                    <p>to security</p>
+                    <p>----------</p>
                 </div>
             </div>
         </header>

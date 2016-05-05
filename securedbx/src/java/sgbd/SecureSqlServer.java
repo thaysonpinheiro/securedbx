@@ -5,10 +5,20 @@
  */
 package sgbd;
 
+import libraries.ConnectionSGBD;
+
 /**
  *
  * @author Thayson
  */
 public class SecureSqlServer {
+    
+    private ConnectionSGBD driver;
+
+    public SecureSqlServer(ConnectionSGBD driver) {
+        this.driver = driver;
+    }
+    
+    /**/
     
 }

@@ -27,7 +27,6 @@ public class Configuration {
                 Properties propTemp = new Properties();
                 String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
                 path = path.substring(1, path.indexOf("build")) + "parameters";
-                System.out.println(path);
                 File folder = new File(path);
                 if (folder.exists()){
                     System.out.println("Reading parameters.");

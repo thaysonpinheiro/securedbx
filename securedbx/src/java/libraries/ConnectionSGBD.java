@@ -9,14 +9,13 @@ import java.sql.Statement;
 
 public class ConnectionSGBD {
 
-    private final Configuration config;    
+    public final Configuration config;    
     private String host;
     private String port;
     private String base;
     private String user;
     private String password;
     private String sgbd;
-    public int status = 0;
     
     public ConnectionSGBD(String host, String port, String base, String user, String password, String sgbd) {
         System.out.println("Criando conexoes...");
@@ -35,37 +34,27 @@ public class ConnectionSGBD {
 
     private void connect() {
         try {
-            //if (connection == null) {
-                switch (this.sgbd) {
-                    case "sqlserver":
-                        this.status = 1;
-                        Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); 
-                        connection = DriverManager.getConnection("jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base + ";", this.user, this.password);
-                        System.out.println("Conectado ao bd " + "jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base);
-                        break;
-                    case "postgresql":
-                        this.status = 1;
-                        Class.forName("org.postgresql.Driver");
-                        
-                        System.out.println("XXXX");
-                        connection = DriverManager.getConnection("jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base, this.user, this.password);
-                        System.out.println("JJJJJ");
-                        
-                        System.out.println("Conectado ao bd " + "jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base);
-                        break;
-                    case "oracle":
-                        this.status = 1;
-                        Class.forName("oracle.jdbc.driver.OracleDriver");
-                        connection = DriverManager.getConnection("jdbc:oracle:thin:@" + this.host + ":" + this.port + ":" + this.base, this.user, this.password);
-                        System.out.println("Conectado ao bd " + "jdbc:oracle:thin:@" + this.host + ":" + this.port + ":" + this.base);
-                        break;
-                    default:
-                        this.status = 1;
-                        throw new UnsupportedOperationException("Atributo SGBD do arquivo de parâmetros (.properties) nao foi atribuido corretamente.");
-                }
-            //}
+            switch (this.sgbd) {
+                case "sqlserver":
+                    Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); 
+                    connection = DriverManager.getConnection("jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base + ";", this.user, this.password);
+                    System.out.println("Conectado ao bd " + "jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base);
+                    break;
+                case "postgresql":
+                    Class.forName("org.postgresql.Driver");
+                    connection = DriverManager.getConnection("jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base, this.user, this.password);                       
+                    System.out.println("Conectado ao bd " + "jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base);
+                    break;
+                case "oracle":
+                    Class.forName("oracle.jdbc.driver.OracleDriver");
+                    connection = DriverManager.getConnection("jdbc:oracle:thin:@" + this.host + ":" + this.port + ":" + this.base, this.user, this.password);
+                    System.out.println("Conectado ao bd " + "jdbc:oracle:thin:@" + this.host + ":" + this.port + ":" + this.base);
+                    System.out.println(connection.isValid(0));
+                    break;
+                default:
+                    throw new UnsupportedOperationException("Atributo SGBD do arquivo de parâmetros (.properties) nao foi atribuido corretamente.");
+            }
         } catch (SQLException | ClassNotFoundException e) {
-            this.status = 0;
             System.out.println("Erro: " + e);
         }
     }
