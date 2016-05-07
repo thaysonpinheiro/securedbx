@@ -10,20 +10,23 @@
     <head>
         <title>DBS</title>
         <link href="scripts/img/min.png" rel="icon">
+            
+        <!-- jQuery -->
+        <script src="scripts/js/jquery.js" type="text/javascript"></script>
+        <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
         
         <!-- Bootstrap Core JavaScript -->
         <script src="scripts/js/bootstrap.js"></script>
 
+        <!-- Custom Core JavaScript -->
+        <script src="scripts/js/custom.js" type="text/javascript"></script>
+        
         <!-- Bootstrap Core CSS -->
         <link href="scripts/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         
         <!-- Custom Core CSS -->
         <link href="scripts/css/custom.css" rel="stylesheet" type="text/css"/>
-        <script src="scripts/js/jquery.js" type="text/javascript"></script>
-        <!-- jQuery 
-        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>-->
         
-        <script src="scripts/js/custom.js" type="text/javascript"></script>
     </head>
     <body>
         
