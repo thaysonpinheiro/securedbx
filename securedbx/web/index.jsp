@@ -114,21 +114,47 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td class="col-md-1">
-                                <input type="checkbox">
-                            </td>
-                            <td>
-                                Login Default
-                            </td>
+                            <tr class="assinatura" onclick="showRow('#parametro1')">
+                                <td class="col-md-1">
+                                    #
+                                </td>
+                                <td>
+                                    Login Default
+                                </td>
+                            </tr>
+                            <tr id="parametro1" class="hidden-row">
+                                <td></td>
+                                <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
+                            </tr>
                         </tr>
                         <tr>
-                            <td class="col-md-1">
-                                <input type="checkbox">
-                            </td>
-                            <td>
-                                Login Default Login Default
-                            </td>
+                            <tr class="assinatura" onclick="showRow('#parametro2')">
+                                <td class="col-md-1">
+                                    #
+                                </td>
+                                <td>
+                                    Login Default
+                                </td>
+                            </tr>
+                            <tr id="parametro2" class="hidden-row">
+                                <td></td>
+                                <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
+                            </tr>
                         </tr>
+                        <tr>
+                            <tr class="assinatura" onclick="showRow('#parametro3')">
+                                <td class="col-md-1">
+                                    #
+                                </td>
+                                <td>
+                                    Login Default
+                                </td>
+                            </tr>
+                            <tr id="parametro3" class="hidden-row">
+                                <td></td>
+                                <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
+                            </tr>
+                        </tr>                        
                     </table>
                     <div class="col-md-4 col-sm-offset-4">
                         <center>
@@ -137,6 +163,9 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>    
     </body>
 </html>
+
+
+

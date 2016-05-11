@@ -134,6 +134,10 @@ table{
     display: none;
 }
 
+.assinatura{
+    cursor: pointer;
+}
+
 thead{
     background-color: #dbdbdb;
 }

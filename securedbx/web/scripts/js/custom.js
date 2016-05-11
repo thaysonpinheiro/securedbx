@@ -1,3 +1,8 @@
+function showRow(rowId){
+    $(rowId).fadeToggle();
+    return false;
+};
+
 $( document ).ready(function() {
     $("#parameters").hide();
     $('#btn_connection').click(function(){
