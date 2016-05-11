@@ -37,6 +37,5 @@ $( document ).ready(function() {
         $("#user").val("");
         $('#password').val("");
         $('#sgbd').val("oracle");
-
     });
 });

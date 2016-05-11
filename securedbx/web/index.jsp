@@ -119,7 +119,7 @@
                                     #
                                 </td>
                                 <td>
-                                    Login Default
+                                    Nível de Auditoria
                                 </td>
                             </tr>
                             <tr id="parametro1" class="hidden-row">
@@ -133,7 +133,7 @@
                                     #
                                 </td>
                                 <td>
-                                    Login Default
+                                    Número de LOGS de eventos
                                 </td>
                             </tr>
                             <tr id="parametro2" class="hidden-row">
@@ -147,18 +147,76 @@
                                     #
                                 </td>
                                 <td>
-                                    Login Default
+                                    Notificações sobre eventos
                                 </td>
                             </tr>
                             <tr id="parametro3" class="hidden-row">
                                 <td></td>
                                 <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
                             </tr>
-                        </tr>                        
+                        </tr>    
+                        <tr>
+                            <tr class="assinatura" onclick="showRow('#parametro4')">
+                                <td class="col-md-1">
+                                    #
+                                </td>
+                                <td>
+                                    Eventos de falha de login
+                                </td>
+                            </tr>
+                            <tr id="parametro4" class="hidden-row">
+                                <td></td>
+                                <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
+                            </tr>
+                        </tr>     
+                        <tr>
+                            <tr class="assinatura" onclick="showRow('#parametro5')">
+                                <td class="col-md-1">
+                                    #
+                                </td>
+                                <td>
+                                    Grupo Administrators removido da role sysadmins
+                                </td>
+                            </tr>
+                            <tr id="parametro5" class="hidden-row">
+                                <td></td>
+                                <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
+                            </tr>
+                        </tr>                              
+                        <tr>
+                            <tr class="assinatura" onclick="showRow('#parametro6')">
+                                <td class="col-md-1">
+                                    #
+                                </td>
+                                <td>
+                                    Existem membros do grupo "Local Administrators" no
+
+servidor
+                                </td>
+                            </tr>
+                            <tr id="parametro6" class="hidden-row">
+                                <td></td>
+                                <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
+                            </tr>
+                        </tr>   
+                        <tr>
+                            <tr class="assinatura" onclick="showRow('#parametro7')">
+                                <td class="col-md-1">
+                                    #
+                                </td>
+                                <td>
+                                    Usuarios pertencentes a role "Sysadmins"
+                                </td>
+                            </tr>
+                            <tr id="parametro7" class="hidden-row">
+                                <td></td>
+                                <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
+                            </tr>
+                        </tr>   
                     </table>
                     <div class="col-md-4 col-sm-offset-4">
                         <center>
-                        <button type="button" id="btn_connection" class="btn btn-primary">confirm</button>
+                            <button type="button" id="btn_connection" class="btn btn-primary">confirm</button>
                         </center>
                     </div>
                 </div>
