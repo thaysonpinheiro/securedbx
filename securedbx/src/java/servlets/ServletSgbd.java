@@ -77,19 +77,6 @@ public class ServletSgbd extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    protected ConnectionSGBD testConnection(ConnectionSGBD test){
-         
-        try {
-            if(test.connection.isValid(0)){
-                return test;
-            } else {
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        test = null;
-        return test;
-    }
      
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -105,12 +92,12 @@ public class ServletSgbd extends HttpServlet {
         String password = request.getParameter("password");
         String sgbd = request.getParameter("sgbd");
         
-        if(host!="" && port!="" && base!="" && user!="" && password!=""){
+        if(!"".equals(host) && !"".equals(port) && !"".equals(base) && !"".equals(user) && !"".equals(password)){
             ConnectionSGBD con = new ConnectionSGBD(host, port, base, user, password, sgbd); 
-            con = testConnection(con);
+            //con = testConnection(con);
 
-            if(con!=null){
-                
+            if(con.estado==1){
+                System.out.println("TESTE");
                 Cookie cookieHost = new Cookie("Host", host);
                 Cookie cookiePort = new Cookie("Port", port);
                 Cookie cookieBase = new Cookie("Base", base);
@@ -134,8 +121,6 @@ public class ServletSgbd extends HttpServlet {
                         break;
                     case "sqlserver":
                         out.print("sqlserver.jsp");
-                        break;
-                    default: 
                         break;
                 }  
             }else{

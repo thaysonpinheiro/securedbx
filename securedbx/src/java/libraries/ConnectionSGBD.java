@@ -16,6 +16,7 @@ public class ConnectionSGBD {
     private String user;
     private String password;
     private String sgbd;
+    public int estado;
     
     public ConnectionSGBD(String host, String port, String base, String user, String password, String sgbd) {
         System.out.println("Criando conexoes...");
@@ -27,6 +28,7 @@ public class ConnectionSGBD {
         this.user = user;
         this.password = password;
         this.sgbd = sgbd;
+        this.estado = 0;
         connect();
     }
 
@@ -39,17 +41,20 @@ public class ConnectionSGBD {
                     Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); 
                     connection = DriverManager.getConnection("jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base + ";", this.user, this.password);
                     System.out.println("Conectado ao bd " + "jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base);
+                    this.estado = 1;
                     break;
                 case "postgresql":
                     Class.forName("org.postgresql.Driver");
                     connection = DriverManager.getConnection("jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base, this.user, this.password);                       
                     System.out.println("Conectado ao bd " + "jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.base);
+                    this.estado = 1;
                     break;
                 case "oracle":
                     Class.forName("oracle.jdbc.driver.OracleDriver");
                     connection = DriverManager.getConnection("jdbc:oracle:thin:@" + this.host + ":" + this.port + ":" + this.base, this.user, this.password);
                     System.out.println("Conectado ao bd " + "jdbc:oracle:thin:@" + this.host + ":" + this.port + ":" + this.base);
                     System.out.println(connection.isValid(0));
+                    this.estado = 1;
                     break;
                 default:
                     throw new UnsupportedOperationException("Atributo SGBD do arquivo de parâmetros (.properties) nao foi atribuido corretamente.");
