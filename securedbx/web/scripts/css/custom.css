@@ -1,4 +1,7 @@
-
+#parameters{
+    padding-top: 20px;
+    
+}
 @media(max-width : 993px){
     #teste.row{
         height: auto;

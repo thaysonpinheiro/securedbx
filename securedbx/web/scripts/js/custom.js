@@ -4,7 +4,6 @@ function showRow(rowId){
 };
 
 $( document ).ready(function() {
-    $("#parameters").hide();
     $('#btn_connection').click(function(){
         $.post("ServletSgbd", {host: $('#host').val(),
                               port: $('#port').val(),
@@ -12,19 +11,15 @@ $( document ).ready(function() {
                               user: $("#user").val(),
                               password: $('#password').val(),
                               sgbd: $('#sgbd').val()}, function( data ){ 
-                                        if(data==1){
-                                            $('#result').html("CONNECTED");
-                                            $('#result').addClass("alert-success");
-                                            $('#result').removeClass("alert-danger");
-                                            $("#connection").hide("slow");
-                                            $("#parameters").show("slow");
-                                        }else{
-
-                                            $('#result').html("FAIL");
-                                            $('#result').removeClass("alert-success");
-                                            $('#result').addClass("alert-danger");
-                                        }
-                                    });
+                              
+                                    if(data==0){
+                                        $('#result').html("FAIL");
+                                        $('#result').removeClass("alert-success");
+                                        $('#result').addClass("alert-danger");              
+                                    }else{
+                                        window.location.assign(data);  
+                                    }
+                              });
     });
 
     $('#btn_cancel').click(function(){

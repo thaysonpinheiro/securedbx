@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -109,20 +110,30 @@ public class ServletSgbd extends HttpServlet {
             con = testConnection(con);
 
             if(con!=null){
-                out.print(1);
+                
+                Cookie cookieHost = new Cookie("Host", host);
+                Cookie cookiePort = new Cookie("Port", port);
+                Cookie cookieBase = new Cookie("Base", base);
+                Cookie cookieUser = new Cookie("User", user);
+                Cookie cookiePassword = new Cookie("Password", password);
+                Cookie cookieSgbd = new Cookie("Sgbd", sgbd);        
+
+                response.addCookie(cookieHost);
+                response.addCookie(cookiePort);
+                response.addCookie(cookieBase);
+                response.addCookie(cookieUser);
+                response.addCookie(cookiePassword);
+                response.addCookie(cookieSgbd);                
+                
                 switch(sgbd){
                     case "postgresql":
-                        SecurePostgreSql postgredb = new SecurePostgreSql(con);
-                        String a = postgredb.pwdDefault();
-                        System.out.println(a);
+                        out.print("postgresql.jsp");
                         break;
                     case "oracle":
-                        SecureOracle oracledb = new SecureOracle(con);
-                        String resul = oracledb.pwdDefault();
-                        System.out.println(resul);
+                        out.print("oracle.jsp");
                         break;
                     case "sqlserver":
-                        SecureSqlServer sqlserverdb = new SecureSqlServer(con);
+                        out.print("sqlserver.jsp");
                         break;
                     default: 
                         break;
