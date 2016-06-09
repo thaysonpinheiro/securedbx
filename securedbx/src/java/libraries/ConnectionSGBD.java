@@ -38,6 +38,7 @@ public class ConnectionSGBD {
         try {
             switch (this.sgbd) {
                 case "sqlserver":
+                    System.out.println("TESTE");
                     Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); 
                     connection = DriverManager.getConnection("jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base + ";", this.user, this.password);
                     System.out.println("Conectado ao bd " + "jdbc:sqlserver://" + this.host + ":" + this.port + ";" + "databaseName=" + this.base);
