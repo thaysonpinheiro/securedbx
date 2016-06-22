@@ -12,7 +12,9 @@
         <link href="scripts/img/min.png" rel="icon">
             
         <!-- jQuery -->
+        
         <script src="scripts/js/jquery.js" type="text/javascript"></script>
+        <script src="scripts/js/jquery.cookie.js" type="text/javascript"></script>
         <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
         
         <!-- Bootstrap Core JavaScript -->

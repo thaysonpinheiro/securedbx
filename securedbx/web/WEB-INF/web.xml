@@ -21,6 +21,4 @@
         <url-pattern>/ServletSgbd</url-pattern>
     </servlet-mapping>
     
-
-    
 </web-app>

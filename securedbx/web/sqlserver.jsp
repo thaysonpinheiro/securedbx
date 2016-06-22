@@ -29,15 +29,6 @@
         <link href="scripts/css/custom.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <%--
-            Cookie[] cookies = request.getCookies();
-
-            for(Cookie cookie: cookies){
-                out.println("<b>nomeCookie:</b>" + cookie.getName());   
-                out.println("<b>Valor:</b>" + cookie.getValue());
-                out.println("<br>");
-            }
-        --%>
         
         <!-- Menu --> 
         <header class="navbar navbar-default navbar-fixed">

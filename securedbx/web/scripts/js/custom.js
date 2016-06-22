@@ -5,21 +5,34 @@ function showRow(rowId){
 
 $( document ).ready(function() {
     $('#btn_connection').click(function(){
-        $.post("ServletSgbd", {host: $('#host').val(),
-                              port: $('#port').val(),
-                              base: $("#base").val(),
-                              user: $("#user").val(),
-                              password: $('#password').val(),
-                              sgbd: $('#sgbd').val()}, function( data ){ 
-                              
-                                    if(data!=0){
-                                        $('#result').html("FAIL");
-                                        $('#result').removeClass("alert-success");
-                                        $('#result').addClass("alert-danger");              
+        if($('#host').val()!="" && $('#port').val()!="" && $('#base').val()!="" && $('#user').val()!="" && $('#password').val()!="" && $('#sgbd').val()!=""){
+            $.post("ServletSgbd", { host: $('#host').val(),
+                                    port: $('#port').val(),
+                                    base: $("#base").val(),
+                                    user: $("#user").val(),
+                                    password: $('#password').val(),
+                                    sgbd: $('#sgbd').val()}, function( data ){ 
+                                    alert(data);
+                                    if(data==0){
+                                        alert("Invalid informations!");
+
                                     }else{
-                                        window.location.assign(data);  
+                                        alert(data);
+                                        $.cookie('host', $('#host').val(), {expires: 1});
+                                        $.cookie('port', $('#port').val(), {expires: 1});
+                                        $.cookie('base', $('#base').val(), {expires: 1});
+                                        $.cookie('user', $('#user').val(), {expires: 1});
+                                        $.cookie('password', $('#password').val(), {expires: 1});
+                                        $.cookie('sgbd', $('#sgbd').val(), {expires: 1});
+                                        
+                                        window.location.assign(data); 
+                                        
+                                        alert($.cookie("port"));
                                     }
-                              });
+            });
+        }else{
+            alert("Enter all fields!");
+        }
     });
 
     $('#btn_cancel').click(function(){
@@ -33,4 +46,24 @@ $( document ).ready(function() {
         $('#password').val("");
         $('#sgbd').val("oracle");
     });
+    
+    function onlyNumber(fields){
+        $(fields).unbind('keyup').bind('keyup',function(e){
+            var thisVal = $(this).val();
+            var tempVal = "";
+
+            for(var i = 0; i<thisVal.length; i++){
+                    if(RegExp(/^[0-9]$/).test(thisVal.charAt(i))){
+                            tempVal += thisVal.charAt(i); 
+
+                            if(e.keyCode == 8){
+                                    tempVal = thisVal.substr(0,i); 
+                            }						
+                    }
+            }			
+            $(this).val(tempVal);
+        });
+    }
+
+    onlyNumber($('input[id="port"]'));
 });

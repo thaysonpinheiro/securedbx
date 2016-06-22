@@ -91,44 +91,39 @@ public class ServletSgbd extends HttpServlet {
         String user = request.getParameter("user");
         String password = request.getParameter("password");
         String sgbd = request.getParameter("sgbd");
-        
-        if(!"".equals(host) && !"".equals(port) && !"".equals(base) && !"".equals(user) && !"".equals(password)){
-            ConnectionSGBD con = new ConnectionSGBD(host, port, base, user, password, sgbd); 
-            //con = testConnection(con);
 
-            if(con.estado==1){
-                System.out.println("TESTE");
-                Cookie cookieHost = new Cookie("Host", host);
-                Cookie cookiePort = new Cookie("Port", port);
-                Cookie cookieBase = new Cookie("Base", base);
-                Cookie cookieUser = new Cookie("User", user);
-                Cookie cookiePassword = new Cookie("Password", password);
-                Cookie cookieSgbd = new Cookie("Sgbd", sgbd);        
+        ConnectionSGBD con = new ConnectionSGBD(host, port, base, user, password, sgbd); 
 
-                response.addCookie(cookieHost);
-                response.addCookie(cookiePort);
-                response.addCookie(cookieBase);
-                response.addCookie(cookieUser);
-                response.addCookie(cookiePassword);
-                response.addCookie(cookieSgbd);                
-                
-                switch(sgbd){
-                    case "postgresql":
-                        out.print("postgresql.jsp");
-                        break;
-                    case "oracle":
-                        out.print("oracle.jsp");
-                        break;
-                    case "sqlserver":
-                        out.print("sqlserver.jsp");
-                        break;
-                }  
-            }else{
-                out.print(0);
-            }
+        if(con.estado == 1){
+           /* Cookie cookieHost = new Cookie("host", host);
+            Cookie cookiePort = new Cookie("port", port);
+            Cookie cookieBase = new Cookie("base", base);
+            Cookie cookieUser = new Cookie("user", user);
+            Cookie cookiePassword = new Cookie("pass", password);
+            Cookie cookieSgbd = new Cookie("sgbd", sgbd);        
+
+            response.addCookie(cookieHost);
+            response.addCookie(cookiePort);
+            response.addCookie(cookieBase);
+            response.addCookie(cookieUser);
+            response.addCookie(cookiePassword);
+            response.addCookie(cookieSgbd);   */
+
+            switch(sgbd){
+                case "postgresql":
+                    out.print("sqlserver.jsp");
+                    break;
+                case "oracle":
+                    out.print("oracle.jsp");
+                    break;
+                case "sqlserver":
+                    out.print("sqlserver.jsp");
+                    break;
+            }  
         }else{
             out.print(0);
         }
+
     }
     /**
      * Returns a short description of the servlet.
