@@ -23,20 +23,20 @@ public class SecureSqlServer {
     public SecureSqlServer(ConnectionSGBD driver) {
         this.driver = driver;
     }
+    
     //metodo que retorna sysAdminUsers
     public int sysAdminUsers(){
         String sql = driver.config.getProperty("SQLServergetSysAdminUsers");
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         try {
-            if(fields.next()){
+            while(fields.next()){
+                System.out.println(fields.getString(1));
                 return 1;
             }
         } catch (SQLException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+       return 0;
     }
-    /**/
-    
 }

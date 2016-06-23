@@ -111,14 +111,11 @@ public class ServletSgbd extends HttpServlet {
             response.addCookie(cookieUser);
             response.addCookie(cookiePassword);
             response.addCookie(cookieSgbd);   */
-            
-            
-            
+                       
             int sysAdmin;
             SecureSqlServer sqlserver = new SecureSqlServer(driver);
             JSONArray jsonArray = new JSONArray();  
-            
-            
+
             try {
                 
                 JSONObject jsonPage = new JSONObject();
@@ -132,16 +129,17 @@ public class ServletSgbd extends HttpServlet {
                     case "sqlserver":
                         jsonPage.put("page", "sqlserver.jsp");
                         break;
-                    default:
-                        jsonArray.put(jsonPage);
                 } 
+                
+                jsonArray.put(jsonPage);
                 
                 JSONObject jsonSysAdmin = new JSONObject();
                 /* Testando o 5º parametro da nossa lista de parametros a serem verificados */
-                sysAdmin = sqlserver.sysAdminUsers();
+                int valor = sqlserver.sysAdminUsers();
                 
-                jsonSysAdmin.put("sysAdmin", sysAdmin);
+                jsonSysAdmin.put("p4", valor);
                 jsonArray.put(jsonSysAdmin);
+                
                 
                 out.print(jsonArray);
                 

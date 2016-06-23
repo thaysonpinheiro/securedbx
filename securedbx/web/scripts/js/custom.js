@@ -12,12 +12,12 @@ $( document ).ready(function() {
                                     user: $("#user").val(),
                                     password: $('#password').val(),
                                     sgbd: $('#sgbd').val()}, function( data ){ 
-                                    alert(data);
+                                    
                                     if(data==0){
                                         alert("Invalid informations!");
 
                                     }else{
-                                        alert(data);
+                                        
                                         $.cookie('host', $('#host').val(), {expires: 1});
                                         $.cookie('port', $('#port').val(), {expires: 1});
                                         $.cookie('base', $('#base').val(), {expires: 1});
@@ -25,9 +25,9 @@ $( document ).ready(function() {
                                         $.cookie('password', $('#password').val(), {expires: 1});
                                         $.cookie('sgbd', $('#sgbd').val(), {expires: 1});
                                         
-                                        var page = data[0];
-                                        window.location.assign(page);
-                                        alert(data[1]);
+                                        confirm(data[1].p4);
+                                        window.location.assign(data[0].page);
+                                       
                                     }
             });
 
