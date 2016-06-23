@@ -25,11 +25,12 @@ $( document ).ready(function() {
                                         $.cookie('password', $('#password').val(), {expires: 1});
                                         $.cookie('sgbd', $('#sgbd').val(), {expires: 1});
                                         
-                                        window.location.assign(data); 
-                                        
-                                        alert($.cookie("port"));
+                                        var page = data[0];
+                                        window.location.assign(page);
+                                        alert(data[1]);
                                     }
             });
+
         }else{
             alert("Enter all fields!");
         }
@@ -46,6 +47,10 @@ $( document ).ready(function() {
         $('#password').val("");
         $('#sgbd').val("oracle");
     });
+    
+    function checkParameters(fields){
+
+    }
     
     function onlyNumber(fields){
         $(fields).unbind('keyup').bind('keyup',function(e){

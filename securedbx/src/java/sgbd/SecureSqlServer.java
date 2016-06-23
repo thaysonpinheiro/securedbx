@@ -24,18 +24,18 @@ public class SecureSqlServer {
         this.driver = driver;
     }
     //metodo que retorna sysAdminUsers
-    public String sysAdminUsers(){
+    public int sysAdminUsers(){
         String sql = driver.config.getProperty("SQLServergetSysAdminUsers");
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         try {
-            while(fields.next()){
-                System.out.println(fields.getString("MemberName"));
+            if(fields.next()){
+                return 1;
             }
         } catch (SQLException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "teste";
+        return 0;
     }
     /**/
     

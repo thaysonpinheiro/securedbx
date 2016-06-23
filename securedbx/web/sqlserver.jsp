@@ -14,6 +14,7 @@
             
         <!-- jQuery -->
         <script src="scripts/js/jquery.js" type="text/javascript"></script>
+        <script src="scripts/js/jquery-2.1.4.min.js" type="text/javascript"></script>
         <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
         
         <!-- Bootstrap Core JavaScript -->
@@ -29,7 +30,6 @@
         <link href="scripts/css/custom.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        
         <!-- Menu --> 
         <header class="navbar navbar-default navbar-fixed">
             <div class="container">
