@@ -23,8 +23,20 @@ public class SecureSqlServer {
     public SecureSqlServer(ConnectionSGBD driver) {
         this.driver = driver;
     }
+
+    public void auditLevel(){}
     
-    //metodo que retorna sysAdminUsers
+    public void numverEventLog(){}
+    
+    public void notificationsEvents(){}
+    
+    public void loginFailureEvents(){}
+    
+    public void administratorsGroupSysAdmin(){}
+    
+    public void membersLocalAdministrators(){}
+    
+    /* CRIAR UM OBJETO JSON AQUI E RETORNA-LO */
     public int sysAdminUsers(){
         String sql = driver.config.getProperty("SQLServergetSysAdminUsers");
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -39,4 +51,27 @@ public class SecureSqlServer {
         }
        return 0;
     }
+    
+    public void membersRoleOwner(){}
+
+    public void loginsBODeachDatabase(){}
+
+    public void passwordExpirationPolicy(){}
+    
+    public void checkSimpleDBRemoved(){}
+    
+    public void checkUserSARenamedOrRemoved(){}
+    
+    public void checkPermissionsDefaultUserGuest(){}
+    
+    public void checkAuthenticationModeConnection(){}
+    
+    public void checkNetworkProtocols(){}
+    
+    public void checkLoginsNotHaveAssociatedPermissions(){}
+    
+    public void checkUsersWithoutLogin(){}
+    
+    public void checkValidBackup(){}
+    
 }
