@@ -11,7 +11,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import libraries.ConnectionSGBD;
-
+import java.util.ArrayList;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
 /**
  *
  * @author Thayson
@@ -37,19 +40,26 @@ public class SecureSqlServer {
     public void membersLocalAdministrators(){}
     
     /* CRIAR UM OBJETO JSON AQUI E RETORNA-LO */
-    public int sysAdminUsers(){
+    public ArrayList<String> sysAdminUsers() throws JSONException{
+        
         String sql = driver.config.getProperty("SQLServergetSysAdminUsers");
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
+        
         try {
+            int i=1;
+            ArrayList<String> sysAdminUsers = new ArrayList<>();
+        
             while(fields.next()){
+               // sysAdminUsers.add(fields.getString(1));
                 System.out.println(fields.getString(1));
-                return 1;
-            }
+                i++;
+            }    
+            return null;
         } catch (SQLException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return 0;
+        return null;
     }
     
     public void membersRoleOwner(){}

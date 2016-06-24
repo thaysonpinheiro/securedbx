@@ -15,6 +15,8 @@ import libraries.ConnectionSGBD;
 import sgbd.SecureOracle;
 import sgbd.SecurePostgreSql;
 import sgbd.SecureSqlServer;
+
+import java.util.ArrayList;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,26 +100,12 @@ public class ServletSgbd extends HttpServlet {
         ConnectionSGBD driver = new ConnectionSGBD(host, port, base, user, password, sgbd); 
 
         if(driver.estado == 1){
-           /* Cookie cookieHost = new Cookie("host", host);
-            Cookie cookiePort = new Cookie("port", port);
-            Cookie cookieBase = new Cookie("base", base);
-            Cookie cookieUser = new Cookie("user", user);
-            Cookie cookiePassword = new Cookie("pass", password);
-            Cookie cookieSgbd = new Cookie("sgbd", sgbd);        
 
-            response.addCookie(cookieHost);
-            response.addCookie(cookiePort);
-            response.addCookie(cookieBase);
-            response.addCookie(cookieUser);
-            response.addCookie(cookiePassword);
-            response.addCookie(cookieSgbd);   */
-                       
-            int sysAdmin;
             SecureSqlServer sqlserver = new SecureSqlServer(driver);
-            JSONArray jsonArray = new JSONArray();  
+            
 
             try {
-                
+                JSONArray jsonArray = new JSONArray();
                 JSONObject jsonPage = new JSONObject();
                 switch(sgbd){
                     case "postgresql":
@@ -129,19 +117,30 @@ public class ServletSgbd extends HttpServlet {
                     case "sqlserver":
                         jsonPage.put("page", "sqlserver.jsp");
                         break;
-                } 
-                
+                }
                 jsonArray.put(jsonPage);
+
+                /* Efetuando a a checagem */
+                ArrayList sysAdminUsers = null;
+                if(sysAdminUsers!=null){
+                    /* Criando um objeto para armazenar os usuários */                
+                    JSONObject jsonSysAdminUsers = new JSONObject();
+                    
+                    /* Criando uma table com os dados da checagem */
+                    String table = "<table><tr>";
+                    for (int i = 0; i < sysAdminUsers.size(); i++) {  
+                        table += "<td>" + sysAdminUsers.get(i) + "</td>";
+                    }   
+                    table += "</tr></table>";
+                    
+                    /* Montando o objeto */
+                    jsonSysAdminUsers.put("p4", table);
+                    
+                    /* Adicionando o objeto JSON ao array de objetos JSON */
+                    jsonArray.put(jsonSysAdminUsers);
+                }
                 
-                JSONObject jsonSysAdmin = new JSONObject();
-                /* Testando o 5º parametro da nossa lista de parametros a serem verificados */
-                int valor = sqlserver.sysAdminUsers();
-                
-                jsonSysAdmin.put("p4", valor);
-                jsonArray.put(jsonSysAdmin);
-                
-                
-                out.print(jsonArray);
+                out.print("sqlserver.jsp");
                 
             } catch (JSONException ex) {
                 Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);

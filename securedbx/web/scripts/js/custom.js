@@ -12,7 +12,7 @@ $( document ).ready(function() {
                                     user: $("#user").val(),
                                     password: $('#password').val(),
                                     sgbd: $('#sgbd').val()}, function( data ){ 
-                                    
+
                                     if(data==0){
                                         alert("Invalid informations!");
 
@@ -25,8 +25,8 @@ $( document ).ready(function() {
                                         $.cookie('password', $('#password').val(), {expires: 1});
                                         $.cookie('sgbd', $('#sgbd').val(), {expires: 1});
                                         
-                                        confirm(data[1].p4);
-                                        window.location.assign(data[0].page);
+                                        //confirm(data[1].p4);
+                                        window.location.assign(data);
                                        
                                     }
             });
