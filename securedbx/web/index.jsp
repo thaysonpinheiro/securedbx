@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>DBS</title>
+        <title>ANITA</title>
         <link href="scripts/img/min.png" rel="icon">
             
         <!-- jQuery -->
@@ -28,7 +28,23 @@
         
         <!-- Custom Core CSS -->
         <link href="scripts/css/custom.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Code Gauge-->
+        <link href="scripts/gauge/assets/main.css?v=5" rel="stylesheet" type="text/css"/>
+        <link href="scripts/gauge/assets/prettify.css" rel="stylesheet" type="text/css"/>
         
+        <script src="scripts/gauge/assets/prettify.js" type="text/javascript"></script>
+        <script src="scripts/gauge/assets/jscolor.js" type="text/javascript"></script>
+  
+
+        <!-- Code Result Graph-->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="scripts/js/graphs-results.js" type="text/javascript"></script>
+
+        
+        <!--[if lt IE 9]><script type="text/javascript" src="assets/excanvas.compiled.js"></script><![endif]-->
+
     </head>
     <body>
         
@@ -39,13 +55,358 @@
                     <a class="navbar-brand" href="#"><img src="scripts/img/logo.png" alt="DBS"></a>
                 </div>
                 <div class="navbar-left">
-                    <p>----------</p>
+                    <p>ANITA - A Non Intrusive Tool Analyzer to Hardening Database Security</p>
                 </div>
             </div>
         </header>
         
-        <div  class="container"> 
-            <!-- Database Connection -->
+        <!-- FORM -->
+        <div id="limit">
+            <aside class="form-data">
+                <label for="connection">Connection</label><br />
+
+                <label for="base">Host</label>
+                <input type="text" class="form-control input-sm form-connection" id="host" placeholder="host">
+
+                <label for="user">Port</label>
+                <input type="text" class="form-control input-sm form-connection" id="port" placeholder="port">
+
+                <label for="base">Database</label>
+                <input type="text" class="form-control input-sm form-connection" id="base" placeholder="base name">
+
+                <label for="user">User</label>
+                <input type="text" class="form-control input-sm form-connection" id="user" placeholder="username">
+
+                <label for="password">Password</label>
+                <input type="password" class="form-control input-sm form-connection" id="password" placeholder="password">
+
+                <label for="sgbd">DBMS</label>
+                <select class="form-control input-sm form-connection" id="sgbd">
+                    <option value="oracle">Oracle</option>
+                    <option value="postgresql">PostgreSQL</option>
+                    <option value="sqlserver">SQLServer</option>
+                </select> <br />
+                <button type="button" id="btn_connection" class="btn btn-primary">Security Check</button>
+            </aside>
+
+            <!-- GRAPHS -->
+            <section>
+             <!--
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph1"></canvas>
+                    <div class="preview-textfield" id="preview1"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph2"></canvas>
+                    <div class="preview-textfield" id="preview2"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph3"></canvas>
+                    <div class="preview-textfield" id="preview3"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph4"></canvas>
+                    <div class="preview-textfield" id="preview4"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph5"></canvas>
+                    <div class="preview-textfield" id="preview5"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph6"></canvas>
+                    <div class="preview-textfield" id="preview6"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph7"></canvas>
+                    <div class="preview-textfield" id="preview7"></div>
+                </div>
+
+               -->    
+               
+               <!--GROUP 1-->
+                <div class="painel">
+                    <table class="table table-bordered tableGroup group">
+                        <thead class="thead-inverse">
+                          <tr>
+                            <th>Item</th>
+                            <th>Desciption</th>
+                            <th>Avaliation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Sysadmins Users</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td >db_owner Users</td>
+                            <td>Ok</td>
+
+                 
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td >SA User</td>
+                            <td>Ok</td>
+                      
+                          </tr>
+                          <tr>
+                            <th scope="row">4</th>
+                            <td >Guest User</td>
+                            <td>Ok</td>
+
+                         
+                          </tr>
+                          <tr>
+                            <th scope="row">5</th>
+                            <td >Logins without Permissionsr</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td >Users without Login</td>
+                            <td>Ok</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    <div class="group graph">
+                        <div id="preview">
+                            <canvas width=220 height=70 class="canvas-preview" id="graph1"></canvas>
+                            <div class="preview-textfield" id="preview1"></div>
+                        </div>
+                    </div>
+                </div>   
+               
+               <!--GROUP 2-->
+               <div class="painel">
+                    <table class="table table-bordered tableGroup group">
+                        <thead class="thead-inverse">
+                          <tr>
+                            <th>Item</th>
+                            <th>Desciption</th>
+                            <th>Avaliation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Audit Level</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td >Number of Event Logs</td>
+                            <td>Ok</td>
+
+                 
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td >Notifications about Events</td>
+                            <td>Ok</td>
+                      
+                          </tr>
+                          <tr>
+                            <th scope="row">4</th>
+                            <td >db_owner Logins</td>
+                            <td>Ok</td>     
+                          </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="group graph">
+                        <div id="preview">
+                            <canvas width=220 height=70 class="canvas-preview" id="graph2"></canvas>
+                            <div class="preview-textfield" id="preview2"></div>
+                        </div>
+                    </div>
+                </div>    
+               
+               <!--GROUP 3-->
+               <div class="painel">
+                    <table class="table table-bordered tableGroup group">
+                        <thead class="thead-inverse">
+                          <tr>
+                            <th>Item</th>
+                            <th>Desciption</th>
+                            <th>Avaliation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Administrators Group</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td >Local Administrators Group</td>
+                            <td>Ok</td>
+
+                 
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td >Password Expiration Policy</td>
+                            <td>Ok</td>
+                      
+                          </tr>
+                          <tr>
+                            <th scope="row">4</th>
+                            <td >Example Databases</td>
+                            <td>Ok</td>
+
+                         
+                          </tr>
+                          <tr>
+                            <th scope="row">5</th>
+                            <td >Authentication Mode</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td >Enabled Network Protocols</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td >Enabled Network Protocols</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td >Valid Backups</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td >Current Security Patches</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td >Number of Views</td>
+                            <td>Ok</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    <div class="group graph">
+                        <div id="preview">
+                            <canvas width=220 height=70 class="canvas-preview" id="graph3"></canvas>
+                            <div class="preview-textfield" id="preview3"></div>
+                        </div>
+                    </div>
+                </div> 
+               
+               <!--GROUP 4-->
+                <div class="painel">
+                    <table class="table table-bordered tableGroup group">
+                        <thead class="thead-inverse">
+                          <tr>
+                            <th>Item</th>
+                            <th>Desciption</th>
+                            <th>Avaliation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Login Failures</td>
+                            <td>Ok</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td >Default Port</td>
+                            <td>Ok</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    <div class="group graph">
+                        <div id="preview">
+                            <canvas width=220 height=70 class="canvas-preview" id="graph4"></canvas>
+                            <div class="preview-textfield" id="preview4"></div>
+                        </div>
+                    </div>
+                </div>                         
+               
+               <!--GROUP 5-->
+               <div class="painel">
+                    <table class="table table-bordered tableGroup group">
+                        <thead class="thead-inverse">
+                          <tr>
+                            <th>Item</th>
+                            <th>Desciption</th>
+                            <th>Avaliation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Number of Encrypted Objects</td>
+                            <td>Ok</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    <div class="group graph">
+                        <div id="preview">
+                            <canvas width=220 height=70 class="canvas-preview" id="graph5"></canvas>
+                            <div class="preview-textfield" id="preview5"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="pie-chart" style="position: relative; min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                <div id="bar-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <div id="line-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+           <!--           
+                    <div class="groups">
+                        <div class="list-group group">
+                            <a href="#" class="list-group-item active">Assessment of Users and Permissions</a>
+                            <a href="#" class="list-group-item">Sysadmins Users</a>
+                            <a href="#" class="list-group-item">db_owner Users</a>
+                            <a href="#" class="list-group-item">SA User</a>
+                            <a href="#" class="list-group-item">Guest User</a>
+                            <a href="#" class="list-group-item">Logins without Permissions</a>
+                            <a href="#" class="list-group-item">Users without Login</a>
+                        </div>
+                        <div class="list-group group">
+                            <a href="#" class="list-group-item active">Monitoring and Auditing</a>
+                            <a href="#" class="list-group-item">Number of Event Logs</a>
+                            <a href="#" class="list-group-item">Notifications about Events</a>
+                            <a href="#" class="list-group-item">db_owner Logins</a>
+                        </div>
+                    </div>
+                    <div class="groups">    
+                        <div class="list-group group">
+                            <a href="#" class="list-group-item active">Vulnerability and Configuration Management</a>
+                            <a href="#" class="list-group-item">Administrators Group</a>
+                            <a href="#" class="list-group-item">Local Administrators Group</a>
+                            <a href="#" class="list-group-item">Password Expiration Policy</a>
+                            <a href="#" class="list-group-item">Example Databases</a>
+                            <a href="#" class="list-group-item">Authentication Mode</a>
+                            <a href="#" class="list-group-item">Enabled Network Protocols</a>
+                            <a href="#" class="list-group-item">Valid Backups</a>
+                            <a href="#" class="list-group-item">Current Security Patches</a>
+                            <a href="#" class="list-group-item">Number of Views</a>
+                        </div>
+                    </div>
+                    <div class="groups">
+                        <div class="list-group group">
+                            <a href="#" class="list-group-item active">Prevention and Blocking Attacks</a>
+                            <a href="#" class="list-group-item">Login Failures</a>
+                            <a href="#" class="list-group-item">Default Port</a>
+                        </div>
+                        <div class="list-group group">
+                            <a href="#" class="list-group-item active">Encryption, Tokenization and Data Masking</a>
+                            <a href="#" class="list-group-item">Não temos nada aqui ainda</a>
+                        </div>   
+                    </div>
+            </section>
+        </div>
+      <div  class="container"> 
+             Database Connection 
             <div class="col-md-12">            
                     <div id="result" class="col-md-4 col-sm-offset-4 text-center alert">
                     </div>
@@ -99,7 +460,11 @@
                         </center>
                     </div>
                 </div>
+            
             </div>
-        </div>    
+        </div>    -->
     </body>
+    <script src="scripts/gauge/assets/fd-slider/fd-slider.js" type="text/javascript"></script>
+    <script src="scripts/gauge/dist/gauge.js" type="text/javascript"></script>
+    <script src="scripts/gauge/dist/graphs.js" type="text/javascript"></script>
 </html>
