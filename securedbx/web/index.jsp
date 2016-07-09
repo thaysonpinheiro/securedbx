@@ -356,10 +356,10 @@
                         </div>
                     </div>
                 </div>
-                
-                <div id="pie-chart" style="position: relative; min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-                <div id="bar-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                <div id="line-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    <div id="pie-chart" style="position: relative; min-width: 310px; height: 400px; max-width: 600px;"></div>
+                    <div id="bar-chart" style="position: relative; min-width: 310px; height: 400px;"></div>
+                    <div id="line-chart" style="position: relative; min-width: 310px; height: 400px;"></div>
+               
            <!--           
                     <div class="groups">
                         <div class="list-group group">

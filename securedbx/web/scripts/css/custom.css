@@ -159,3 +159,19 @@ aside label{
     
     
 }
+
+#pie-chart{
+   margin-top: 50px;
+   float: left; height: 1000px; width: 1000px; margin: 0px auto;
+    
+}
+
+#bar-chart{
+       margin-top: 50px;
+    position: relative; float: left; width: 900px; height: 400px;
+}
+
+#line-chart{
+       margin-top: 80px;
+    position: relative; float: left; width: 900px; height: 400px;
+}
