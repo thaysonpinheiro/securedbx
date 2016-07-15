@@ -125,6 +125,7 @@
                
                <!--GROUP 1-->
                 <div class="painel">
+                    <div class="titulo-table">Assessment of Users and Permissions</div>
                     <table class="table table-bordered tableGroup group">
                         <thead class="thead-inverse">
                           <tr>
@@ -137,37 +138,47 @@
                           <tr>
                             <th scope="row">1</th>
                             <td>Sysadmins Users</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">2</th>
                             <td >db_owner Users</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
 
                  
                           </tr>
                           <tr>
                             <th scope="row">3</th>
                             <td >SA User</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                       
                           </tr>
                           <tr>
                             <th scope="row">4</th>
                             <td >Guest User</td>
-                            <td>Ok</td>
-
-                         
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">5</th>
                             <td >Logins without Permissionsr</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">6</th>
                             <td >Users without Login</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                         </tbody>
                     </table>
@@ -181,6 +192,7 @@
                
                <!--GROUP 2-->
                <div class="painel">
+                   <div class="titulo-table">Monitoring and Auditing</div>
                     <table class="table table-bordered tableGroup group">
                         <thead class="thead-inverse">
                           <tr>
@@ -193,25 +205,30 @@
                           <tr>
                             <th scope="row">1</th>
                             <td>Audit Level</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">2</th>
                             <td >Number of Event Logs</td>
-                            <td>Ok</td>
-
-                 
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">3</th>
                             <td >Notifications about Events</td>
-                            <td>Ok</td>
-                      
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">4</th>
                             <td >db_owner Logins</td>
-                            <td>Ok</td>     
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>     
                           </tr>
 
                         </tbody>
@@ -226,7 +243,8 @@
                
                <!--GROUP 3-->
                <div class="painel">
-                    <table class="table table-bordered tableGroup group">
+                   <div class="titulo-table">Vulnerability and Configuration Management</div> 
+                   <table class="table table-bordered tableGroup group">
                         <thead class="thead-inverse">
                           <tr>
                             <th>Item</th>
@@ -238,57 +256,65 @@
                           <tr>
                             <th scope="row">1</th>
                             <td>Administrators Group</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">2</th>
                             <td >Local Administrators Group</td>
-                            <td>Ok</td>
-
-                 
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">3</th>
                             <td >Password Expiration Policy</td>
-                            <td>Ok</td>
-                      
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">4</th>
                             <td >Example Databases</td>
-                            <td>Ok</td>
-
-                         
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">5</th>
                             <td >Authentication Mode</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">6</th>
                             <td >Enabled Network Protocols</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
-                            <th scope="row">6</th>
-                            <td >Enabled Network Protocols</td>
-                            <td>Ok</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">6</th>
+                            <th scope="row">7</th>
                             <td >Valid Backups</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
-                            <th scope="row">6</th>
+                            <th scope="row">8</th>
                             <td >Current Security Patches</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
-                            <th scope="row">6</th>
+                            <th scope="row">9</th>
                             <td >Number of Views</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                         </tbody>
                     </table>
@@ -302,6 +328,7 @@
                
                <!--GROUP 4-->
                 <div class="painel">
+                    <div class="titulo-table">Prevention and Blocking Attacks</div>
                     <table class="table table-bordered tableGroup group">
                         <thead class="thead-inverse">
                           <tr>
@@ -314,12 +341,16 @@
                           <tr>
                             <th scope="row">1</th>
                             <td>Login Failures</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                           <tr>
                             <th scope="row">2</th>
                             <td >Default Port</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>  
                           </tr>
                         </tbody>
                     </table>
@@ -333,7 +364,8 @@
                
                <!--GROUP 5-->
                <div class="painel">
-                    <table class="table table-bordered tableGroup group">
+                   <div class="titulo-table">Encryption, Tokenization and Data Masking</div> 
+                   <table class="table table-bordered tableGroup group">
                         <thead class="thead-inverse">
                           <tr>
                             <th>Item</th>
@@ -345,7 +377,9 @@
                           <tr>
                             <th scope="row">1</th>
                             <td>Number of Encrypted Objects</td>
-                            <td>Ok</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                            </td>
                           </tr>
                         </tbody>
                     </table>
@@ -356,10 +390,11 @@
                         </div>
                     </div>
                 </div>
+               <div id="gresults">
                     <div id="pie-chart" style="position: relative; min-width: 310px; height: 400px; max-width: 600px;"></div>
                     <div id="bar-chart" style="position: relative; min-width: 310px; height: 400px;"></div>
                     <div id="line-chart" style="position: relative; min-width: 310px; height: 400px;"></div>
-               
+               </div>
            <!--           
                     <div class="groups">
                         <div class="list-group group">

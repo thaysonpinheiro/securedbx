@@ -126,16 +126,23 @@ aside label{
 }
 */
 
-.painel{
-  
+.titulo-table{
+    width: 800px;
+    font-weight: bolder; 
+    font-size: 16px;
+    color: #FFFFFF;
+    padding: 10px;
+    border: 2px #337ab7  solid;
+    background-color: #337ab7 ;
 }
 
 .tableGroup{
 
-    width: 800px;
+    width: 800px; 
+}
 
-    
-    
+.tableGroup thead{
+    background-color: #ddd;
 }
 
 .group{
@@ -158,6 +165,10 @@ aside label{
     width: auto;
     
     
+}
+
+#gresults{
+    margin: 0px auto;
 }
 
 #pie-chart{

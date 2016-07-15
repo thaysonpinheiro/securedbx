@@ -35,10 +35,10 @@ function update(color) {
  function gauge1(){
      
     var target = document.getElementById('graph1');
-    var nivel = 22;
+    var nivel = 50;
     var color = colorTest(nivel);
     
-    gauge1 = new Gauge(target).setOptions(update(color));
+    gauge1 = new Gauge(target).setOptions(update('#FFD700'));
     gauge1.setTextField(document.getElementById("preview1"));
     gauge1.maxValue = 100;
     
@@ -49,7 +49,7 @@ function update(color) {
  function gauge2(){
 
     var target = document.getElementById('graph2');
-    var nivel = 77;
+    var nivel = 25;
     var color = colorTest(nivel);
     
     gauge1 = new Gauge(target).setOptions(update(color));
@@ -77,7 +77,7 @@ function gauge3(){
  function gauge4(){
     
     var target = document.getElementById('graph4');
-    var nivel = 62;
+    var nivel = 1;
     var color = colorTest(nivel);
     
     gauge1 = new Gauge(target).setOptions(update(color));
@@ -135,8 +135,6 @@ function gauge3(){
  gauge3();
  gauge4();
  gauge5();
- gauge6();
- gauge7();
- 
+
  
 

@@ -9,7 +9,7 @@
          },
          title: {
              //texto do titulo superior
-             text: 'Browser market shares January, 2015 to May, 2015'
+             text: 'Result of the check'
          },
          tooltip: {
              //formato da legenda
@@ -33,23 +33,20 @@
              name: 'Brands',
              colorByPoint: true,
              data: [{
-                 name: 'Microsoft Internet Explorer',
-                 y: 56.33
+                 name: 'Assessment of Users and Permissions',
+                 y: 50
              }, {
-                 name: 'Chrome',
-                 y: 24.03,
+                 name: 'Monitoring and Auditing',
+                 y: 25
              }, {
-                 name: 'Firefox',
-                 y: 10.38
+                 name: 'Vulnerability and Configuration Management',
+                 y: 55
              }, {
-                 name: 'Safari',
-                 y: 4.77
+                 name: 'Prevention and Blocking Attacks',
+                 y: 1
              }, {
-                 name: 'Opera',
-                 y: 0.91
-             }, {
-                 name: 'Proprietary or Undetectable',
-                 y: 0.2
+                 name: 'Encryption, Tokenization and Data Masking',
+                 y: 100
              }]
          }]
      });
@@ -63,10 +60,10 @@
              type: 'column'
          },
          title: {
-             text: 'Monthly Average Rainfall'
+             text: 'Result of the check'
          },
          subtitle: {
-             text: 'Source: WorldClimate.com'
+             text: ''
          },
          xAxis: {
              //cada categoria representa o numero de conjuntos de barras
@@ -82,6 +79,7 @@
          },
          yAxis: {
              min: 0,
+             max:100,
              title: {
                  text: 'Rainfall (mm)'
              }
@@ -103,20 +101,24 @@
          //cada serie adiciona uma barra com o valor descrito para cada conjunto de barras
          //de acordo com a ordem.
          series: [{
-             name: 'Tokyo',
-             data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0]
+             name: 'Assessment of Users and Permissions',
+             data: [49.9, 71.5, 60, 80, 40.0, 50]
 
          }, {
-             name: 'New York',
-             data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5]
+             name: 'Monitoring and Auditing',
+             data: [83.6, 78.8, 55, 80, 55, 25]
 
          }, {
-             name: 'London',
-             data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3]
+             name: 'Vulnerability and Configuration Management',
+             data: [48.9, 38.8, 39.3, 41.4, 47.0, 55]
 
          }, {
-             name: 'Berlin',
-             data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5]
+             name: 'Prevention and Blocking Attacks',
+             data: [42.4, 20, 80, 25, 52.6, 1]
+
+         }, {
+             name: 'Encryption, Tokenization and Data Masking',
+             data: [42.4, 33.2, 34.5, 39.7, 52.6, 100]
 
          }]
      });
@@ -126,11 +128,11 @@
  $(function () {
      $('#line-chart').highcharts({
          title: {
-             text: 'Monthly Average Temperature',
+             text: 'Result of the check',
              x: -20 //center
          },
          subtitle: {
-             text: 'Source: WorldClimate.com',
+             text: '',
              x: -20
          },
          xAxis: {
@@ -159,17 +161,20 @@
          },
          series: [{
              //altura de cada ponto nas categorias descritas acima
-             name: 'Tokyo',
-             data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+             name: 'Assessment of Users and Permissions',
+             data: [49.9, 71.5, 60, 80, 40.0, 50]
          }, {
-             name: 'New York',
-             data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+             name: 'Monitoring and Auditing',
+             data: [83.6, 78.8, 55, 80, 55, 25]
          }, {
-             name: 'Berlin',
-             data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+             name: 'Vulnerability and Configuration Management',
+             data: [48.9, 38.8, 39.3, 41.4, 47.0, 55]
          }, {
-             name: 'London',
-             data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+             name: 'Prevention and Blocking Attacks',
+             data: [42.4, 20, 80, 25, 52.6, 1]
+         }, {
+             name: 'Encryption, Tokenization and Data Masking',
+             data: [42.4, 33.2, 34.5, 39.7, 52.6, 100]
          }]
      });
  });
