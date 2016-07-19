@@ -108,23 +108,6 @@ aside label{
     padding-bottom: 0px; 
 }
 
-/*GROUPS
-
-
-.groups{
-    padding: 30px;
-    width: 350px;
-    position: relative;
-    float: left;
-}
-
-.group{
-    padding: 10px;
-    position: relative;
-    float: left;
-    width: 100%;
-}
-*/
 
 .titulo-table{
     width: 800px;
@@ -185,4 +168,54 @@ aside label{
 #line-chart{
        margin-top: 80px;
     position: relative; float: left; width: 900px; height: 400px;
+}
+
+#invisible{
+    display: none;
+}
+
+#intro-system{
+    position: absolute;
+    left: 30%;
+    width: 800px;
+}
+
+#intro-info{
+    font-size: 40px;
+    text-align: center;
+    padding-top: 50px;
+    height: auto;
+    color: #696969;
+}
+
+
+#list-parametrs{
+    width: 100%;
+}
+
+#list-parametrs ul li {
+    padding: 15px;
+    list-style-type: none;
+}
+
+#list-parametrs img{
+    float: right;
+}
+
+.item-invisible{
+    display: none;
+}
+
+.item-load{
+    background-image: url("../img/load.gif");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 30px auto;
+}
+
+.item-check{
+    background-image: url("../img/check.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 30px auto;
 }

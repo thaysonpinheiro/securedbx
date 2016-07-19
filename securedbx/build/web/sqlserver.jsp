@@ -14,7 +14,6 @@
             
         <!-- jQuery -->
         <script src="scripts/js/jquery.js" type="text/javascript"></script>
-        <script src="scripts/js/jquery-2.1.4.min.js" type="text/javascript"></script>
         <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
         
         <!-- Bootstrap Core JavaScript -->
@@ -30,296 +29,437 @@
         <link href="scripts/css/custom.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <!-- Menu --> 
-        <header class="navbar navbar-default navbar-fixed">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#"><img src="scripts/img/logo.png" alt="DBS"></a>
+  
+            <!-- GRAPHS -->
+            <section>
+             <!--
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph1"></canvas>
+                    <div class="preview-textfield" id="preview1"></div>
                 </div>
-                <div class="navbar-left">
-                    <p></p>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph2"></canvas>
+                    <div class="preview-textfield" id="preview2"></div>
                 </div>
-            </div>
-        </header>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph3"></canvas>
+                    <div class="preview-textfield" id="preview3"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph4"></canvas>
+                    <div class="preview-textfield" id="preview4"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph5"></canvas>
+                    <div class="preview-textfield" id="preview5"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph6"></canvas>
+                    <div class="preview-textfield" id="preview6"></div>
+                </div>
+                <div id="preview">
+                    <canvas width=220 height=70 class="canvas-preview" id="graph7"></canvas>
+                    <div class="preview-textfield" id="preview7"></div>
+                </div>
 
-        <!-- Parameters Table -->
-        <div class="container" id="parameters">
-            <div class="col-md-6 col-sm-offset-3">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                
-                            </th>
-                            <th>
-                                Options
-                            </th>
-                        </tr>
-                    </thead>
-                    <tr>
-                        <tr class="assinatura success" onclick="showRow('#parametro1')">
-                            <td  style="padding-bottom: 0px;">
-                                <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Audit level
-                            </td>
-     
-                        </tr>
-                        <tr id="parametro1" class="hidden-row">
-                            <td></td>
-                            <td>Collects a single instance of actions at the server level and / or database and action groups to be monitored</td>
-                        </tr>
-                
-                    </tr>
-                    <tr>
-                        <tr class="assinatura success" onclick="showRow('#parametro2')">
-                            <td  style="padding-bottom: 0px;">
-                                <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Number of event logs
-                            </td>
-                        </tr>
-                        <tr id="parametro2" class="hidden-row">
-                            <td></td>
-                            <td>This is to not lose information in a short time  </td>
-                        </tr>
-                    </tr>
-                    <tr>
-                        <tr class="assinatura success" onclick="showRow('#parametro3')">
-                            <td  style="padding-bottom: 0px;">
-                                <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Notifications about security events
-                            </td>
-                        </tr>
-                        <tr id="parametro3" class="hidden-row">
-                            <td></td>
-                            <td>Creating security event notification. </td>
-                        </tr>
-                    </tr>    
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro4')">
-                            <td  style="padding-bottom: 0px;">
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Login failure events
-                            </td>
-                        </tr>
-                        <tr id="parametro4" class="hidden-row">
-                            <td></td>
-                            <td>This security setting determines whether to audit each instance logon or logoff of a user on a computer should be made. </td>
-                        </tr>
-                    </tr>     
-                    <tr>
-                        <tr class="assinatura success" onclick="showRow('#parametro5')">
-                            <td  style="padding-bottom: 0px;">
-                                <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Administrators group was removed from the sysadmin role
-                            </td>
-                        </tr>
-                        <tr id="parametro5" class="hidden-row">
-                            <td></td>
-                            <td>****************************  </td>
-                        </tr>
-                    </tr>                              
-                    <tr>
-                        <tr class="assinatura success" onclick="showRow('#parametro6')">
-                            <td  style="padding-bottom: 0px;">
-                                <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                There are members of the "Local Administrators" in the server
-                            </td>
-                        </tr>
-                        <tr id="parametro6" class="hidden-row">
-                            <td></td>
-                            <td>******************************  </td>
-                        </tr>
-                    </tr>   
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro7')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Users belonging to role "Sysadmins" **
-                            </td>
-                        </tr>
-                        <tr id="parametro7" class="hidden-row">
-                            <td></td>
-                            <td>Members of the sysadmin fixed server role can perform any activity on the server. (Users list)</td>
-                        </tr>
-                    </tr>   
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro8')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Each database members associated with role db_owner **
-                            </td>
-                        </tr>
-                        <tr id="parametro8" class="hidden-row">
-                            <td></td>
-                            <td>
-                                Members of the db_owner fixed database role can perform all configuration and maintenance activities in the database and discard the database. (list users of each database)
-                            </td>
-                        </tr>
-                    </tr>   
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro9')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Logins associated with the "BOD" ( db owner) in each database **
-                            </td>
-                        </tr>
-                        <tr id="parametro9" class="hidden-row">
-                            <td></td>
-                            <td>Members of the db_owner fixed database role can perform all configuration and maintenance activities in the database and discard the database. (logins associated with the "DBO" ( db owner) in each database)</td>
-                        </tr>
-                    </tr>
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro10')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Password expiration policy
-                            </td>
-                        </tr>
-                        <tr id="parametro10" class="hidden-row">
-                            <td></td>
-                            <td>Password expiration policies are used to manage the lifespan of a password.</td>
-                        </tr>
-                    </tr>   
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro11')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                The sample databases were removed from the server
-                            </td>
-                        </tr>
-                        <tr id="parametro11" class="hidden-row">
-                            <td></td>
-                            <td>Verify if the databases samples (adventureworks, pubs, others) were removed from the server</td>
-                        </tr>
-                    </tr>                      
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro12')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                The user SA was renamed or removed from the server
-                            </td>
-                        </tr>
-                        <tr id="parametro12" class="hidden-row">
-                            <td></td>
-                            <td>The default user that SQL Server creates when we installed it.</td>
-                        </tr>
-                    </tr>               
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro13')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                The permissions that were granted to the default user "guest" **
-                            </td>
-                        </tr>
-                        <tr id="parametro13" class="hidden-row">
-                            <td></td>
-                            <td>Lists the permissions granted to the "guest" user</td>
-                        </tr>
-                    </tr>                 
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro14')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Configured authentication mode for connections **
-                            </td>
-                        </tr>
-                        <tr id="parametro14" class="hidden-row">
-                            <td></td>
-                            <td>Descricao do primeiro parâmetro Descricao do primeiro parâmetro  </td>
-                        </tr>
-                    </tr>                 
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro15')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Network protocols enabled **
-                            </td>
-                        </tr>
-                        <tr id="parametro15" class="hidden-row">
-                            <td></td>
-                            <td>list of Network Protocols enabled</td>
-                        </tr>
-                    </tr>       
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro16')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Registered logins that do not have associated permissions **
-                            </td>
-                        </tr>
-                        <tr id="parametro16" class="hidden-row">
-                            <td></td>
-                            <td>List of logins without permissions associated with them</td>
-                        </tr>
-                    </tr>   
-                    </tr>       
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro17')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                Associate users without login **
-                            </td>
-                        </tr>
-                        <tr id="parametro17" class="hidden-row">
-                            <td></td>
-                            <td>List of users without associated login  </td>
-                        </tr>
-                    </tr>  
-                    <tr>
-                        <tr class="assinatura danger" onclick="showRow('#parametro18')">
-                            <td  style="padding-bottom: 0px;" >
-                                <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">
-                            </td>  
-                            <td>
-                                There are valid backups
-                            </td>
-                        </tr>
-                        <tr id="parametro18" class="hidden-row">
-                            <td></td>
-                            <td>Check if there are valid backups.</td>
-                        </tr>
-                    </tr>                 
-                </table>
-                <div class="col-md-4 col-sm-offset-4">
-                    <center>
-                        <button type="button" id="btn_connection" class="btn btn-primary">confirm</button>
-                    </center>
-                </div>
+               -->  
+              <div id="intro-system">
+                    <div id="intro-info" class="intro-info" >
+                        Enter your database credentials<br/> to proceed the analysis
+                    </div>
+                    <div id="list-parametrs" >
+                        <ul class="list-group">
+                            <li id="item-one" class="list-group-item item-invisible item-load"> Assessment of Users and Permissions </li>
+                            <li id="item-two" class="list-group-item item-invisible item-load">Monitoring and Auditing  </li>
+                            <li id="item-three" class="list-group-item item-invisible item-load"> Vulnerability and Configuration Management </li>
+                            <li id="item-four" class="list-group-item item-invisible item-load"> Prevention and Blocking Attacks </li>
+                            <li id="item-five" class="list-group-item item-invisible item-load"> Encryption, Tokenization and Data Masking </li>
+                        </ul>
+                    </div>      
+              </div> 
+
+
+
+
+              <div id="system" class="invisible"> 
+                   <!--GROUP 1-->
+                    <div class="painel">
+                        <div class="titulo-table">Assessment of Users and Permissions</div>
+                        <table class="table table-bordered tableGroup group">
+                            <thead class="thead-inverse">
+                              <tr>
+                                <th>Item</th>
+                                <th>Desciption</th>
+                                <th>Avaliation</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Sysadmins Users</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td >db_owner Users</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+
+                     
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td >SA User</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                          
+                              </tr>
+                              <tr>
+                                <th scope="row">4</th>
+                                <td >Guest User</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">5</th>
+                                <td >Logins without Permissionsr</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">6</th>
+                                <td >Users without Login</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                            </tbody>
+                        </table>
+                        <div class="group graph">
+                            <div id="preview">
+                                <canvas width=220 height=70 class="canvas-preview" id="graph1"></canvas>
+                                <div class="preview-textfield" id="preview1"></div>
+                            </div>
+                        </div>
+                    </div>   
+                   
+                   <!--GROUP 2-->
+                   <div class="painel">
+                       <div class="titulo-table">Monitoring and Auditing</div>
+                        <table class="table table-bordered tableGroup group">
+                            <thead class="thead-inverse">
+                              <tr>
+                                <th>Item</th>
+                                <th>Desciption</th>
+                                <th>Avaliation</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Audit Level</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td >Number of Event Logs</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td >Notifications about Events</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">4</th>
+                                <td >db_owner Logins</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>     
+                              </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="group graph">
+                            <div id="preview">
+                                <canvas width=220 height=70 class="canvas-preview" id="graph2"></canvas>
+                                <div class="preview-textfield" id="preview2"></div>
+                            </div>
+                        </div>
+                    </div>    
+                   
+                   <!--GROUP 3-->
+                   <div class="painel">
+                       <div class="titulo-table">Vulnerability and Configuration Management</div> 
+                       <table class="table table-bordered tableGroup group">
+                            <thead class="thead-inverse">
+                              <tr>
+                                <th>Item</th>
+                                <th>Desciption</th>
+                                <th>Avaliation</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Administrators Group</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td >Local Administrators Group</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td >Password Expiration Policy</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">4</th>
+                                <td >Example Databases</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">5</th>
+                                <td >Authentication Mode</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">6</th>
+                                <td >Enabled Network Protocols</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">7</th>
+                                <td >Valid Backups</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">8</th>
+                                <td >Current Security Patches</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">9</th>
+                                <td >Number of Views</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                            </tbody>
+                        </table>
+                        <div class="group graph">
+                            <div id="preview">
+                                <canvas width=220 height=70 class="canvas-preview" id="graph3"></canvas>
+                                <div class="preview-textfield" id="preview3"></div>
+                            </div>
+                        </div>
+                    </div> 
+                   
+                   <!--GROUP 4-->
+                    <div class="painel">
+                        <div class="titulo-table">Prevention and Blocking Attacks</div>
+                        <table class="table table-bordered tableGroup group">
+                            <thead class="thead-inverse">
+                              <tr>
+                                <th>Item</th>
+                                <th>Desciption</th>
+                                <th>Avaliation</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Login Failures</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td >Default Port</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>  
+                              </tr>
+                            </tbody>
+                        </table>
+                        <div class="group graph">
+                            <div id="preview">
+                                <canvas width=220 height=70 class="canvas-preview" id="graph4"></canvas>
+                                <div class="preview-textfield" id="preview4"></div>
+                            </div>
+                        </div>
+                    </div>                         
+                   
+                   <!--GROUP 5-->
+                   <div class="painel">
+                       <div class="titulo-table">Encryption, Tokenization and Data Masking</div> 
+                       <table class="table table-bordered tableGroup group">
+                            <thead class="thead-inverse">
+                              <tr>
+                                <th>Item</th>
+                                <th>Desciption</th>
+                                <th>Avaliation</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Number of Encrypted Objects</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <div class="group graph">
+                            <div id="preview">
+                                <canvas width=220 height=70 class="canvas-preview" id="graph5"></canvas>
+                                <div class="preview-textfield" id="preview5"></div>
+                            </div>
+                        </div>
+                    </div>
+                   <div id="gresults">
+                        <div id="pie-chart" style="position: relative; min-width: 310px; height: 400px; max-width: 600px;"></div>
+                        <div id="bar-chart" style="position: relative; min-width: 310px; height: 400px;"></div>
+                        <div id="line-chart" style="position: relative; min-width: 310px; height: 400px;"></div>
+                   </div>
+               <!--           
+                        <div class="groups">
+                            <div class="list-group group">
+                                <a href="#" class="list-group-item active">Assessment of Users and Permissions</a>
+                                <a href="#" class="list-group-item">Sysadmins Users</a>
+                                <a href="#" class="list-group-item">db_owner Users</a>
+                                <a href="#" class="list-group-item">SA User</a>
+                                <a href="#" class="list-group-item">Guest User</a>
+                                <a href="#" class="list-group-item">Logins without Permissions</a>
+                                <a href="#" class="list-group-item">Users without Login</a>
+                            </div>
+                            <div class="list-group group">
+                                <a href="#" class="list-group-item active">Monitoring and Auditing</a>
+                                <a href="#" class="list-group-item">Number of Event Logs</a>
+                                <a href="#" class="list-group-item">Notifications about Events</a>
+                                <a href="#" class="list-group-item">db_owner Logins</a>
+                            </div>
+                        </div>
+                        <div class="groups">    
+                            <div class="list-group group">
+                                <a href="#" class="list-group-item active">Vulnerability and Configuration Management</a>
+                                <a href="#" class="list-group-item">Administrators Group</a>
+                                <a href="#" class="list-group-item">Local Administrators Group</a>
+                                <a href="#" class="list-group-item">Password Expiration Policy</a>
+                                <a href="#" class="list-group-item">Example Databases</a>
+                                <a href="#" class="list-group-item">Authentication Mode</a>
+                                <a href="#" class="list-group-item">Enabled Network Protocols</a>
+                                <a href="#" class="list-group-item">Valid Backups</a>
+                                <a href="#" class="list-group-item">Current Security Patches</a>
+                                <a href="#" class="list-group-item">Number of Views</a>
+                            </div>
+                        </div>
+                        <div class="groups">
+                            <div class="list-group group">
+                                <a href="#" class="list-group-item active">Prevention and Blocking Attacks</a>
+                                <a href="#" class="list-group-item">Login Failures</a>
+                                <a href="#" class="list-group-item">Default Port</a>
+                            </div>
+                            <div class="list-group group">
+                                <a href="#" class="list-group-item active">Encryption, Tokenization and Data Masking</a>
+                                <a href="#" class="list-group-item">Não temos nada aqui ainda</a>
+                            </div>   
+                        </div>
+                </section>
             </div>
+          <div  class="container"> 
+                 Database Connection 
+                <div class="col-md-12">            
+                        <div id="result" class="col-md-4 col-sm-offset-4 text-center alert">
+                        </div>
+                </div>
+                <div class="container" id="connection">
+                    <div class="col-md-12">
+                        <center><h2>Connection</h2></center>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-offset-3">
+                            <div class="col-md-3">
+                                <p>
+                                <label for="base">Host</label>
+                                <input type="text" class="form-control" id="host" placeholder="host">
+                                </p>
+                                <p>
+                                <label for="user">Port</label>
+                                <input type="text" class="form-control" id="port" placeholder="port">
+                                </p>
+                                <p>
+                                <label for="base">Base</label>
+                                <input type="text" class="form-control" id="base" placeholder="base name">
+                                </p>
+
+                            </div>
+                            <div class="col-md-3">
+                                <p>
+                                <label for="user">User</label>
+                                <input type="text" class="form-control" id="user" placeholder="username">
+                                </p>
+                                <p>
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="password">
+                                </p>
+                                <p>
+                                <label for="sgbd">Sgbd</label>
+                                <select class="form-control" id="sgbd">
+                                    <option value="oracle">Oracle</option>
+                                    <option value="postgresql">PostgreSQL</option>
+                                    <option value="sqlserver">SQLServer</option>
+                                </select> 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-offset-4">
+                            <center>
+                            <button type="button" id="btn_connection" class="btn btn-primary">conectar</button>
+                            <button type="button" id="btn_cancel" class="btn btn-default">cancelar</button>
+                            </center>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>    -->
         </div>
     </body>
+    <script src="scripts/gauge/assets/fd-slider/fd-slider.js" type="text/javascript"></script>
+    <script src="scripts/gauge/dist/gauge.js" type="text/javascript"></script>
+    <script src="scripts/gauge/dist/graphs.js" type="text/javascript"></script>
 </html>

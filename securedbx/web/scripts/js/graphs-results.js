@@ -9,7 +9,7 @@
          },
          title: {
              //texto do titulo superior
-             text: 'Result of the check'
+             text: 'Results - Summary'
          },
          tooltip: {
              //formato da legenda
@@ -60,7 +60,7 @@
              type: 'column'
          },
          title: {
-             text: 'Result of the check'
+             text: 'Results - Summary'
          },
          subtitle: {
              text: ''
@@ -81,7 +81,7 @@
              min: 0,
              max:100,
              title: {
-                 text: 'Rainfall (mm)'
+                 text: 'Number of Occurrences'
              }
          },
          tooltip: {
@@ -128,7 +128,7 @@
  $(function () {
      $('#line-chart').highcharts({
          title: {
-             text: 'Result of the check',
+             text: 'Results - Summary',
              x: -20 //center
          },
          subtitle: {
@@ -142,7 +142,7 @@
          },
          yAxis: {
              title: {
-                 text: 'Temperature (°C)'
+                 text: 'Number of Occurrences'
              },
              plotLines: [{
                  value: 0,

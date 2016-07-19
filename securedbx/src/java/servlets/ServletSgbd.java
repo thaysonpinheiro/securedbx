@@ -16,10 +16,6 @@ import sgbd.SecureOracle;
 import sgbd.SecurePostgreSql;
 import sgbd.SecureSqlServer;
 
-import java.util.ArrayList;
-import org.json.JSONObject;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 /**
  *
@@ -87,7 +83,6 @@ public class ServletSgbd extends HttpServlet {
             throws ServletException, IOException {
         
         processRequest(request, response);
-        response.setContentType("application/json");  
         PrintWriter out = response.getWriter();
         
         String host = request.getParameter("host");
@@ -97,57 +92,38 @@ public class ServletSgbd extends HttpServlet {
         String password = request.getParameter("password");
         String sgbd = request.getParameter("sgbd");
 
-        ConnectionSGBD driver = new ConnectionSGBD(host, port, base, user, password, sgbd); 
+        ConnectionSGBD con = new ConnectionSGBD(host, port, base, user, password, sgbd); 
 
-        if(driver.estado == 1){
+        if(con.estado == 1){
+           /* Cookie cookieHost = new Cookie("host", host);
+            Cookie cookiePort = new Cookie("port", port);
+            Cookie cookieBase = new Cookie("base", base);
+            Cookie cookieUser = new Cookie("user", user);
+            Cookie cookiePassword = new Cookie("pass", password);
+            Cookie cookieSgbd = new Cookie("sgbd", sgbd);        
 
-            SecureSqlServer sqlserver = new SecureSqlServer(driver);
-            
+            response.addCookie(cookieHost);
+            response.addCookie(cookiePort);
+            response.addCookie(cookieBase);
+            response.addCookie(cookieUser);
+            response.addCookie(cookiePassword);
+            response.addCookie(cookieSgbd);   */
 
-            try {
-                JSONArray jsonArray = new JSONArray();
-                JSONObject jsonPage = new JSONObject();
-                switch(sgbd){
-                    case "postgresql":
-                        jsonPage.put("page", "postgresql.jsp");
-                        break;
-                    case "oracle":
-                        jsonPage.put("page", "oracle.jsp");
-                        break;
-                    case "sqlserver":
-                        jsonPage.put("page", "sqlserver.jsp");
-                        break;
-                }
-                jsonArray.put(jsonPage);
-
-                /* Efetuando a a checagem */
-                ArrayList sysAdminUsers = null;
-                if(sysAdminUsers!=null){
-                    /* Criando um objeto para armazenar os usuários */                
-                    JSONObject jsonSysAdminUsers = new JSONObject();
-                    
-                    /* Criando uma table com os dados da checagem */
-                    String table = "<table><tr>";
-                    for (int i = 0; i < sysAdminUsers.size(); i++) {  
-                        table += "<td>" + sysAdminUsers.get(i) + "</td>";
-                    }   
-                    table += "</tr></table>";
-                    
-                    /* Montando o objeto */
-                    jsonSysAdminUsers.put("p4", table);
-                    
-                    /* Adicionando o objeto JSON ao array de objetos JSON */
-                    jsonArray.put(jsonSysAdminUsers);
-                }
-                
-                out.print("sqlserver.jsp");
-                
-            } catch (JSONException ex) {
-                Logger.getLogger(ServletSgbd.class.getName()).log(Level.SEVERE, null, ex);
-            }         
+            switch(sgbd){
+                case "postgresql":
+                    out.print("sqlserver.jsp");
+                    break;
+                case "oracle":
+                    out.print("oracle.jsp");
+                    break;
+                case "sqlserver":
+                    out.print("sqlserver.jsp");
+                    break;
+            }  
         }else{
             out.print(0);
         }
+
     }
     /**
      * Returns a short description of the servlet.

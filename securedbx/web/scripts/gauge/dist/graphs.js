@@ -130,11 +130,7 @@ function gauge3(){
 
  };
  
- gauge1();
- gauge2();
- gauge3();
- gauge4();
- gauge5();
+
 
  
 
