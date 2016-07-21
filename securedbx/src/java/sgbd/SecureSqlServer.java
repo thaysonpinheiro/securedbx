@@ -11,6 +11,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import libraries.ConnectionSGBD;
+import org.json.JSONObject;
+import java.util.ArrayList;
+import org.json.JSONException;
+
 
 /**
  *
@@ -19,49 +23,89 @@ import libraries.ConnectionSGBD;
 public class SecureSqlServer {
     
     private ConnectionSGBD driver;
-
+    public JSONObject sysAdminUsers = new JSONObject();
+    public JSONObject dbOwnerUser = new JSONObject();
+    public JSONObject saUser = new JSONObject();
+    
     public SecureSqlServer(ConnectionSGBD driver) {
         this.driver = driver;
+        
+        getSysAdminUsers();
+        getDBOwnerUser();
+        getSAUser();
+
     }
 
-    public String getSysAdminUsers(){
+    public void getSysAdminUsers(){
+        
         String sql = "EXEC master.sys.sp_helpsrvrolemember";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
+
         try {
+            ArrayList<String> r = new ArrayList<>();
             while(fields.next()){
-                System.out.println(fields.getString("MemberName"));
+                r.add(fields.getString("MemberName"));
             }
+            this.sysAdminUsers.put("MemberName", r);
+            
         } catch (SQLException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "teste";
     }
     
     /*Verificar em cada banco de dados os membros associados a role db_owner*/
-    public String getDBOwnerUser(){
+    public void getDBOwnerUser(){
         
         String sql = "EXEC master.sys.sp_MSforeachdb '\n" +
                     "PRINT ''?''\n" +
-                    "EXEC [?].dbo.sp_helprolemember ''db_owner'''";
+                    "EXEC [?].dbo.sp_helpuser ''dbo'''";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
-        
-        return "teste";
+        /*
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString("LoginName"));
+            }
+            this.dbOwnerUser.put("LoginName", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }
     
-    public String getSAUser(){
+    public void getSAUser(){
         
         String sql = "SELECT l.name, CASE WHEN l.name = 'sa' THEN 'NO' ELSE 'YES' END as Renamed,\n" +
                     "  s.is_policy_checked, s.is_expiration_checked, l.is_disabled\n" +
                     "FROM sys.server_principals AS l\n" +
                     " LEFT OUTER JOIN sys.sql_logins AS s ON s.principal_id = l.principal_id\n" +
                     "WHERE l.sid = 0x01";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
-        return "teste";
+       
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add(fields.getString(2));
+                r.add(fields.getString(3));
+                r.add(fields.getString(4));
+                r.add(fields.getString(5));
+            }
+            this.saUser.put("saUser", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     /* Verificar quais são as permissões que foram concedidas para o usuário padrão "guest" */
