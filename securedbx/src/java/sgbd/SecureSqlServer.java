@@ -26,14 +26,20 @@ public class SecureSqlServer {
     public JSONObject sysAdminUsers = new JSONObject();
     public JSONObject dbOwnerUser = new JSONObject();
     public JSONObject saUser = new JSONObject();
+    public JSONObject guestUser = new JSONObject();
+    public JSONObject usersWithoutLogin = new JSONObject();
+    public JSONObject auditLevel = new JSONObject();
     
+
     public SecureSqlServer(ConnectionSGBD driver) {
         this.driver = driver;
         
         getSysAdminUsers();
         getDBOwnerUser();
         getSAUser();
-
+        getGuestUser();
+        getUsersWithoutLogin();
+        getAuditLevel();
     }
 
     public void getSysAdminUsers(){
@@ -109,7 +115,7 @@ public class SecureSqlServer {
     }    
 
     /* Verificar quais são as permissões que foram concedidas para o usuário padrão "guest" */
-    public String getGuestUser(){
+    public void getGuestUser(){
         
         String sql = "SET NOCOUNT ON\n" +
                     "CREATE TABLE #guest_perms \n" +
@@ -129,11 +135,26 @@ public class SecureSqlServer {
                     "  ELSE 'Potential Problem!' END as CheckStatus\n" +
                     "FROM #guest_perms\n" +
                     "DROP TABLE #guest_perms";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
         
-        return "teste";
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add(fields.getString(2));
+                r.add(fields.getString(3));
+                r.add(fields.getString(4));
+                r.add(fields.getString(5));
+            }
+            this.guestUser.put("guestUser", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /* Verificar os logins cadastrados que não tem permissões associadas */
@@ -190,7 +211,7 @@ public class SecureSqlServer {
     } 
     
     /* Verificar usuários órfãos do banco de dados */
-    public String getUsersWithoutLogin(){
+    public void getUsersWithoutLogin(){
         
         String sql = "SET NOCOUNT ON\n" +
                     "CREATE TABLE #orph_users (db SYSNAME, username SYSNAME, \n" +
@@ -209,13 +230,29 @@ public class SecureSqlServer {
                     " SELECT * FROM #orph_users\n" +
                     " \n" +
                     " DROP TABLE #orph_users";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
-        return "teste";
+        
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add(fields.getString(2));
+                r.add(fields.getString(3));
+                r.add(fields.getString(4));
+                r.add(fields.getString(5));
+            }
+            this.usersWithoutLogin.put("usersWithoutLogin", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
-    public String getAuditLevel(){
+    public void getAuditLevel(){
         
         String sql = "DECLARE @AuditLevel int\n" +
                     "EXEC master.dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE', \n" +
@@ -230,7 +267,18 @@ public class SecureSqlServer {
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        return "teste";
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+            }
+            this.auditLevel.put("auditLevel", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
     
     public String getNumberOfEventLogs(){
