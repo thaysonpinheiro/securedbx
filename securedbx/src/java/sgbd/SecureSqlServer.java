@@ -20,7 +20,7 @@ import org.json.JSONException;
  *
  * @author Thayson
  */
-public class SecureSqlServer {
+public final class SecureSqlServer {
     
     private ConnectionSGBD driver;
     public JSONObject sysAdminUsers = new JSONObject();
@@ -29,8 +29,19 @@ public class SecureSqlServer {
     public JSONObject guestUser = new JSONObject();
     public JSONObject usersWithoutLogin = new JSONObject();
     public JSONObject auditLevel = new JSONObject();
+    public JSONObject loginsWithoutPermissions = new JSONObject();
+    public JSONObject administratorsGroup = new JSONObject();
+    public JSONObject localAdministratorsGroup = new JSONObject();
+    public JSONObject numberOfEventLogs = new JSONObject();
+    public JSONObject passwordExpirationPolicy = new JSONObject();
+    public JSONObject exampleDatabases = new JSONObject();
+    public JSONObject authenticationMode = new JSONObject();
+    public JSONObject validBackups = new JSONObject();
+    public JSONObject loginFailures = new JSONObject();
+    public JSONObject dbOwnerLogins = new JSONObject();
+    public JSONObject enabledNetworkProtocols = new JSONObject();
+    public JSONObject notificationsAboutEvents = new JSONObject();
     
-
     public SecureSqlServer(ConnectionSGBD driver) {
         this.driver = driver;
         
@@ -38,10 +49,23 @@ public class SecureSqlServer {
         getDBOwnerUser();
         getSAUser();
         getGuestUser();
+        getLoginsWithoutPermissions();
         getUsersWithoutLogin();
         getAuditLevel();
+        getAdministratorsGroup();
+        getLocalAdministratorsGroup();
+        getNumberOfEventLogs();
+        getPasswordExpirationPolicy();
+        getExampleDatabases();
+        getAuthenticationMode();
+        getValidBackups();
+        getLoginFailures();
+        getDBOwnerLogins();
+        getEnabledNetworkProtocols();
+        getNotificationsAboutEvents();
     }
 
+    //FINALIZADO
     public void getSysAdminUsers(){
         
         String sql = "EXEC master.sys.sp_helpsrvrolemember";
@@ -53,7 +77,7 @@ public class SecureSqlServer {
             while(fields.next()){
                 r.add(fields.getString("MemberName"));
             }
-            this.sysAdminUsers.put("MemberName", r);
+            this.sysAdminUsers.put("sysAdminUsers", r);
             
         } catch (SQLException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,6 +86,7 @@ public class SecureSqlServer {
         }
     }
     
+    // PROBLEMA. NO RETORNO DA CONSULTA. RETORNA MAIS DE UMA TABELA
     /*Verificar em cada banco de dados os membros associados a role db_owner*/
     public void getDBOwnerUser(){
         
@@ -85,6 +110,7 @@ public class SecureSqlServer {
         }*/
     }
     
+    //FINALIZADO
     public void getSAUser(){
         
         String sql = "SELECT l.name, CASE WHEN l.name = 'sa' THEN 'NO' ELSE 'YES' END as Renamed,\n" +
@@ -114,6 +140,7 @@ public class SecureSqlServer {
         }
     }    
 
+    //FINALIZADO
     /* Verificar quais são as permissões que foram concedidas para o usuário padrão "guest" */
     public void getGuestUser(){
         
@@ -130,8 +157,8 @@ public class SecureSqlServer {
                     " WHERE l.name = ''guest'' AND p.[state] = ''G'''\n" +
                     " \n" +
                     "SELECT db AS DatabaseName, class_desc, permission_name, \n" +
-                    " CASE WHEN class_desc = 'DATABASE' THEN db ELSE ObjectName END as ObjectName, \n" +
-                    " CASE WHEN DB_ID(db) IN (1, 2, 4) AND permission_name = 'CONNECT' THEN 'Default' \n" +
+                    "  CASE WHEN class_desc = 'DATABASE' THEN db ELSE ObjectName END as ObjectName, \n" +
+                    "  CASE WHEN DB_ID(db) IN (1, 2, 4) AND permission_name = 'CONNECT' THEN 'Default' \n" +
                     "  ELSE 'Potential Problem!' END as CheckStatus\n" +
                     "FROM #guest_perms\n" +
                     "DROP TABLE #guest_perms";
@@ -157,8 +184,9 @@ public class SecureSqlServer {
         }
     } 
 
+    //FINALIZADO
     /* Verificar os logins cadastrados que não tem permissões associadas */
-    public String getLoginsWithoutPermissions(){
+    public void getLoginsWithoutPermissions(){
         
         String sql = "SET NOCOUNT ON\n" +
                     "CREATE TABLE #all_users (db VARCHAR(70), sid VARBINARY(85), stat VARCHAR(50))\n" +
@@ -204,12 +232,29 @@ public class SecureSqlServer {
                     " ORDER BY 1, 4\n" +
                     "END\n" +
                     "DROP TABLE #all_users";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
-        return "teste";
+        
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add(fields.getString(2));
+                r.add(fields.getString(3));
+                r.add(fields.getString(4));
+                r.add(fields.getString(5));
+            }
+            this.loginsWithoutPermissions.put("loginsWithoutPermissions", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
     
+    //FINALIZADO
     /* Verificar usuários órfãos do banco de dados */
     public void getUsersWithoutLogin(){
         
@@ -252,6 +297,7 @@ public class SecureSqlServer {
         }
     } 
 
+    //FINALIZADO
     public void getAuditLevel(){
         
         String sql = "DECLARE @AuditLevel int\n" +
@@ -281,103 +327,243 @@ public class SecureSqlServer {
         }
     } 
     
-    public String getNumberOfEventLogs(){
+    // PROBLEMA. ESSA CONSULTA NAO RETORNA NADA
+    public void getNumberOfEventLogs(){
         
         String sql = "EXEC master.dbo.xp_instance_regwrite N'HKEY_LOCAL_MACHINE', \n" +
                     "       N'Software\\Microsoft\\MSSQLServer\\MSSQLServer', \n" +
                     "       N'NumErrorLogs', REG_DWORD, 48";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
-        
-        return "teste";
+        /*
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+            }
+            this.numberOfEventLogs.put("numberOfEventLogs", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     } 
 
-    public String getNotificationsAboutEvents(){
+    //PROBLEMA
+    public void getNotificationsAboutEvents(){
         
-        String sql = driver.config.getProperty("SQLServergetNotificationsAboutEvents");
-        PreparedStatement preparedStatement = driver.prepareStatement(sql);
-        ResultSet fields = driver.executeQuery(preparedStatement);
-
-        
-        return "teste";
+        String sql = "EXEC msdb.dbo.sp_add_operator @name=N'NotifyDBA_Group', \n" +
+                    "  @enabled=1, \n" +
+                    "  @email_address=N'NotifyDBAs@company.com'\n" +
+                    "\n" +
+                    "EXEC msdb.dbo.sp_add_alert @name = N'Sev. 14 Errors - Permissions', \n" +
+                    "  @severity = 14, \n" +
+                    "  @include_event_description_in = 1\n" +
+                    "\n" +
+                    "EXEC msdb.dbo.sp_add_notification @alert_name = N'Sev. 14 Errors - Permissions', \n" +
+                    "@operator_name = N'NotifyDBA_Group', @notification_method = 1";
+        //PreparedStatement preparedStatement = driver.prepareStatement(sql);
+        //ResultSet fields = driver.executeQuery(preparedStatement);
     } 
 
-    public String getDBOwnerLogins(){
+    // PROBLEMA. NO RETORNO DA CONSULTA. RETORNA MAIS DE UMA TABELA
+    public void getDBOwnerLogins(){
         
         String sql = "EXEC master.sys.sp_MSforeachdb '\n" +
                     "PRINT ''?''\n" +
-                    "EXEC [?].dbo.sp_helpuser ''dbo'''";
-        PreparedStatement preparedStatement = driver.prepareStatement(sql);
-        ResultSet fields = driver.executeQuery(preparedStatement);
-
-        return "teste";
+                    "EXEC [?].dbo.sp_helprolemember ''db_owner'''";
+        
+        /*
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add(fields.getString(2));
+                r.add(fields.getString(3));
+            }
+            this.dbOwnerLogins.put("dbOwnerLogins", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     } 
 
-    public String getAdministratorsGroup(){
+    //FINALIZADO
+    public void getAdministratorsGroup(){
         
-        String sql = driver.config.getProperty("SQLServergetAdministratorsGroup");
+        String sql = "SELECT r.name  as SrvRole, u.name  as LoginName  \n" +
+                    "FROM sys.server_role_members m JOIN\n" +
+                    "  sys.server_principals r ON m.role_principal_id = r.principal_id  JOIN\n" +
+                    "  sys.server_principals u ON m.member_principal_id = u.principal_id \n" +
+                    "WHERE u.name = 'BUILTIN\\Administrators'";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        return "teste";
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add(fields.getString(2));
+            }
+            this.administratorsGroup.put("administratorsGroup", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
     
-    public String getLocalAdministratorsGroup(){
+    //FINALIZADO
+    public void getLocalAdministratorsGroup(){
         
         String sql = "EXEC master.sys.xp_logininfo 'BUILTIN\\Administrators','members'";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-        
-        return "teste";
+
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add(fields.getString(2));
+                r.add(fields.getString(3));
+                r.add(fields.getString(4));
+                r.add(fields.getString(5));
+            }
+            this.localAdministratorsGroup.put("localAdministratorsGroup", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }     
 
+    //FINALIZADO
     /* Verificar a política de senha de expiração/atualização de senha no SqlServer */
-    public String getPasswordExpirationPolicy(){
+    public void getPasswordExpirationPolicy(){
         
         String sql = "SELECT name  FROM sys.sql_logins \n" +
                     " WHERE  is_policy_checked=0 OR is_expiration_checked = 0";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        return "teste";
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+            }
+            this.passwordExpirationPolicy.put("passwordExpirationPolicy", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }     
 
-    public String getExampleDatabases(){
+    //FINALIZADO
+    public void getExampleDatabases(){
         
-        String sql = driver.config.getProperty("SQLServergetExampleDatabases");
+        String sql = "SELECT name FROM master.sys.databases \n" +
+                    " WHERE name IN ('pubs', 'Northwind') OR name LIKE 'Adventure Works%'";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        return "teste";
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+            }
+            this.exampleDatabases.put("exampleDatabases", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }     
 
-    public String getAuthenticationMode(){
+    //PROBLEMA. RETORNO DESSA CONSULTA É ESTRANHO
+    public void getAuthenticationMode(){
         
-        String sql = driver.config.getProperty("SQLServergetAuthenticationMode");
+        String sql = "SELECT SERVERPROPERTY ('IsIntegratedSecurityOnly') as 'result'";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        return "teste";
+        try {
+            ArrayList<Integer> r = new ArrayList<>();
+            if(fields != null){
+                while(fields.next()){
+                   r.add(fields.getInt(1));
+                }
+            }
+            this.authenticationMode.put("authenticationMode", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }  
 
-    public String getEnabledNetworkProtocols(){
+    // PROBLEMA AO EXECUTAR ESSA CONSULTA
+    public void getEnabledNetworkProtocols(){
         
-        String sql = driver.config.getProperty("SQLServergetEnabledNetworkProtocols");
+        String sql = "EXEC master.dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE',\n" +
+                "  N'Software\\Microsoft\\MSSQLServer\\MSSQLServer\\SuperSocketNetLib\\Np', \n" +
+                "  N'Enabled'\n" +
+                "\n" +
+                "--------------\n" +
+                "EXEC master.dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE',\n" +
+                "  N'Software\\Microsoft\\MSSQLServer\\MSSQLServer\\SuperSocketNetLib\\Np', \n" +
+                "  N'Enabled', \n" +
+                "  @NamedPipesEnabled OUTPUT\n" +
+                "  \n" +
+                "SELECT @NamedPipesEnabled AS NamedPipesEnabled";
+         /*  
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-        
-        return "teste";
+       
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                
+            }
+            this.enabledNetworkProtocols.put("enabledNetworkProtocols", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }  
 
+    // PROBLEMA AO EXECUTAR ESSA CONSULTA
     /* Verificar se existem backups válidos. */
-    public String getValidBackups(){
-        
+    public void getValidBackups(){
+       
         String sql = "EXEC master.sys.sp_validatelogins";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
-        return "teste";
+ /*
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add(fields.getString(2));
+            }
+            this.validBackups.put("validBackups", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }  
 
     public String getCurrentSecurityPatches(){
@@ -398,16 +584,29 @@ public class SecureSqlServer {
         return "teste";
     }  
 
+    // PROBLEMA AO EXECUTAR ESSA CONSULTA
     /* Verificar quais são os protocolos de rede habilitados  */
-    public String getLoginFailures(){
+    public void getLoginFailures(){
         
         String sql = "EXEC master.dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE',\n" +
                     "  N'Software\\Microsoft\\MSSQLServer\\MSSQLServer\\SuperSocketNetLib\\Np', \n" +
                     "  N'Enabled'";
-        PreparedStatement preparedStatement = driver.prepareStatement(sql);
+      /*  PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        return "teste";
+        try {
+            ArrayList<String> r = new ArrayList<>();
+            while(fields.next()){
+                r.add(fields.getString(1));
+                r.add((fields.getDate(2)).toString());
+            }
+            this.loginFailures.put("loginFailures", r);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     } 
 
     /* AQUI PODEMOS VERIFICAR COM A INFORMAÇÃO DADA PELO USUÁRIO NO FORM*/
