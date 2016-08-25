@@ -58,7 +58,7 @@ public final class SecureSqlServer {
         getPasswordExpirationPolicy();
         getExampleDatabases();
         getAuthenticationMode();
-        getValidBackups();
+        //getValidBackups();
         getLoginFailures();
         getDBOwnerLogins();
         getEnabledNetworkProtocols();
@@ -488,7 +488,7 @@ public final class SecureSqlServer {
         }
     }     
 
-    //PROBLEMA. RETORNO DESSA CONSULTA É ESTRANHO
+   //FINALIZADO
     public void getAuthenticationMode(){
         
         String sql = "SELECT SERVERPROPERTY ('IsIntegratedSecurityOnly') as 'result'";
@@ -547,9 +547,10 @@ public final class SecureSqlServer {
     /* Verificar se existem backups válidos. */
     public void getValidBackups(){
        
-        String sql = "EXEC master.sys.sp_validatelogins";
+   /*     String sql = "EXEC master.sys.sp_validatelogins";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
-        ResultSet fields = driver.executeQuery(preparedStatement);
+        ResultSet fields = driver.executeQuery(preparedStatement);*/
+        return ;
  /*
         try {
             ArrayList<String> r = new ArrayList<>();

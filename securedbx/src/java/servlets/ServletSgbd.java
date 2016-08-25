@@ -81,7 +81,7 @@ public class ServletSgbd extends HttpServlet {
                     r.add(s.passwordExpirationPolicy);
                     r.add(s.exampleDatabases);
                     r.add(s.authenticationMode);
-                    r.add(s.validBackups);
+                  //  r.add(s.validBackups);
                     r.add(s.loginFailures);
                     r.add(s.dbOwnerLogins);
                     r.add(s.enabledNetworkProtocols);
