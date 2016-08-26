@@ -11,9 +11,9 @@
         
         <script src="scripts/js/jquery.js" type="text/javascript"></script>
         <script src="scripts/js/jquery.cookie.js" type="text/javascript"></script>
-        <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
+        <!--<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>-->
         
-        <!-- Code Result Graph-->
+        <!-- Code Result Graph -->
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="scripts/js/graphs-results.js" type="text/javascript"></script>
@@ -409,7 +409,7 @@
                            <div id="bar-chart" style="position: relative; min-width: 310px; height: 400px;"></div>
                            <div id="line-chart" style="position: relative; min-width: 310px; height: 400px;"></div>
                       </div>
-                  <!--           
+                      <!--       
                            <div class="groups">
                                <div class="list-group group">
                                    <a href="#" class="list-group-item active">Assessment of Users and Permissions</a>
@@ -451,11 +451,11 @@
                                    <a href="#" class="list-group-item active">Encryption, Tokenization and Data Masking</a>
                                    <a href="#" class="list-group-item">Não temos nada aqui ainda</a>
                                </div>   
-                           </div>
+                           </div>-->
                    </section>
                </div>
-             <div  class="container"> 
-                    Database Connection 
+<!--             <div  class="container"> 
+
                    <div class="col-md-12">            
                            <div id="result" class="col-md-4 col-sm-offset-4 text-center alert">
                            </div>
@@ -511,7 +511,7 @@
                        </div>
 
                    </div>
-               </div>    -->
+               </div> -->   
            </div>
         </section>
     </body>

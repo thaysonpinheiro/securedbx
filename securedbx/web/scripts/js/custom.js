@@ -13,13 +13,13 @@ $( document ).ready(function() {
                                     password: $('#password').val(),
                                     sgbd: $('#sgbd').val()}, function( data ){ 
                                     
-                                    alert("oi");
+
                                     if(data==0){
                                         alert("Invalid informations!");
 
                                     }else{
                                         alert(data);
-                                      /*  $.cookie('host', $('#host').val(), {expires: 1});
+                                        $.cookie('host', $('#host').val(), {expires: 1});
                                         $.cookie('port', $('#port').val(), {expires: 1});
                                         $.cookie('base', $('#base').val(), {expires: 1});
                                         $.cookie('user', $('#user').val(), {expires: 1});
@@ -106,13 +106,8 @@ $( document ).ready(function() {
 
 
                                         }, 20000);   
-                                       */
-                                            $("#system").toggleClass( "invisible" );
-                                             gauge1();
-                                             gauge2();
-                                             gauge3();
-                                             gauge4();
-                                             gauge5();
+                                       
+
                                              //chamando os gráficos do arquivo gauge/dist/graphs.js
                                     }
             });
