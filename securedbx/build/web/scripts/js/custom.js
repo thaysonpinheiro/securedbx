@@ -18,7 +18,7 @@ $( document ).ready(function() {
                                         alert("Invalid informations!");
 
                                     }else{
-                                        
+                                        alert(data);
                                         $.cookie('host', $('#host').val(), {expires: 1});
                                         $.cookie('port', $('#port').val(), {expires: 1});
                                         $.cookie('base', $('#base').val(), {expires: 1});
@@ -29,7 +29,7 @@ $( document ).ready(function() {
 
                                         //  window.location.assign(data);
                                         $("#intro-info").toggleClass( "invisible" );
-/**
+
                                         //Item one
                                         setTimeout(function(){
                                             $("#item-one").show("slow").toggleClass( "item-invisible" );
@@ -92,29 +92,20 @@ $( document ).ready(function() {
 
                                         setTimeout(function(){
                                                 $( "#list-parametrs" ).slideUp("slow");
-                                        }, 18000);
-                                        **/
-                                        
-                                        //Setando resultado para sysAdminUsers
-                                        var sysAdminUsersCheck = sysAdminUsers(data[0].sysAdminUsers); 
-                                        
-                                        if(sysAdminUsersCheck){ 
-                                            $('#sysAdminUsers').prepend(' <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">');
-                                        }else{
-                                            $('#sysAdminUsers').prepend(' <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">');
-                                        }
-                                               
-                                    
-                                       
-                                        $("#system").toggleClass( "invisible" );
-                                         gauge1();
-                                         gauge2();
-                                         gauge3();
-                                         gauge4();
-                                         gauge5();
+                                        }, 18000);           
 
 
-                                        
+                                        setTimeout(function(){
+
+                                            $("#system").toggleClass( "invisible" );
+                                             gauge1();
+                                             gauge2();
+                                             gauge3();
+                                             gauge4();
+                                             gauge5();
+
+
+                                        }, 20000);   
                                        
 
                                              //chamando os gráficos do arquivo gauge/dist/graphs.js
@@ -162,15 +153,3 @@ $( document ).ready(function() {
 
     onlyNumber($('input[id="port"]'));
 });
-
-
-//Checa se algum SysAdminUser começa com algo diferente de "sa" ou "NT"
-function sysAdminUsers(data){
-    var isTrue = true;
-    $.each(data, function(i, item){
-        if(!(data[i].match("^sa") || data[i].match("^NT"))){
-            isTrue = false;
-        }
-    });
-    return isTrue;
-}

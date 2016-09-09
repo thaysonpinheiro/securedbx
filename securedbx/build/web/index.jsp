@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="pt-br">
     
     <head>
@@ -150,11 +152,8 @@
                                    <th scope="row">1</th>
                                    <td>Sysadmins Users</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center>
-                                           <div id="sysAdminUsers">
-                                               <%--Div para receber o sinal de resposta--%>
-                                           </div>
-                                       </center>
+                                        <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                   
                                     </td>  
                                  </tr>
                                  <tr>
