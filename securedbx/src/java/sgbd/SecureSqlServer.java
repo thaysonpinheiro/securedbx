@@ -73,15 +73,16 @@ public final class SecureSqlServer {
         ResultSet fields = driver.executeQuery(preparedStatement);
 
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString("MemberName"));
+            //Seta o valor inicial como true e se algum elemento não começar como sa nem com NT seta o valor para false
+            this.sysAdminUsers.put("sysAdminUsers", true);
+            while(fields.next()){                
+                //r.add(fields.getString("MemberName"));
+                if(!fields.getString("MemberName").startsWith("sa") && !fields.getString("MemberName").startsWith("NT")){
+                    this.sysAdminUsers.put("sysAdminUsers", false);
+                }
             }
-            this.sysAdminUsers.put("sysAdminUsers", r);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
