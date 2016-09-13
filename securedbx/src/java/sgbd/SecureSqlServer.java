@@ -74,11 +74,11 @@ public final class SecureSqlServer {
 
         try {
             //Seta o valor inicial como true e se algum elemento não começar como sa nem com NT seta o valor para false
-            this.sysAdminUsers.put("sysAdminUsers", true);
+            this.sysAdminUsers.put("sysAdminUsers", "true");
             while(fields.next()){                
                 //r.add(fields.getString("MemberName"));
                 if(!fields.getString("MemberName").startsWith("sa") && !fields.getString("MemberName").startsWith("NT")){
-                    this.sysAdminUsers.put("sysAdminUsers", false);
+                    this.sysAdminUsers.put("sysAdminUsers", "false");
                 }
             }
             
@@ -87,7 +87,7 @@ public final class SecureSqlServer {
         }
     }
     
-    // PROBLEMA. NO RETORNO DA CONSULTA. RETORNA MAIS DE UMA TABELA
+    // FINALIZADO
     /*Verificar em cada banco de dados os membros associados a role db_owner*/
     public void getDBOwnerUser(){
         
@@ -102,9 +102,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
             if(!fields.next()){
-                this.dbOwnerUser.put("dbOwnerUser", true);   
+                this.dbOwnerUser.put("dbOwnerUser", "true");   
             }else{
-                this.dbOwnerUser.put("dbOwnerUser", false);
+                this.dbOwnerUser.put("dbOwnerUser", "false");
             } 
             
         } catch (SQLException | JSONException ex) {
@@ -125,19 +125,20 @@ public final class SecureSqlServer {
         ResultSet fields = driver.executeQuery(preparedStatement);
        
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add(fields.getString(2));
-                r.add(fields.getString(3));
-                r.add(fields.getString(4));
-                r.add(fields.getString(5));
-            }
-            this.saUser.put("saUser", r);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+            this.saUser.put("saUser", "false");
+            
+            while(fields.next()){
+                if(fields.getString("Renamed").equals("NO") 
+                        && fields.getString("is_policy_checked").equals("1") 
+                        && fields.getString("is_expiration_checked").equals("1")
+                        && fields.getString("is_disabled").equals("1")){
+                    this.saUser.put("saUser", "true");
+                }
+            }
+            
+            
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
@@ -169,19 +170,14 @@ public final class SecureSqlServer {
         ResultSet fields = driver.executeQuery(preparedStatement);
         
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add(fields.getString(2));
-                r.add(fields.getString(3));
-                r.add(fields.getString(4));
-                r.add(fields.getString(5));
-            }
-            this.guestUser.put("guestUser", r);
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.guestUser.put("guestUser", "true");   
+            }else{
+                this.guestUser.put("guestUser", "false");
+            } 
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
@@ -239,19 +235,14 @@ public final class SecureSqlServer {
         ResultSet fields = driver.executeQuery(preparedStatement);
         
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add(fields.getString(2));
-                r.add(fields.getString(3));
-                r.add(fields.getString(4));
-                r.add(fields.getString(5));
-            }
-            this.loginsWithoutPermissions.put("loginsWithoutPermissions", r);
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.loginsWithoutPermissions.put("loginsWithoutPermissions", "true");   
+            }else{
+                this.loginsWithoutPermissions.put("loginsWithoutPermissions", "false");
+            } 
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
@@ -281,20 +272,15 @@ public final class SecureSqlServer {
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add(fields.getString(2));
-                r.add(fields.getString(3));
-                r.add(fields.getString(4));
-                r.add(fields.getString(5));
-            }
-            this.usersWithoutLogin.put("usersWithoutLogin", r);
+         try {
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.usersWithoutLogin.put("usersWithoutLogin", "true");   
+            }else{
+                this.usersWithoutLogin.put("usersWithoutLogin", "false");
+            } 
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
@@ -316,15 +302,19 @@ public final class SecureSqlServer {
         ResultSet fields = driver.executeQuery(preparedStatement);
         
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-            }
-            this.auditLevel.put("auditLevel", r);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+            fields.next();
+            
+            if(fields.getString("AuditLevel").equals("None"))
+                this.auditLevel.put("auditLevel", "false");
+            
+            if(fields.getString("AuditLevel").equals("Successful logins only") || fields.getString("AuditLevel").equals("Failed logins only"))
+                this.auditLevel.put("auditLevel", "warning");
+            
+            if(fields.getString("AuditLevel").equals("Both failed and successful logins"))
+                this.auditLevel.put("auditLevel", "true");
+            
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
@@ -369,28 +359,29 @@ public final class SecureSqlServer {
         //ResultSet fields = driver.executeQuery(preparedStatement);
     } 
 
-    // PROBLEMA. NO RETORNO DA CONSULTA. RETORNA MAIS DE UMA TABELA
+    // Null pointer ao executar a a query???????
     public void getDBOwnerLogins(){
         
-        String sql = "EXEC master.sys.sp_MSforeachdb '\n" +
-                    "PRINT ''?''\n" +
-                    "EXEC [?].dbo.sp_helprolemember ''db_owner'''";
+        String sql ="select r.name as role_name, m.name as member_name from sys.database_role_members rm "
+                + "inner join sys.database_principals r on rm.role_principal_id = r.principal_id"
+                + "inner join sys.database_principals m on rm.member_principal_id = m.principal_id"
+                + "where r.name = 'db_owner' and m.name != 'dbo'";
         
-        /*
+        //PreparedStatement preparedStatement = driver.prepareStatement(sql);
+        /**ResultSet fields = driver.executeQuery(preparedStatement);
+        
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add(fields.getString(2));
-                r.add(fields.getString(3));
-            }
-            this.dbOwnerLogins.put("dbOwnerLogins", r);
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.dbOwnerLogins.put("dbOwnerLogins", "true");   
+            }else{
+                this.dbOwnerLogins.put("dbOwnerLogins", "false");
+            } 
             
-        } catch (SQLException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
+        **/
     } 
 
     //FINALIZADO

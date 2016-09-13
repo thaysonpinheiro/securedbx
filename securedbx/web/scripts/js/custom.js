@@ -95,22 +95,18 @@ $( document ).ready(function() {
                                         }, 18000);
                                         **/
                                         
-                                        //Setando resultado para sysAdminUsers
-                                        if(data[0].sysAdminUsers){ 
-                                            $('#sysAdminUsers').prepend(' <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">');
-                                        }else{
-                                            $('#sysAdminUsers').prepend(' <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">');
-                                        }
+                                        //Setando resultado para grupo1: 
+                                        setIcon("#sysAdminUsers", data[0].sysAdminUsers);
+                                        setIcon("#dbOwnerUsers", data[1].dbOwnerUser);
+                                        setIcon("#saUser", data[2].saUser);
+                                        setIcon("#guestUser", data[3].guestUser);
+                                        setIcon("#loginsWithoutPermissions", data[4].loginsWithoutPermissions);
+                                        setIcon("#usersWithoutLogin", data[5].usersWithoutLogin);
                                         
-                                        if(data[1].dbOwnerUser){ 
-                                            $('#dbOwnerUsers').prepend(' <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">');
-                                        }else{
-                                            $('#dbOwnerUsers').prepend(' <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">');
-                                        }
+                                        //Setando resultado para grupo2:
+                                        setIcon("#auditLevel", data[6].auditLevel);
+                                        //setIcon("#dbOwnerLogins", data[])
                                         
-                                        alert(data[1].dbOwnerUser);
-                                    
-                                       
                                         $("#system").toggleClass( "invisible" );
                                          gauge1();
                                          gauge2();
@@ -167,3 +163,13 @@ $( document ).ready(function() {
 
     onlyNumber($('input[id="port"]'));
 });
+
+function setIcon(div, data){
+    if(data == "true"){ 
+        $(div).prepend(' <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">');
+    }else if(data == "false"){
+        $(div).prepend(' <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">');
+    }else {
+        $(div).prepend(' <img src="scripts/img/warning.png" style="width:30px;height:55px;padding-top: 25px;">');
+    }
+}
