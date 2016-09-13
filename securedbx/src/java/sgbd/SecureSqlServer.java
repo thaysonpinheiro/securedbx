@@ -91,24 +91,25 @@ public final class SecureSqlServer {
     /*Verificar em cada banco de dados os membros associados a role db_owner*/
     public void getDBOwnerUser(){
         
-        String sql = "EXEC master.sys.sp_MSforeachdb '\n" +
-                    "PRINT ''?''\n" +
-                    "EXEC [?].dbo.sp_helpuser ''dbo'''";
+        String sql = "select r.name as role_name, m.name as member_name from sys.database_role_members rm \n" +
+                     "inner join sys.database_principals r on rm.role_principal_id = r.principal_id\n" +
+                     "inner join sys.database_principals m on rm.member_principal_id = m.principal_id\n" +
+                     "where r.name = 'db_owner' and m.name != 'dbo'  ";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-        /*
+        
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString("LoginName"));
-            }
-            this.dbOwnerUser.put("LoginName", r);
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.dbOwnerUser.put("dbOwnerUser", true);   
+            }else{
+                this.dbOwnerUser.put("dbOwnerUser", false);
+            } 
             
-        } catch (SQLException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
     
     //FINALIZADO

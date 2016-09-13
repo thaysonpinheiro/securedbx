@@ -101,7 +101,14 @@ $( document ).ready(function() {
                                         }else{
                                             $('#sysAdminUsers').prepend(' <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">');
                                         }
-                                               
+                                        
+                                        if(data[1].dbOwnerUser){ 
+                                            $('#dbOwnerUsers').prepend(' <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">');
+                                        }else{
+                                            $('#dbOwnerUsers').prepend(' <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">');
+                                        }
+                                        
+                                        alert(data[1].dbOwnerUser);
                                     
                                        
                                         $("#system").toggleClass( "invisible" );

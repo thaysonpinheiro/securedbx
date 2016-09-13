@@ -161,7 +161,11 @@
                                    <th scope="row">2</th>
                                    <td >db_owner Users</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                           <div id="dbOwnerUsers">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                       </center>
                                    </td>  
 
 
