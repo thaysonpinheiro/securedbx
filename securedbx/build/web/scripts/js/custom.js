@@ -95,17 +95,18 @@ $( document ).ready(function() {
                                         }, 18000);
                                         **/
                                         
-                                        //Setando resultado para sysAdminUsers
-                                        var sysAdminUsersCheck = sysAdminUsers(data[0].sysAdminUsers); 
+                                        //Setando resultado para grupo1: 
+                                        setIcon("#sysAdminUsers", data[0].sysAdminUsers);
+                                        setIcon("#dbOwnerUsers", data[1].dbOwnerUser);
+                                        setIcon("#saUser", data[2].saUser);
+                                        setIcon("#guestUser", data[3].guestUser);
+                                        setIcon("#loginsWithoutPermissions", data[4].loginsWithoutPermissions);
+                                        setIcon("#usersWithoutLogin", data[5].usersWithoutLogin);
                                         
-                                        if(sysAdminUsersCheck){ 
-                                            $('#sysAdminUsers').prepend(' <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">');
-                                        }else{
-                                            $('#sysAdminUsers').prepend(' <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">');
-                                        }
-                                               
-                                    
-                                       
+                                        //Setando resultado para grupo2:
+                                        setIcon("#auditLevel", data[6].auditLevel);
+                                        setIcon("#dbOwnerLogins", data[14].dbOwnerLogins);
+                                        
                                         $("#system").toggleClass( "invisible" );
                                          gauge1();
                                          gauge2();
@@ -163,14 +164,12 @@ $( document ).ready(function() {
     onlyNumber($('input[id="port"]'));
 });
 
-
-//Checa se algum SysAdminUser começa com algo diferente de "sa" ou "NT"
-function sysAdminUsers(data){
-    var isTrue = true;
-    $.each(data, function(i, item){
-        if(!(data[i].match("^sa") || data[i].match("^NT"))){
-            isTrue = false;
-        }
-    });
-    return isTrue;
+function setIcon(div, data){
+    if(data == "true"){ 
+        $(div).prepend(' <img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;">');
+    }else if(data == "false"){
+        $(div).prepend(' <img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;">');
+    }else {
+        $(div).prepend(' <img src="scripts/img/warning.png" style="width:30px;height:55px;padding-top: 25px;">');
+    }
 }

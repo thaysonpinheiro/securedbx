@@ -161,7 +161,11 @@
                                    <th scope="row">2</th>
                                    <td >db_owner Users</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                           <div id="dbOwnerUsers">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                       </center>
                                    </td>  
 
 
@@ -170,33 +174,50 @@
                                    <th scope="row">3</th>
                                    <td >SA User</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                        <center>
+                                            <div id="saUser">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                        </center>
                                    </td>  
 
                                  </tr>
                                  <tr>
                                    <th scope="row">4</th>
-                                   <td >Guest User</td>
+                                   <td>Guest User</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                        <center>
+                                            <div id="guestUser">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                        </center>
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">5</th>
-                                   <td >Logins without Permissionsr</td>
+                                   <td>Logins without Permissions</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                        <center>
+                                            <div id="loginsWithoutPermissions">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                        </center>
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">6</th>
                                    <td >Users without Login</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="usersWithoutLogin">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                        </center>
                                    </td>  
                                  </tr>
                                </tbody>
                            </table>
+                                           
                            <div class="group graph">
                                <div id="preview">
                                    <canvas width=220 height=70 class="canvas-preview" id="graph1"></canvas>
@@ -221,7 +242,11 @@
                                    <th scope="row">1</th>
                                    <td>Audit Level</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="auditLevel">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                        </center>
                                    </td>  
                                  </tr>
                                  <tr>
@@ -242,7 +267,11 @@
                                    <th scope="row">4</th>
                                    <td >db_owner Logins</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="dbOwnerLogins">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                        </center>
                                    </td>     
                                  </tr>
 

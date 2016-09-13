@@ -105,7 +105,7 @@ $( document ).ready(function() {
                                         
                                         //Setando resultado para grupo2:
                                         setIcon("#auditLevel", data[6].auditLevel);
-                                        //setIcon("#dbOwnerLogins", data[])
+                                        setIcon("#dbOwnerLogins", data[14].dbOwnerLogins);
                                         
                                         $("#system").toggleClass( "invisible" );
                                          gauge1();

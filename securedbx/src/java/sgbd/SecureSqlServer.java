@@ -51,7 +51,9 @@ public final class SecureSqlServer {
         getGuestUser();
         getLoginsWithoutPermissions();
         getUsersWithoutLogin();
+        getDBOwnerLogins();
         getAuditLevel();
+        
         getAdministratorsGroup();
         getLocalAdministratorsGroup();
         getNumberOfEventLogs();
@@ -60,7 +62,7 @@ public final class SecureSqlServer {
         getAuthenticationMode();
         //getValidBackups();
         getLoginFailures();
-        getDBOwnerLogins();
+        
         getEnabledNetworkProtocols();
         getNotificationsAboutEvents();
     }
@@ -362,14 +364,16 @@ public final class SecureSqlServer {
     // Null pointer ao executar a a query???????
     public void getDBOwnerLogins(){
         
-        String sql ="select r.name as role_name, m.name as member_name from sys.database_role_members rm "
-                + "inner join sys.database_principals r on rm.role_principal_id = r.principal_id"
-                + "inner join sys.database_principals m on rm.member_principal_id = m.principal_id"
-                + "where r.name = 'db_owner' and m.name != 'dbo'";
+        String sql ="select r.name as role_name, m.name as member_name from sys.database_role_members rm \n" +
+                    "inner join sys.database_principals r on rm.role_principal_id = r.principal_id\n" +
+                    "inner join sys.database_principals m on rm.member_principal_id = m.principal_id\n" +
+                    "where r.name = 'db_owner' and m.name != 'dbo'";
         
-        //PreparedStatement preparedStatement = driver.prepareStatement(sql);
-        /**ResultSet fields = driver.executeQuery(preparedStatement);
-        
+        PreparedStatement preparedStatement = driver.prepareStatement(sql);
+        ResultSet fields = driver.executeQuery(preparedStatement);
+        System.out.println(driver);
+        System.out.println(preparedStatement);
+        System.out.println(fields);
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
             if(!fields.next()){
@@ -381,7 +385,7 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        **/
+        
     } 
 
     //FINALIZADO
