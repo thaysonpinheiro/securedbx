@@ -249,20 +249,7 @@
                                         </center>
                                    </td>  
                                  </tr>
-                                 <tr>
-                                   <th scope="row">2</th>
-                                   <td >Number of Event Logs</td>
-                                   <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
-                                   </td>  
-                                 </tr>
-                                 <tr>
-                                   <th scope="row">3</th>
-                                   <td >Notifications about Events</td>
-                                   <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
-                                   </td>  
-                                 </tr>
+                                 
                                  <tr>
                                    <th scope="row">4</th>
                                    <td >db_owner Logins</td>
