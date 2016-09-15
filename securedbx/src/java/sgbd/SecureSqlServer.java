@@ -8,11 +8,15 @@ package sgbd;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import libraries.ConnectionSGBD;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import org.json.JSONException;
 
 
@@ -46,6 +50,7 @@ public final class SecureSqlServer {
         this.driver = driver;
         
         getSysAdminUsers();
+        //getAuthenticationMode();
         getDBOwnerUser();
         getSAUser();
         getGuestUser();
@@ -56,15 +61,16 @@ public final class SecureSqlServer {
         
         getAdministratorsGroup();
         getLocalAdministratorsGroup();
-        getNumberOfEventLogs();
-        getPasswordExpirationPolicy();
-        getExampleDatabases();
-        getAuthenticationMode();
-        //getValidBackups();
-        getLoginFailures();
-        
         getEnabledNetworkProtocols();
-        getNotificationsAboutEvents();
+        
+        //getPasswordExpirationPolicy();
+        getExampleDatabases();
+        
+        getValidBackups();
+        //getLoginFailures();
+        
+        
+        
     }
 
     //FINALIZADO
@@ -322,6 +328,7 @@ public final class SecureSqlServer {
     } 
     
     // PROBLEMA. ESSA CONSULTA NAO RETORNA NADA
+    /**
     public void getNumberOfEventLogs(){
         
         String sql = "EXEC master.dbo.xp_instance_regwrite N'HKEY_LOCAL_MACHINE', \n" +
@@ -341,7 +348,7 @@ public final class SecureSqlServer {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     } 
 
     //PROBLEMA
@@ -360,8 +367,8 @@ public final class SecureSqlServer {
         //PreparedStatement preparedStatement = driver.prepareStatement(sql);
         //ResultSet fields = driver.executeQuery(preparedStatement);
     } 
-
-    // Null pointer ao executar a a query???????
+*/
+    //Finalizado 
     public void getDBOwnerLogins(){
         
         String sql ="select r.name as role_name, m.name as member_name from sys.database_role_members rm \n" +
@@ -371,9 +378,7 @@ public final class SecureSqlServer {
         
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-        System.out.println(driver);
-        System.out.println(preparedStatement);
-        System.out.println(fields);
+        
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
             if(!fields.next()){
@@ -400,47 +405,45 @@ public final class SecureSqlServer {
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
+        
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add(fields.getString(2));
-            }
-            this.administratorsGroup.put("administratorsGroup", r);
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.administratorsGroup.put("administratorsGroup", "true");   
+            }else{
+                this.administratorsGroup.put("administratorsGroup", "false");
+            } 
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     } 
     
     //FINALIZADO
     public void getLocalAdministratorsGroup(){
         
         String sql = "EXEC master.sys.xp_logininfo 'BUILTIN\\Administrators','members'";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
+        
+        
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add(fields.getString(2));
-                r.add(fields.getString(3));
-                r.add(fields.getString(4));
-                r.add(fields.getString(5));
-            }
-            this.localAdministratorsGroup.put("localAdministratorsGroup", r);
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.localAdministratorsGroup.put("localAdministratorsGroup", "true");   
+            }else{
+                this.localAdministratorsGroup.put("localAdministratorsGroup", "false");
+            } 
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }     
 
-    //FINALIZADO
+    //Falta respota do Julio
     /* Verificar a política de senha de expiração/atualização de senha no SqlServer */
     public void getPasswordExpirationPolicy(){
         
@@ -471,18 +474,18 @@ public final class SecureSqlServer {
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-            }
-            this.exampleDatabases.put("exampleDatabases", r);
+         try {
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.exampleDatabases.put("exampleDatabases", "true");   
+            }else{
+                this.exampleDatabases.put("exampleDatabases", "false"); 
+            } 
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }     
 
    //FINALIZADO
@@ -493,75 +496,109 @@ public final class SecureSqlServer {
         ResultSet fields = driver.executeQuery(preparedStatement);
         
         try {
-            ArrayList<Integer> r = new ArrayList<>();
-            if(fields != null){
-                while(fields.next()){
-                   r.add(fields.getInt(1));
+            
+            this.authenticationMode.put("authenticationMode", "true");
+            System.out.println(preparedStatement);
+            System.out.println(fields);
+            System.out.println(driver);
+            while(fields.next()){
+                if(fields.getString("result").equals("0")){
+                  this.authenticationMode.put("authenticationMode", "false");  
                 }
             }
-            this.authenticationMode.put("authenticationMode", r);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+    
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }  
 
-    // PROBLEMA AO EXECUTAR ESSA CONSULTA
+    // Finalizado obs: checa named pipes
     public void getEnabledNetworkProtocols(){
         
         String sql = "EXEC master.dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE',\n" +
-                "  N'Software\\Microsoft\\MSSQLServer\\MSSQLServer\\SuperSocketNetLib\\Np', \n" +
-                "  N'Enabled'\n" +
-                "\n" +
-                "--------------\n" +
-                "EXEC master.dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE',\n" +
-                "  N'Software\\Microsoft\\MSSQLServer\\MSSQLServer\\SuperSocketNetLib\\Np', \n" +
-                "  N'Enabled', \n" +
-                "  @NamedPipesEnabled OUTPUT\n" +
-                "  \n" +
-                "SELECT @NamedPipesEnabled AS NamedPipesEnabled";
-         /*  
+                     "N'Software\\Microsoft\\MSSQLServer\\MSSQLServer\\SuperSocketNetLib\\Np', \n" +
+                     "N'Enabled'";
+          
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
        
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                
-            }
-            this.enabledNetworkProtocols.put("enabledNetworkProtocols", r);
             
-        } catch (SQLException ex) {
+            this.enabledNetworkProtocols.put("enabledNetworkProtocols", "true");
+            
+            while(fields.next()){
+                if(fields.getString("Value").equals("Enabled")){
+                    this.enabledNetworkProtocols.put("enabledNetworkProtocols", "false");
+                }
+            }
+            
+        }  catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }  
 
-    // PROBLEMA AO EXECUTAR ESSA CONSULTA
-    /* Verificar se existem backups válidos. */
+    // Finalizado 
+    
     public void getValidBackups(){
-       
-   /*     String sql = "EXEC master.sys.sp_validatelogins";
+    
+        String sql = "SELECT \n" +
+                     "CONVERT(CHAR(100), SERVERPROPERTY('Servername')) AS Server, \n" +
+                     "msdb.dbo.backupset.database_name, \n" +
+                     "msdb.dbo.backupset.backup_start_date, \n" +
+                     "msdb.dbo.backupset.backup_finish_date, \n" +
+                     "msdb.dbo.backupset.expiration_date, \n" +
+                     "CASE msdb..backupset.type \n" +
+                     "WHEN 'D' THEN 'Database' \n" +
+                     "WHEN 'L' THEN 'Log' \n" +
+                     "END AS backup_type, \n" +
+                     "msdb.dbo.backupset.backup_size, \n" +
+                     "msdb.dbo.backupmediafamily.logical_device_name, \n" +
+                     "msdb.dbo.backupmediafamily.physical_device_name, \n" +
+                     "msdb.dbo.backupset.name AS backupset_name, \n" +
+                     "msdb.dbo.backupset.description \n" +
+                     "FROM msdb.dbo.backupmediafamily \n" +
+                     "INNER JOIN msdb.dbo.backupset ON msdb.dbo.backupmediafamily.media_set_id = msdb.dbo.backupset.media_set_id \n" +
+                     "WHERE (CONVERT(datetime, msdb.dbo.backupset.backup_start_date, 102) >= GETDATE() - 7) \n" +
+                     "ORDER BY \n" +
+                     "msdb.dbo.backupset.database_name, \n" +
+                     "msdb.dbo.backupset.backup_finish_date ";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
-        ResultSet fields = driver.executeQuery(preparedStatement);*/
-        return ;
- /*
+        ResultSet fields = driver.executeQuery(preparedStatement);
+        
         try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add(fields.getString(2));
-            }
-            this.validBackups.put("validBackups", r);
             
-        } catch (SQLException ex) {
+            this.validBackups.put("validBackups", "true");
+           
+            if(!fields.next()){
+                
+                this.validBackups.put("validBackups", "false");
+                
+            }else{
+                
+                fields.next();
+                //data atual e data do ultimo backup
+                Date actualDate = new Date();
+                Date lastBackupDate =  fields.getDate("backup_finish_date");
+                
+                //uma semana antes da data atual
+                Calendar c = Calendar.getInstance(); 
+                c.setTime(actualDate);
+                c.add(Calendar.DATE, -7);
+                actualDate = c.getTime();
+                
+                if(lastBackupDate.before(actualDate)){
+                    this.validBackups.put("validBackups", "false");
+                }
+              
+                
+            }
+            
+        }  catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
+        
+        
     }  
 
     public String getCurrentSecurityPatches(){
