@@ -95,7 +95,7 @@ $( document ).ready(function() {
                                         }, 18000);
                                         **/
                                         
-                                        //Setando resultado para grupo1: 
+                                        //Setando resultado para grupo 1: 
                                         setIcon("#sysAdminUsers", data[0].sysAdminUsers);
                                         setIcon("#dbOwnerUsers", data[1].dbOwnerUser);
                                         setIcon("#saUser", data[2].saUser);
@@ -103,9 +103,21 @@ $( document ).ready(function() {
                                         setIcon("#loginsWithoutPermissions", data[4].loginsWithoutPermissions);
                                         setIcon("#usersWithoutLogin", data[5].usersWithoutLogin);
                                         
-                                        //Setando resultado para grupo2:
+                                        //Setando resultado para grupo 2:
                                         setIcon("#auditLevel", data[6].auditLevel);
                                         setIcon("#dbOwnerLogins", data[14].dbOwnerLogins);
+                                        
+                                        //Setando resultado para grupo 3:
+                                        setIcon("#administratorsGroup", data[7].administratorsGroup);
+                                        setIcon("#localAdministratorsGroup", data[8].localAdministratorsGroup);
+                                        setIcon("#exampleDatabases", data[10].exampleDatabases);
+                                        setIcon("#enabledNetworkProtocols", data[15].enabledNetworkProtocols);
+                                        setIcon("#validBackups", data[12].validBackups);
+                                        setIcon("#passwordExpirationPolicy", data[16].passwordExpirationPolicy);
+                                        setIcon("#authenticationMode", data[11].authenticationMode);
+                                        
+                                        //Setando resultado para grupo 4;
+                                        setIcon("#defaultPort", data[18].defaultPort);
                                         
                                         $("#system").toggleClass( "invisible" );
                                          gauge1();

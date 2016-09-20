@@ -288,61 +288,89 @@
                                    <th scope="row">1</th>
                                    <td>Administrators Group</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="administratorsGroup">
+                                               <%--Div para receber o sinal de resposta--%>
+                                           </div>
+                                        </center>
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">2</th>
                                    <td >Local Administrators Group</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                        <center>
+                                            <div id="localAdministratorsGroup">
+                                                   <%--Div para receber o sinal de resposta--%>
+                                            </div>
+                                        </center>    
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">3</th>
                                    <td >Password Expiration Policy</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="passwordExpirationPolicy">
+                                                   <%--Div para receber o sinal de resposta--%>
+                                            </div>
+                                        </center>  
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">4</th>
                                    <td >Example Databases</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                      <center>
+                                            <div id="exampleDatabases">
+                                                   <%--Div para receber o sinal de resposta--%>
+                                            </div>
+                                        </center> 
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">5</th>
                                    <td >Authentication Mode</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="authenticationMode">
+                                                   <%--Div para receber o sinal de resposta--%>
+                                            </div>
+                                        </center> 
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">6</th>
                                    <td >Enabled Network Protocols</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="enabledNetworkProtocols">
+                                                   <%--Div para receber o sinal de resposta--%>
+                                            </div>
+                                        </center> 
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">7</th>
                                    <td >Valid Backups</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="validBackups">
+                                                   <%--Div para receber o sinal de resposta--%>
+                                            </div>
+                                        </center> 
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">8</th>
-                                   <td >Current Security Patches</td>
+                                   <td >Current Security Patches!!!</td>
                                    <td  style="padding-bottom: 0px;">
                                        <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
                                    </td>  
                                  </tr>
                                  <tr>
                                    <th scope="row">9</th>
-                                   <td >Number of Views</td>
+                                   <td >Number of Views!!!</td>
                                    <td  style="padding-bottom: 0px;">
                                        <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
                                    </td>  
@@ -371,7 +399,7 @@
                                <tbody>
                                  <tr>
                                    <th scope="row">1</th>
-                                   <td>Login Failures</td>
+                                   <td>Login Failures!!!</td>
                                    <td  style="padding-bottom: 0px;">
                                        <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
                                    </td>  
@@ -380,7 +408,11 @@
                                    <th scope="row">2</th>
                                    <td >Default Port</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="defaultPort">
+                                                   <%--Div para receber o sinal de resposta--%>
+                                            </div>
+                                        </center> 
                                    </td>  
                                  </tr>
                                </tbody>
@@ -407,7 +439,7 @@
                                <tbody>
                                  <tr>
                                    <th scope="row">1</th>
-                                   <td>Number of Encrypted Objects</td>
+                                   <td>Number of Encrypted Objects!!!</td>
                                    <td  style="padding-bottom: 0px;">
                                        <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
                                    </td>

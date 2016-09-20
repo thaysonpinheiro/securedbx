@@ -45,12 +45,13 @@ public final class SecureSqlServer {
     public JSONObject dbOwnerLogins = new JSONObject();
     public JSONObject enabledNetworkProtocols = new JSONObject();
     public JSONObject notificationsAboutEvents = new JSONObject();
+    public JSONObject defaultPort = new JSONObject();
     
     public SecureSqlServer(ConnectionSGBD driver) {
         this.driver = driver;
         
         getSysAdminUsers();
-        //getAuthenticationMode();
+        getAuthenticationMode();
         getDBOwnerUser();
         getSAUser();
         getGuestUser();
@@ -63,10 +64,11 @@ public final class SecureSqlServer {
         getLocalAdministratorsGroup();
         getEnabledNetworkProtocols();
         
-        //getPasswordExpirationPolicy();
+        getPasswordExpirationPolicy();
         getExampleDatabases();
         
         getValidBackups();
+        getDefaultPort();
         //getLoginFailures();
         
         
@@ -327,47 +329,7 @@ public final class SecureSqlServer {
         }
     } 
     
-    // PROBLEMA. ESSA CONSULTA NAO RETORNA NADA
-    /**
-    public void getNumberOfEventLogs(){
-        
-        String sql = "EXEC master.dbo.xp_instance_regwrite N'HKEY_LOCAL_MACHINE', \n" +
-                    "       N'Software\\Microsoft\\MSSQLServer\\MSSQLServer', \n" +
-                    "       N'NumErrorLogs', REG_DWORD, 48";
-        PreparedStatement preparedStatement = driver.prepareStatement(sql);
-        ResultSet fields = driver.executeQuery(preparedStatement);
-        /*
-        try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-            }
-            this.numberOfEventLogs.put("numberOfEventLogs", r);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } 
-
-    //PROBLEMA
-    public void getNotificationsAboutEvents(){
-        
-        String sql = "EXEC msdb.dbo.sp_add_operator @name=N'NotifyDBA_Group', \n" +
-                    "  @enabled=1, \n" +
-                    "  @email_address=N'NotifyDBAs@company.com'\n" +
-                    "\n" +
-                    "EXEC msdb.dbo.sp_add_alert @name = N'Sev. 14 Errors - Permissions', \n" +
-                    "  @severity = 14, \n" +
-                    "  @include_event_description_in = 1\n" +
-                    "\n" +
-                    "EXEC msdb.dbo.sp_add_notification @alert_name = N'Sev. 14 Errors - Permissions', \n" +
-                    "@operator_name = N'NotifyDBA_Group', @notification_method = 1";
-        //PreparedStatement preparedStatement = driver.prepareStatement(sql);
-        //ResultSet fields = driver.executeQuery(preparedStatement);
-    } 
-*/
+   
     //Finalizado 
     public void getDBOwnerLogins(){
         
@@ -443,25 +405,34 @@ public final class SecureSqlServer {
         
     }     
 
-    //Falta respota do Julio
-    /* Verificar a política de senha de expiração/atualização de senha no SqlServer */
+   //Finalizada
     public void getPasswordExpirationPolicy(){
         
-        String sql = "SELECT name  FROM sys.sql_logins \n" +
-                    " WHERE  is_policy_checked=0 OR is_expiration_checked = 0";
+        String sql ="SELECT name FROM [sys].[sql_logins] WHERE [is_policy_checked] = 0 OR ([is_policy_checked] = 1 AND [is_expiration_checked] = 0)";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-        
+        System.out.println(preparedStatement);
+        System.out.println(fields);
         try {
             ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-            }
-            this.passwordExpirationPolicy.put("passwordExpirationPolicy", r);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+            this.passwordExpirationPolicy.put("passwordExpirationPolicy", "true");
+            
+            while(fields.next()){
+                String name = fields.getString("name");
+                
+                if(!name.equals("sa")
+                   && !name.equals("##MS_PolicyEventProcessingLogin##")    
+                   && !name.equals("##MS_PolicyTsqlExecutionLogin##")
+                   && !name.equals("zm.nestle")){
+                   
+                   this.passwordExpirationPolicy.put("passwordExpirationPolicy", "false"); 
+                    
+                }
+            }
+              
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }     
@@ -491,7 +462,7 @@ public final class SecureSqlServer {
    //FINALIZADO
     public void getAuthenticationMode(){
         
-        String sql = "SELECT SERVERPROPERTY ('IsIntegratedSecurityOnly') as 'result'";
+        String sql = "SELECT cast (SERVERPROPERTY ('IsIntegratedSecurityOnly') AS VARCHAR(20)) as 'result'";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
@@ -502,7 +473,7 @@ public final class SecureSqlServer {
             System.out.println(fields);
             System.out.println(driver);
             while(fields.next()){
-                if(fields.getString("result").equals("0")){
+                if(fields.getString(1).equals("0")){
                   this.authenticationMode.put("authenticationMode", "false");  
                 }
             }
@@ -645,13 +616,30 @@ public final class SecureSqlServer {
     } 
 
     /* AQUI PODEMOS VERIFICAR COM A INFORMAÇÃO DADA PELO USUÁRIO NO FORM*/
-    public String getDefaultPort(){
+    public void getDefaultPort(){
         
-        String sql = driver.config.getProperty("SQLServergetDefaultPort");
+        String sql = "SELECT TOP 1 local_tcp_port as 'defaultPort' \n" +
+                     "FROM sys.dm_exec_connections\n" +
+                     "WHERE local_tcp_port IS NOT NULL";
+        
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        return "teste";
+      
+        try {
+               
+        this.defaultPort.put("defaultPort", "true");
+        
+            while(fields.next()){
+                if(fields.getString("defaultPort").equals("1433")){
+                    System.out.println(fields.getString("defaultPort"));
+                    this.defaultPort.put("defaultPort", "false");
+                }
+            }        
+        }    
+        catch (SQLException | JSONException ex) {
+            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /* Encryption, Tokenization and Data Masking

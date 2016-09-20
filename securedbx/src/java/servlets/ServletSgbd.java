@@ -78,14 +78,16 @@ public class ServletSgbd extends HttpServlet {
                     r.add(s.administratorsGroup);
                     r.add(s.localAdministratorsGroup);
                     r.add(s.numberOfEventLogs);
-                    r.add(s.passwordExpirationPolicy);
                     r.add(s.exampleDatabases);
                     r.add(s.authenticationMode);
-                  //  r.add(s.validBackups);
+                    r.add(s.validBackups);
                     r.add(s.loginFailures);
                     r.add(s.dbOwnerLogins);
                     r.add(s.enabledNetworkProtocols);
-                    r.add(s.notificationsAboutEvents);
+                    r.add(s.passwordExpirationPolicy);
+                    r.add(s.authenticationMode);
+                    r.add(s.defaultPort);
+                    //r.add(s.notificationsAboutEvents);
                     out.print(r);
                     break;
             }  
