@@ -15,7 +15,7 @@ $( document ).ready(function() {
                                     
 
                                     if(data==0){
-                                        alert("Invalid informations!");
+                                        bootbox.alert("Invalid informations!");
 
                                     }else{
                                         
@@ -71,7 +71,7 @@ $( document ).ready(function() {
             });
 
         }else{
-            alert("Enter all fields!");
+            bootbox.alert("Enter all fields!");
         }
     });
 
