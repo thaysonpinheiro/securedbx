@@ -29,71 +29,6 @@ $( document ).ready(function() {
 
                                         //  window.location.assign(data);
                                         $("#intro-info").toggleClass( "invisible" );
-/**
-                                        //Item one
-                                        setTimeout(function(){
-                                            $("#item-one").show("slow").toggleClass( "item-invisible" );
-                                        }, 1000);
-
-                                        setTimeout(function(){
-                                            $("#item-one").show("slow").toggleClass( "item-load" );
-                                            $("#item-one").show("slow").toggleClass( "list-group-item-success" );
-                                            $("#item-one").show("slow").toggleClass( "text-success " );
-                                            $("#item-one").show("slow").toggleClass( "item-check" );
-                                        }, 3000);  
-
-                                        //Item two
-                                        setTimeout(function(){
-                                            $("#item-two").show("slow").toggleClass( "item-invisible" );
-                                        }, 5000);
-
-                                        setTimeout(function(){
-                                            $("#item-two").show("slow").toggleClass( "item-load" );
-                                            $("#item-two").show("slow").toggleClass( "list-group-item-success" );
-                                            $("#item-two").show("slow").toggleClass( "text-success " );
-                                            $("#item-two").show("slow").toggleClass( "item-check" );
-                                        }, 7000);         
-
-                                        //Item three
-                                        setTimeout(function(){
-                                            $("#item-three").show("slow").toggleClass( "item-invisible" );
-                                        }, 8000);
-
-                                        setTimeout(function(){
-                                            $("#item-three").show("slow").toggleClass( "item-load" );
-                                            $("#item-three").show("slow").toggleClass( "list-group-item-success" );
-                                            $("#item-three").show("slow").toggleClass( "text-success " );
-                                            $("#item-three").show("slow").toggleClass( "item-check" );
-                                        }, 10000);         
-
-                                        //Item four
-                                        setTimeout(function(){
-                                            $("#item-four").show("slow").toggleClass( "item-invisible" );
-                                        }, 11000);
-
-                                        setTimeout(function(){
-                                            $("#item-four").show("slow").toggleClass( "item-load" );
-                                            $("#item-four").show("slow").toggleClass( "list-group-item-success" );
-                                            $("#item-four").show("slow").toggleClass( "text-success " );
-                                            $("#item-four").show("slow").toggleClass( "item-check" );
-                                        }, 13000);    
-
-                                        //Item five
-                                        setTimeout(function(){
-                                            $("#item-five").show("slow").toggleClass( "item-invisible" );
-                                        }, 14000);
-
-                                        setTimeout(function(){
-                                            $("#item-five").show("slow").toggleClass( "item-load" );
-                                            $("#item-five").show("slow").toggleClass( "list-group-item-success" );
-                                            $("#item-five").show("slow").toggleClass( "text-success " );
-                                            $("#item-five").show("slow").toggleClass( "item-check" );
-                                        }, 16000);    
-
-                                        setTimeout(function(){
-                                                $( "#list-parametrs" ).slideUp("slow");
-                                        }, 18000);
-                                        **/
                                         
                                         //Setando resultado para grupo 1: 
                                         setIcon("#sysAdminUsers", data[0].sysAdminUsers);
@@ -118,6 +53,7 @@ $( document ).ready(function() {
                                         
                                         //Setando resultado para grupo 4;
                                         setIcon("#defaultPort", data[18].defaultPort);
+                                        setIcon("#loginFailures", data[19].loginFailures);
                                         
                                         $("#system").toggleClass( "invisible" );
                                          gauge1();

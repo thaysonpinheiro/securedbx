@@ -399,9 +399,13 @@
                                <tbody>
                                  <tr>
                                    <th scope="row">1</th>
-                                   <td>Login Failures!!!</td>
+                                   <td>Login Failures</td>
                                    <td  style="padding-bottom: 0px;">
-                                       <center><img src="scripts/img/bad.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                                       <center>
+                                            <div id="loginFailures">
+                                                   <%--Div para receber o sinal de resposta--%>
+                                            </div>
+                                        </center> 
                                    </td>  
                                  </tr>
                                  <tr>

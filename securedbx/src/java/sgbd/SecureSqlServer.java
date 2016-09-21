@@ -59,17 +59,14 @@ public final class SecureSqlServer {
         getUsersWithoutLogin();
         getDBOwnerLogins();
         getAuditLevel();
-        
         getAdministratorsGroup();
         getLocalAdministratorsGroup();
         getEnabledNetworkProtocols();
-        
         getPasswordExpirationPolicy();
         getExampleDatabases();
-        
         getValidBackups();
         getDefaultPort();
-        //getLoginFailures();
+        getLoginFailures();
         
         
         
@@ -594,28 +591,25 @@ public final class SecureSqlServer {
     /* Verificar quais são os protocolos de rede habilitados  */
     public void getLoginFailures(){
         
-        String sql = "EXEC master.dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE',\n" +
-                    "  N'Software\\Microsoft\\MSSQLServer\\MSSQLServer\\SuperSocketNetLib\\Np', \n" +
-                    "  N'Enabled'";
-      /*  PreparedStatement preparedStatement = driver.prepareStatement(sql);
+        String sql = "execute master..sp_ReadErrorLog 0,1,'Failed','Login'";
+        
+        PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
         
-        try {
-            ArrayList<String> r = new ArrayList<>();
-            while(fields.next()){
-                r.add(fields.getString(1));
-                r.add((fields.getDate(2)).toString());
-            }
-            this.loginFailures.put("loginFailures", r);
+         try {
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é true.
+            if(!fields.next()){
+                this.loginFailures.put("loginFailures", "true");   
+            }else{
+                this.loginFailures.put("loginFailures", "false"); 
+            } 
             
-        } catch (SQLException ex) {
+        } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     } 
 
-    /* AQUI PODEMOS VERIFICAR COM A INFORMAÇÃO DADA PELO USUÁRIO NO FORM*/
+    //Finalizado
     public void getDefaultPort(){
         
         String sql = "SELECT TOP 1 local_tcp_port as 'defaultPort' \n" +

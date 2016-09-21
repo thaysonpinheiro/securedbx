@@ -87,6 +87,7 @@ public class ServletSgbd extends HttpServlet {
                     r.add(s.passwordExpirationPolicy);
                     r.add(s.authenticationMode);
                     r.add(s.defaultPort);
+                    r.add(s.loginFailures);
                     //r.add(s.notificationsAboutEvents);
                     out.print(r);
                     break;
