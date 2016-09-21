@@ -16,6 +16,7 @@ $( document ).ready(function() {
 
                                     if(data==0){
                                         bootbox.alert("Invalid informations!");
+                                        
 
                                     }else{
                                         

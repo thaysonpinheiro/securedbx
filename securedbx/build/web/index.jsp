@@ -34,7 +34,7 @@
         
         <script src="scripts/gauge/assets/prettify.js" type="text/javascript"></script>
         <script src="scripts/gauge/assets/jscolor.js" type="text/javascript"></script>
-        <script src="scripts/js/bootbox.min.js" type="text/javascript"></script>
+        <script src="scripts/js/bootbox.min.js" type="text/javascript"></script> 
 
         <!--[if lt IE 9]><script type="text/javascript" src="assets/excanvas.compiled.js"></script><![endif]-->
 
