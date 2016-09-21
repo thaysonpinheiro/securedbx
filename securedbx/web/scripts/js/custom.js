@@ -72,7 +72,7 @@ $( document ).ready(function() {
             });
 
         }else{
-            bootbox.alert("Enter all fields!");
+            bootbox.alert("Enter all fields!"); 
         }
     });
 
