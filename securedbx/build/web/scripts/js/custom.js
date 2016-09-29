@@ -4,7 +4,12 @@ function showRow(rowId){
 };
 
 $( document ).ready(function() {
+    
+    
     $('#btn_connection').click(function(){
+        
+        $('#page_sgbd').load($('#sgbd').val()+".html");
+        
         if($('#host').val()!="" && $('#port').val()!="" && $('#base').val()!="" && $('#user').val()!="" && $('#password').val()!="" && $('#sgbd').val()!=""){
             $.post("ServletSgbd", { host: $('#host').val(),
                                     port: $('#port').val(),
@@ -19,50 +24,73 @@ $( document ).ready(function() {
                                         
 
                                     }else{
-                                        
-                                        $.cookie('host', $('#host').val(), {expires: 1});
-                                        $.cookie('port', $('#port').val(), {expires: 1});
-                                        $.cookie('base', $('#base').val(), {expires: 1});
-                                        $.cookie('user', $('#user').val(), {expires: 1});
-                                        $.cookie('password', $('#password').val(), {expires: 1});
-                                        $.cookie('sgbd', $('#sgbd').val(), {expires: 1});
-                                        
+                                        if($('#sgbd').val() == 'sqlserver'){
+                                            //sqlserver
+                                            
+                                            $.cookie('host', $('#host').val(), {expires: 1});
+                                            $.cookie('port', $('#port').val(), {expires: 1});
+                                            $.cookie('base', $('#base').val(), {expires: 1});
+                                            $.cookie('user', $('#user').val(), {expires: 1});
+                                            $.cookie('password', $('#password').val(), {expires: 1});
+                                            $.cookie('sgbd', $('#sgbd').val(), {expires: 1});
 
-                                        //  window.location.assign(data);
-                                        $("#intro-info").toggleClass( "invisible" );
-                                        
-                                        //Setando resultado para grupo 1: 
-                                        setIcon("#sysAdminUsers", data[0].sysAdminUsers);
-                                        setIcon("#dbOwnerUsers", data[1].dbOwnerUser);
-                                        setIcon("#saUser", data[2].saUser);
-                                        setIcon("#guestUser", data[3].guestUser);
-                                        setIcon("#loginsWithoutPermissions", data[4].loginsWithoutPermissions);
-                                        setIcon("#usersWithoutLogin", data[5].usersWithoutLogin);
-                                        
-                                        //Setando resultado para grupo 2:
-                                        setIcon("#auditLevel", data[6].auditLevel);
-                                        setIcon("#dbOwnerLogins", data[14].dbOwnerLogins);
-                                        
-                                        //Setando resultado para grupo 3:
-                                        setIcon("#administratorsGroup", data[7].administratorsGroup);
-                                        setIcon("#localAdministratorsGroup", data[8].localAdministratorsGroup);
-                                        setIcon("#exampleDatabases", data[10].exampleDatabases);
-                                        setIcon("#enabledNetworkProtocols", data[15].enabledNetworkProtocols);
-                                        setIcon("#validBackups", data[12].validBackups);
-                                        setIcon("#passwordExpirationPolicy", data[16].passwordExpirationPolicy);
-                                        setIcon("#authenticationMode", data[11].authenticationMode);
-                                        
-                                        //Setando resultado para grupo 4;
-                                        setIcon("#defaultPort", data[18].defaultPort);
-                                        setIcon("#loginFailures", data[19].loginFailures);
-                                        
-                                        $("#system").toggleClass( "invisible" );
-                                         gauge1();
-                                         gauge2();
-                                         gauge3();
-                                         gauge4();
-                                         gauge5();
 
+                                            //  window.location.assign(data);
+                                            $("#intro-info").toggleClass( "invisible" );
+
+                                            //Setando resultado para grupo 1: 
+                                            setIcon("#sysAdminUsers", data[0].sysAdminUsers);
+                                            setIcon("#dbOwnerUsers", data[1].dbOwnerUser);
+                                            setIcon("#saUser", data[2].saUser);
+                                            setIcon("#guestUser", data[3].guestUser);
+                                            setIcon("#loginsWithoutPermissions", data[4].loginsWithoutPermissions);
+                                            setIcon("#usersWithoutLogin", data[5].usersWithoutLogin);
+
+                                            //Setando resultado para grupo 2:
+                                            setIcon("#auditLevel", data[6].auditLevel);
+                                            setIcon("#dbOwnerLogins", data[14].dbOwnerLogins);
+
+                                            //Setando resultado para grupo 3:
+                                            setIcon("#administratorsGroup", data[7].administratorsGroup);
+                                            setIcon("#localAdministratorsGroup", data[8].localAdministratorsGroup);
+                                            setIcon("#exampleDatabases", data[10].exampleDatabases);
+                                            setIcon("#enabledNetworkProtocols", data[15].enabledNetworkProtocols);
+                                            setIcon("#validBackups", data[12].validBackups);
+                                            setIcon("#passwordExpirationPolicy", data[16].passwordExpirationPolicy);
+                                            setIcon("#authenticationMode", data[11].authenticationMode);
+
+                                            //Setando resultado para grupo 4;
+                                            setIcon("#defaultPort", data[18].defaultPort);
+                                            setIcon("#loginFailures", data[19].loginFailures);
+
+                                            //se tiver invisivel
+                                            if($("#system").hasClass("invisible")){
+                                                $("#system").toggleClass( "invisible" );
+                                            }
+                                            
+                                            gauge1();
+                                            gauge2();
+                                            gauge3();
+                                            gauge4();
+                                            gauge5();
+                                             
+                                        }else if($('#sgbd').val() == "oracle"){
+                                            //oracle
+                                            
+                                            
+                                            //se tiver invisivel
+                                            if($("#system").hasClass("invisible")){
+                                                $("#system").toggleClass( "invisible" );
+                                            }
+                                            
+                                        }else{
+                                            //postgres
+                                            alert("asdasd");
+                                            //se tiver invisivel
+                                            if($("#system").hasClass("invisible")){
+                                                $("#system").toggleClass( "invisible" );
+                                            }
+                                        }
 
                                         
                                        

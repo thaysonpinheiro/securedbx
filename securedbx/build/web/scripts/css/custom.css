@@ -2,6 +2,7 @@ body {
     max-width: 100%;
     overflow-x: hidden;
     height:100%;
+
 }
 
 #parameters{
@@ -64,7 +65,7 @@ body {
 p{
     margin-left: -20px;
     margin-top: 9px;
-    font-size: 22px;
+    font-size: 16px;
 }
 
 img{

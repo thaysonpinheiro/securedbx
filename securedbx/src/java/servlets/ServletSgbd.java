@@ -43,19 +43,6 @@ public class ServletSgbd extends HttpServlet {
         ConnectionSGBD con = new ConnectionSGBD(host, port, base, user, password, sgbd); 
 
         if(con.estado == 1){
-           /* Cookie cookieHost = new Cookie("host", host);
-            Cookie cookiePort = new Cookie("port", port);
-            Cookie cookieBase = new Cookie("base", base);
-            Cookie cookieUser = new Cookie("user", user);
-            Cookie cookiePassword = new Cookie("pass", password);
-            Cookie cookieSgbd = new Cookie("sgbd", sgbd);        
-
-            response.addCookie(cookieHost);
-            response.addCookie(cookiePort);
-            response.addCookie(cookieBase);
-            response.addCookie(cookieUser);
-            response.addCookie(cookiePassword);
-            response.addCookie(cookieSgbd);   */
 
             switch(sgbd){
                 case "postgresql":
