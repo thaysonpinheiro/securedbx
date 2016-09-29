@@ -63,6 +63,7 @@ public class SecureOracle {
         this.getAdministrativeRoles();
         this.getSystemPrivileges();
         this.getPrivilegesConfigured();
+        this.getExternalLibraries();
         this.getDefaultDatabasePassword();
         this.getManyNonSystemUserSessions();
         this.getServerVersionInformation();
@@ -72,8 +73,6 @@ public class SecureOracle {
         this.getDeprecatedOptimizer();
         this.getUseMaximumMemorySize();
         this.getSecurityRoles();
-        
-        
     }
     
     /**

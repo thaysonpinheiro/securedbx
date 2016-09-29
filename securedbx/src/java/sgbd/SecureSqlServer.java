@@ -24,6 +24,7 @@ import org.json.JSONException;
 public final class SecureSqlServer {
 
     private ConnectionSGBD driver;
+    
     public JSONObject sysAdminUsers = new JSONObject();
     public JSONObject dbOwnerUser = new JSONObject();
     public JSONObject saUser = new JSONObject();
@@ -57,28 +58,40 @@ public final class SecureSqlServer {
     public JSONObject remoteAccessToServer = new JSONObject();
     public JSONObject remoteAdminAccess = new JSONObject();
     public JSONObject remoteLoginTimeout = new JSONObject();
-    //k
 
     public SecureSqlServer(ConnectionSGBD driver) {
         this.driver = driver;
 
-        getSysAdminUsers();
-        getAuthenticationMode();
-        getDBOwnerUser();
-        getSAUser();
-        getGuestUser();
-        getLoginsWithoutPermissions();
-        getUsersWithoutLogin();
-        getDBOwnerLogins();
-        getAuditLevel();
-        getAdministratorsGroup();
-        getLocalAdministratorsGroup();
-        getEnabledNetworkProtocols();
-        getPasswordExpirationPolicy();
-        getExampleDatabases();
-        getValidBackups();
-        getDefaultPort();
-        getLoginFailures();
+        this.getInformationViews();
+        this.getCertificatesOrSymmetricKeys();
+        this.getMasterKey();
+        this.getEncryptedDatabases();
+        this.getLastPatch();
+        this.getAutenticationmode();
+        this.getFilestreamUsers();
+        this.getTraceFilesDiagSecIssues();
+        this.getDirectUpdInSystemTables();
+        this.getRemoteAccessToServer();
+        this.getRemoteAdminAccess();
+        this.getRemoteLoginTimeout();
+        
+        this.getSysAdminUsers();
+        this.getAuthenticationMode();
+        this.getDBOwnerUser();
+        this.getSAUser();
+        this.getGuestUser();
+        this.getLoginsWithoutPermissions();
+        this.getUsersWithoutLogin();
+        this.getDBOwnerLogins();
+        this.getAuditLevel();
+        this.getAdministratorsGroup();
+        this.getLocalAdministratorsGroup();
+        this.getEnabledNetworkProtocols();
+        this.getPasswordExpirationPolicy();
+        this.getExampleDatabases();
+        this.getValidBackups();
+        this.getDefaultPort();
+        this.getLoginFailures();
 
     }
 
@@ -105,9 +118,6 @@ public final class SecureSqlServer {
         }
     }
 
-    // FINALIZADO
-    /*Verificar em cada banco de dados os membros associados a role db_owner*/
-    //07
     public void getDBOwnerUser() {
 
         String sql = "select r.name as role_name, m.name as member_name from sys.database_role_members rm \n"

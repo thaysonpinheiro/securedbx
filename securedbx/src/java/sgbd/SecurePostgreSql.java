@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import libraries.Configuration;
 import libraries.ConnectionSGBD;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,74 +47,43 @@ public class SecurePostgreSql {
 
     public SecurePostgreSql(ConnectionSGBD driver) {
         this.driver = driver;
+        
+        this.getSuperUsers();
+        this.getUsersAccessOtherUsers();
+        this.getAuditingEnabled();
+        //this.getTablesWithRowSecurity();
+        //this.getSecurityPolicies();
+        this.getObjectsInPublicSchema();
+        this.getPublicObjectsInsDelUp();
+        this.getPublicObjectsPrivileges();
+        this.getDefaultProceduralLang();
+        this.getNonTrustedProceduralLang();
+        this.getLatestVersionBin();
+        this.getNoADMStreamOrOffBackup();
+        this.getUsersEternalPass();
+        this.getUsersNoADMCreateDB();
+        this.getListenAddressesDefault();
+        this.getServerWithDefaultEncription();
+        this.getDbServerGivesRowSecurity();
+        this.getDbServerUseSSL();
+        this.getShortTimeoutAut();
+        this.getPerDBUserNames();
+        this.getFunctionsHighNumbersOfParameters();
+        this.getDbHighNumberOfConnections();
+        
     }
 
     /* verifica os usuÃ¡rios que ainda estÃ£o com senha padrÃ£o*/
-    public String pwdDefault() {
-
+    public void pwdDefault() {
         String sql = driver.config.getProperty("getUsersPwdDefaultoracle");
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
-        return sql;
-    }
-
-    public static void main(String[] args) {
-        ConnectionSGBD driver = new ConnectionSGBD("localhost", "5434", "postgres", "postgres", "123456", "postgresql");
-
-        SecurePostgreSql securePost = new SecurePostgreSql(driver);
-        System.out.println("0");
-        securePost.getSuperUsers();
-        System.out.println("1");
-        securePost.getUsersAccessOtherUsers();
-        System.out.println("2");
-        securePost.getAuditingEnabled();
-        System.out.println("3");
-        securePost.getTablesWithRowSecurity();
-        System.out.println("4");
-        securePost.getSecurityPolicies();
-        System.out.println("5");
-        securePost.getObjectsInPublicSchema();
-        System.out.println("6");
-        securePost.getPublicObjectsInsDelUp();
-        System.out.println("7");
-        securePost.getPublicObjectsPrivileges();
-        System.out.println("8");
-        securePost.getDefaultProceduralLang();
-        System.out.println("9");
-        securePost.getNonTrustedProceduralLang();
-        System.out.println("10");
-        securePost.getLatestVersionBin();
-        System.out.println("11");
-        securePost.getNoADMStreamOrOffBackup();
-        System.out.println("12");
-        securePost.getUsersEternalPass();
-        System.out.println("13");
-        securePost.getUsersNoADMCreateDB();
-        System.out.println("14");
-        securePost.getListenAddressesDefault();
-        System.out.println("15");
-        securePost.getServerWithDefaultEncription();
-        System.out.println("16");
-        securePost.getDbServerGivesRowSecurity();
-        System.out.println("17");
-        securePost.getDbServerUseSSL();
-        System.out.println("18");
-        securePost.getShortTimeoutAut();
-        System.out.println("19");
-        securePost.getPerDBUserNames();
-        System.out.println("20");
-        securePost.getFunctionsHighNumbersOfParameters();
-        System.out.println("21");
-        securePost.getDbHighNumberOfConnections();
-        System.out.println("22");
-                
     }
 
     /**
      * @return the superUsers
      */
-    public JSONObject getSuperUsers() {
+    public void getSuperUsers() {
         String sql = "SELECT u.usename AS \"User name\",\n"
                 + "  u.usesysid AS \"User ID\", \n"
                 + "  CASE WHEN u.usesuper AND u.usecreatedb THEN CAST('superuser, create \n"
@@ -143,13 +111,13 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return superUsers;
+
     }
 
     /**
      * @return the usersAccessOtherUsers
      */
-    public JSONObject getUsersAccessOtherUsers() {
+    public void getUsersAccessOtherUsers() {
         String sql = "SELECT\n"
                 + "  use.usename as subject,\n"
                 + "  nsp.nspname as namespace, \n"
@@ -188,13 +156,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return usersAccessOtherUsers;
     }
 
     /**
      * @return the auditingEnabled
      */
-    public JSONObject getAuditingEnabled() {
+    public void getAuditingEnabled() {
         String sql = "select * \n"
                 + "from pg_available_extensions \n"
                 + "where name = 'pgaudit' \n"
@@ -214,13 +181,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return auditingEnabled;
     }
 
     /**
      * @return the tablesWithRowSecurity
      */
-    public JSONObject getTablesWithRowSecurity() {
+    public void getTablesWithRowSecurity() {
         String sql = "SELECT oid, relname  \n"
                 + "FROM pg_class   \n"
                 + "WHERE relrowsecurity = 'true'   ";
@@ -240,13 +206,14 @@ public class SecurePostgreSql {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return tablesWithRowSecurity;
     }
 
     /**
      * @return the securityPolicies
      */
-    public JSONObject getSecurityPolicies() {
+    
+    //Erro: org.postgresql.util.PSQLException: ERROR: relation "pg_policy" does not exist
+    public void getSecurityPolicies() {
         String sql = "select *\n"
                 + "from pg_policy";
 
@@ -264,13 +231,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return securityPolicies;
     }
 
     /**
      * @return the objectsInPublicSchema
      */
-    public JSONObject getObjectsInPublicSchema() {
+    public void getObjectsInPublicSchema() {
         String sql = "select table_catalog,  \n"
                 + "table_schema, table_name, table_type  \n"
                 + "from information_schema.tables   \n"
@@ -290,13 +256,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return objectsInPublicSchema;
     }
 
     /**
      * @return the publicObjectsInsDelUp
      */
-    public JSONObject getPublicObjectsInsDelUp() {
+    public void getPublicObjectsInsDelUp() {
         String sql = "SELECT * -- grantee, privilege_type \n"
                 + "FROM information_schema.role_table_grants \n"
                 + "where table_schema = 'public'\n"
@@ -316,13 +281,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return publicObjectsInsDelUp;
     }
 
     /**
      * @return the publicObjectsPrivileges
      */
-    public JSONObject getPublicObjectsPrivileges() {
+    public void getPublicObjectsPrivileges() {
         String sql = "SELECT *  \n"
                 + "FROM information_schema.role_table_grants \n"
                 + "where table_schema = 'public' \n"
@@ -342,13 +306,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return publicObjectsPrivileges;
     }
 
     /**
      * @return the defaultProceduralLang
      */
-    public JSONObject getDefaultProceduralLang() {
+    public void getDefaultProceduralLang() {
         String sql = "select * \n"
                 + "from pg_language \n"
                 + "where lanname not in ('internal','c','sql','plpgsql')";
@@ -367,13 +330,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return defaultProceduralLang;
     }
 
     /**
      * @return the nonTrustedProceduralLang
      */
-    public JSONObject getNonTrustedProceduralLang() {
+    public void getNonTrustedProceduralLang() {
         String sql = "select * \n"
                 + "from pg_language \n"
                 + "where lanpltrusted = 'f'";
@@ -392,13 +354,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return nonTrustedProceduralLang;
     }
 
     /**
      * @return the latestVersionBin
      */
-    public JSONObject getLatestVersionBin() {
+    public void getLatestVersionBin() {
         String sql = "select substr(version(),0,17) ";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -417,13 +378,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return latestVersionBin;
     }
 
     /**
      * @return the noADMStreamOrOffBackup
      */
-    public JSONObject getNoADMStreamOrOffBackup() {
+    public void getNoADMStreamOrOffBackup() {
         String sql = "SELECT * \n"
                 + "FROM pg_catalog.pg_user u \n"
                 + "where  u.userepl='t' \n"
@@ -443,13 +403,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return noADMStreamOrOffBackup;
     }
 
     /**
      * @return the usersEternalPass
      */
-    public JSONObject getUsersEternalPass() {
+    public void getUsersEternalPass() {
         String sql = "SELECT * , \n"
                 + "  CASE \n"
                 + "	WHEN u.usesuper AND u.usecreatedb THEN CAST('superuser, create\n"
@@ -477,13 +436,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return usersEternalPass;
     }
 
     /**
      * @return the usersNoADMCreateDB
      */
-    public JSONObject getUsersNoADMCreateDB() {
+    public void getUsersNoADMCreateDB() {
         String sql = "SELECT * \n"
                 + "FROM pg_catalog.pg_user u \n"
                 + "where  u.usecreatedb='t' \n"
@@ -503,13 +461,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return usersNoADMCreateDB;
     }
 
     /**
      * @return the listenAddressesDefault
      */
-    public JSONObject getListenAddressesDefault() {
+    public void getListenAddressesDefault() {
         String sql = "select *\n"
                 + "from pg_catalog.pg_settings  \n"
                 + "where  name  = 'listen_addresses'\n"
@@ -529,13 +486,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listenAddressesDefault;
     }
 
     /**
      * @return the serverWithDefaultEncription
      */
-    public JSONObject getServerWithDefaultEncription() {
+    public void getServerWithDefaultEncription() {
         String sql = "select *\n"
                 + "from pg_catalog.pg_settings  \n"
                 + "where  name  = 'password_encryption'\n"
@@ -555,13 +511,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return serverWithDefaultEncription;
     }
 
     /**
      * @return the dbServerGivesRowSecurity
      */
-    public JSONObject getDbServerGivesRowSecurity() {
+    public void getDbServerGivesRowSecurity() {
         String sql = "select * \n"
                 + "from pg_catalog.pg_settings   \n"
                 + "where  name  = 'row_security' \n"
@@ -581,13 +536,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dbServerGivesRowSecurity;
     }
 
     /**
      * @return the dbServerUseSSL
      */
-    public JSONObject getDbServerUseSSL() {
+    public void getDbServerUseSSL() {
         String sql = "select *\n"
                 + "from pg_catalog.pg_settings  \n"
                 + "where  name  = 'ssl'\n"
@@ -607,13 +561,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dbServerUseSSL;
     }
 
     /**
      * @return the shortTimeoutAut
      */
-    public JSONObject getShortTimeoutAut() {
+    public void getShortTimeoutAut() {
         String sql = "select *\n"
                 + "from pg_catalog.pg_settings  \n"
                 + "where  name  = 'authentication_timeout'\n"
@@ -632,14 +585,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return shortTimeoutAut;
     }
 
     /**
      * @return the perDBUserNames
      */
-    public JSONObject getPerDBUserNames() {
+    public void getPerDBUserNames() {
         String sql = "select *\n"
                 + "from pg_catalog.pg_settings  \n"
                 + "where  name  = 'db_user_namespace'\n"
@@ -658,13 +609,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return perDBUserNames;
     }
 
     /**
      * @return the functionsHighNumbersOfParameters
      */
-    public JSONObject getFunctionsHighNumbersOfParameters() {
+    public void getFunctionsHighNumbersOfParameters() {
         String sql = "select *\n"
                 + "from pg_catalog.pg_settings  \n"
                 + "where  name  = 'max_function_args'\n"
@@ -683,13 +633,12 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return functionsHighNumbersOfParameters;
     }
 
     /**
      * @return the dbHighNumberOfConnections
      */
-    public JSONObject getDbHighNumberOfConnections() {
+    public void getDbHighNumberOfConnections() {
         String sql = "select *\n"
                 + "from pg_catalog.pg_settings  \n"
                 + "where  name  = 'max_connections'\n"
@@ -708,6 +657,5 @@ public class SecurePostgreSql {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dbHighNumberOfConnections;
     }
 }

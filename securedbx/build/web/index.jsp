@@ -83,123 +83,14 @@
                 </select> <br />
                 <button type="button" id="btn_connection" class="btn btn-primary">Security Check</button>
             </aside>
-
-            <!-- GRAPHS -->
             <section>
-                <!--
-                   <div id="preview">
-                       <canvas width=220 height=70 class="canvas-preview" id="graph1"></canvas>
-                       <div class="preview-textfield" id="preview1"></div>
-                   </div>
-                   <div id="preview">
-                       <canvas width=220 height=70 class="canvas-preview" id="graph2"></canvas>
-                       <div class="preview-textfield" id="preview2"></div>
-                   </div>
-                   <div id="preview">
-                       <canvas width=220 height=70 class="canvas-preview" id="graph3"></canvas>
-                       <div class="preview-textfield" id="preview3"></div>
-                   </div>
-                   <div id="preview">
-                       <canvas width=220 height=70 class="canvas-preview" id="graph4"></canvas>
-                       <div class="preview-textfield" id="preview4"></div>
-                   </div>
-                   <div id="preview">
-                       <canvas width=220 height=70 class="canvas-preview" id="graph5"></canvas>
-                       <div class="preview-textfield" id="preview5"></div>
-                   </div>
-                   <div id="preview">
-                       <canvas width=220 height=70 class="canvas-preview" id="graph6"></canvas>
-                       <div class="preview-textfield" id="preview6"></div>
-                   </div>
-                   <div id="preview">
-                       <canvas width=220 height=70 class="canvas-preview" id="graph7"></canvas>
-                       <div class="preview-textfield" id="preview7"></div>
-                   </div>
+                <div id="system" class="invisible"> 
+                    <div id="page_sgbd">
 
-                  
-                 <div id="intro-system">
-                       <div id="intro-info" class="intro-info" >
-                           Enter your database credentials<br/> to proceed the analysis
-                       </div>
-                       <div id="list-parametrs" >
-                           <ul class="list-group">
-                               <li id="item-one" class="list-group-item item-invisible item-load"> Assessment of Users and Permissions </li>
-                               <li id="item-two" class="list-group-item item-invisible item-load">Monitoring and Auditing  </li>
-                               <li id="item-three" class="list-group-item item-invisible item-load"> Vulnerability and Configuration Management </li>
-                               <li id="item-four" class="list-group-item item-invisible item-load"> Prevention and Blocking Attacks </li>
-                               <li id="item-five" class="list-group-item item-invisible item-load"> Encryption, Tokenization and Data Masking </li>
-                           </ul>
-                       </div>      
-                 </div> 
-                -->  
-
-
-
-                 <div id="system" class="invisible"> 
-                     <div id="page_sgbd">
-                         
-                     </div>
-                 </div>
-<!--             <div  class="container"> 
-
-                   <div class="col-md-12">            
-                           <div id="result" class="col-md-4 col-sm-offset-4 text-center alert">
-                           </div>
-                   </div>
-                   <div class="container" id="connection">
-                       <div class="col-md-12">
-                           <center><h2>Connection</h2></center>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-12 col-sm-offset-3">
-                               <div class="col-md-3">
-                                   <p>
-                                   <label for="base">Host</label>
-                                   <input type="text" class="form-control" id="host" placeholder="host">
-                                   </p>
-                                   <p>
-                                   <label for="user">Port</label>
-                                   <input type="text" class="form-control" id="port" placeholder="port">
-                                   </p>
-                                   <p>
-                                   <label for="base">Base</label>
-                                   <input type="text" class="form-control" id="base" placeholder="base name">
-                                   </p>
-
-                               </div>
-                               <div class="col-md-3">
-                                   <p>
-                                   <label for="user">User</label>
-                                   <input type="text" class="form-control" id="user" placeholder="username">
-                                   </p>
-                                   <p>
-                                   <label for="password">Password</label>
-                                   <input type="password" class="form-control" id="password" placeholder="password">
-                                   </p>
-                                   <p>
-                                   <label for="sgbd">Sgbd</label>
-                                   <select class="form-control" id="sgbd">
-                                       <option value="oracle">Oracle</option>
-                                       <option value="postgresql">PostgreSQL</option>
-                                       <option value="sqlserver">SQLServer</option>
-                                   </select> 
-                                   </p>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-4 col-sm-offset-4">
-                               <center>
-                               <button type="button" id="btn_connection" class="btn btn-primary">conectar</button>
-                               <button type="button" id="btn_cancel" class="btn btn-default">cancelar</button>
-                               </center>
-                           </div>
-                       </div>
-
-                   </div>
-               </div> -->   
-           </div>
-        </section>
+                    </div>
+                </div>    
+            </section>
+       </div>
     </body>
     <script src="scripts/gauge/assets/fd-slider/fd-slider.js" type="text/javascript"></script>
     <script src="scripts/gauge/dist/gauge.js" type="text/javascript"></script>
