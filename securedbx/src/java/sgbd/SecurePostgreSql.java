@@ -69,8 +69,7 @@ public class SecurePostgreSql {
         this.getShortTimeoutAut();
         this.getPerDBUserNames();
         this.getFunctionsHighNumbersOfParameters();
-        this.getDbHighNumberOfConnections();
-        
+        this.getDbHighNumberOfConnections();    
     }
 
     /* verifica os usuÃ¡rios que ainda estÃ£o com senha padrÃ£o*/
@@ -186,7 +185,7 @@ public class SecurePostgreSql {
     /**
      * @return the tablesWithRowSecurity
      */
-    public void getTablesWithRowSecurity() {
+    public void getTablesWithRowSecurity() throws JSONException {
         String sql = "SELECT oid, relname  \n"
                 + "FROM pg_class   \n"
                 + "WHERE relrowsecurity = 'true'   ";
@@ -203,6 +202,7 @@ public class SecurePostgreSql {
             }
 
         } catch (SQLException | JSONException ex) {
+            this.superUsers.put("superUsers", "error");
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 

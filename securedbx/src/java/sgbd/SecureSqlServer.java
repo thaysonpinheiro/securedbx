@@ -27,6 +27,7 @@ public final class SecureSqlServer {
     
     public JSONObject sysAdminUsers = new JSONObject();
     public JSONObject dbOwnerUser = new JSONObject();
+    public JSONObject dbOwnerLogins = new JSONObject();
     public JSONObject saUser = new JSONObject();
     public JSONObject guestUser = new JSONObject();
     public JSONObject usersWithoutLogin = new JSONObject();
@@ -34,18 +35,13 @@ public final class SecureSqlServer {
     public JSONObject loginsWithoutPermissions = new JSONObject();
     public JSONObject administratorsGroup = new JSONObject();
     public JSONObject localAdministratorsGroup = new JSONObject();
-    public JSONObject numberOfEventLogs = new JSONObject();
     public JSONObject passwordExpirationPolicy = new JSONObject();
     public JSONObject exampleDatabases = new JSONObject();
-    public JSONObject authenticationMode = new JSONObject();
+    public JSONObject shellFileEnable = new JSONObject();
     public JSONObject validBackups = new JSONObject();
     public JSONObject loginFailures = new JSONObject();
-    public JSONObject dbOwnerLogins = new JSONObject();
     public JSONObject enabledNetworkProtocols = new JSONObject();
-    public JSONObject notificationsAboutEvents = new JSONObject();
     public JSONObject defaultPort = new JSONObject();
-
-    //k
     public JSONObject informationViews = new JSONObject();
     public JSONObject certificatesOrSymmetricKeys = new JSONObject();
     public JSONObject masterKey = new JSONObject();
@@ -74,15 +70,14 @@ public final class SecureSqlServer {
         this.getRemoteAccessToServer();
         this.getRemoteAdminAccess();
         this.getRemoteLoginTimeout();
-        
+        this.getShellFileEnable();
         this.getSysAdminUsers();
-        this.getAuthenticationMode();
         this.getDBOwnerUser();
         this.getSAUser();
         this.getGuestUser();
         this.getLoginsWithoutPermissions();
         this.getUsersWithoutLogin();
-        this.getDBOwnerLogins();
+        this.getDbOwnerLogins();
         this.getAuditLevel();
         this.getAdministratorsGroup();
         this.getLocalAdministratorsGroup();
@@ -92,7 +87,7 @@ public final class SecureSqlServer {
         this.getValidBackups();
         this.getDefaultPort();
         this.getLoginFailures();
-
+        
     }
 
     //FINALIZADO
@@ -317,8 +312,7 @@ public final class SecureSqlServer {
         }
     }
 
-    //FINALIZADO
-    //02
+    //*
     public void getAuditLevel() {
 
         String sql = "DECLARE @AuditLevel int\n"
@@ -355,30 +349,28 @@ public final class SecureSqlServer {
         }
     }
 
-    //Finalizado 
-    //07
-    public void getDBOwnerLogins() {
-
-        String sql = "select r.name as role_name, m.name as member_name from sys.database_role_members rm \n"
-                + "inner join sys.database_principals r on rm.role_principal_id = r.principal_id\n"
-                + "inner join sys.database_principals m on rm.member_principal_id = m.principal_id\n"
-                + "where r.name = 'db_owner' and m.name != 'dbo'";
+    public void getDbOwnerLogins() {
+        
+        String sql = "EXEC master.sys.sp_MSforeachdb '\n" +
+                     "PRINT ''?''\n" +
+                     "EXEC [?].dbo.sp_helpuser ''dbo'''";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
-        ResultSet fields = driver.executeQuery(preparedStatement);
+        //ResultSet fields = driver.executeQuery(preparedStatement);
 
         try {
-            //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
-            if (!fields.next()) {
-                this.dbOwnerLogins.put("dbOwnerLogins", "true");
-            } else {
-                this.dbOwnerLogins.put("dbOwnerLogins", "false");
+            boolean hasResults = preparedStatement.execute();
+            this.dbOwnerLogins.put("dbOwners", "true");
+            while (hasResults) {
+                ResultSet rs = preparedStatement.getResultSet();
+                if(rs.next() && (!rs.getString(3).equals("sa") && !(rs.getString(3) != null) ))
+                    this.dbOwnerLogins.put("dbOwners", "true");
+                hasResults = preparedStatement.getMoreResults();
             }
 
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     //FINALIZADO
@@ -489,7 +481,7 @@ public final class SecureSqlServer {
 
     //FINALIZADO
     //18
-    public void getAuthenticationMode() {
+    public void getShellFileEnable() {
 
         String sql = "SELECT cast (SERVERPROPERTY ('IsIntegratedSecurityOnly') AS VARCHAR(20)) as 'result'";
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -497,13 +489,13 @@ public final class SecureSqlServer {
 
         try {
 
-            this.authenticationMode.put("authenticationMode", "true");
+            this.shellFileEnable.put("shellFileEnable", "true");
             System.out.println(preparedStatement);
             System.out.println(fields);
             System.out.println(driver);
             while (fields.next()) {
-                if (fields.getString(1).equals("0")) {
-                    this.authenticationMode.put("authenticationMode", "false");
+                if (!fields.getString(1).equals("0")) {
+                    this.shellFileEnable.put("shellFileEnable", "false");
                 }
             }
 
@@ -640,8 +632,7 @@ public final class SecureSqlServer {
         }
     }
 
-    //Finalizado 
-    //01
+    //*
     public void getDefaultPort() {
 
         String sql = "SELECT TOP 1 local_tcp_port as 'defaultPort' \n"
@@ -682,7 +673,7 @@ public final class SecureSqlServer {
      * @return the informationViews
      *
      */
-    public JSONObject getInformationViews() {
+    public void getInformationViews() {
         String sql = "SELECT * FROM INFORMATION_SCHEMA.VIEWS\n"
                 + "WHERE TABLE_CATALOG not in ('master', 'model', 'msdb', 'tempdb')";
 
@@ -701,7 +692,6 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return informationViews;
     }
 
     /**
@@ -709,7 +699,7 @@ public final class SecureSqlServer {
      *
      * @return the certificatesOrSymmetricKeys
      */
-    public JSONObject getCertificatesOrSymmetricKeys() {
+    public void getCertificatesOrSymmetricKeys() {
         String sql1 = "SELECT 1 FROM sys.certificates\n"
                 + "union\n"
                 + "SELECT 1 FROM sys.credentials ";
@@ -734,7 +724,6 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return certificatesOrSymmetricKeys;
     }
 
     /**
@@ -742,7 +731,7 @@ public final class SecureSqlServer {
      *
      * @return the masterKey
      */
-    public JSONObject getMasterKey() {
+    public void getMasterKey() {
         String sql = "SELECT * FROMÂ sys.master_key_passwords";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -759,7 +748,6 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return masterKey;
     }
 
     /**
@@ -767,7 +755,7 @@ public final class SecureSqlServer {
      *
      * @return the encryptedDatabases
      */
-    public JSONObject getEncryptedDatabases() {
+    public void getEncryptedDatabases() {
         String sql = "SELECT * \n"
                 + "FROM sys.dm_database_encryption_keys\n"
                 + "WHERE encryption_state=3";
@@ -786,7 +774,6 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return encryptedDatabases;
     }
 
     /**
@@ -794,7 +781,7 @@ public final class SecureSqlServer {
      *
      * @return the lastPatch
      */
-    public JSONObject getLastPatch() {
+    public void getLastPatch() {
         String sql = "SELECT SERVERPROPERTY('productversion')";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -811,7 +798,6 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return lastPatch;
     }
 
     /**
@@ -819,7 +805,7 @@ public final class SecureSqlServer {
      *
      * @return the autenticationmode
      */
-    public JSONObject getAutenticationmode() {
+    public void getAutenticationmode() {
         String sql = "SELECT SERVERPROPERTY ('IsIntegratedSecurityOnly')')";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -836,7 +822,6 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return autenticationmode;
     }
 
     /**
@@ -844,7 +829,7 @@ public final class SecureSqlServer {
      *
      * @return the filestreamUsers
      */
-    public JSONObject getFilestreamUsers() {
+    public void getFilestreamUsers() {
         String sql = "SELECT * Â \n"
                 + "FROM Â sys.configurations \n"
                 + "where name = 'filestream access level' Â ";
@@ -863,13 +848,12 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return filestreamUsers;
     }
 
     /**20
      * @return the traceFilesDiagSecIssues
      */
-    public JSONObject getTraceFilesDiagSecIssues() {
+    public void getTraceFilesDiagSecIssues() {
          String sql = "SELECT * \n" +
                     "FROM Â sys.configurations\n" +
                     "where name = 'default trace enabled'";
@@ -888,13 +872,12 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return traceFilesDiagSecIssues;
     }
 
     /**21
      * @return the directUpdInSystemTables
      */
-    public JSONObject getDirectUpdInSystemTables() {
+    public void getDirectUpdInSystemTables() {
         String sql = "SELECT * \n" +
                     "FROM Â sys.configurations\n" +
                     "where name = 'allow updates'";
@@ -913,13 +896,12 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return directUpdInSystemTables;
     }
 
     /**22
      * @return the remoteAccessToServer
      */
-    public JSONObject getRemoteAccessToServer() {
+    public void getRemoteAccessToServer() {
         String sql = "SELECT * \n" +
                     "FROM Â sys.configurations \n" +
                     "where name = 'remote access' ";
@@ -938,13 +920,12 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return remoteAccessToServer;
     }
 
     /**23
      * @return the remoteAdminAccess
      */
-    public JSONObject getRemoteAdminAccess() {
+    public void getRemoteAdminAccess() {
                String sql = "SELECT * \n" +
                             "FROM Â sys.configurations\n" +
                             "where name = 'remote admin connections'";
@@ -963,13 +944,12 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return remoteAdminAccess;
     }
 
     /**24
      * @return the remoteLoginTimeout
      */
-    public JSONObject getRemoteLoginTimeout() {
+    public void getRemoteLoginTimeout() {
                 String sql = "SELECT * \n" +
                             "FROM Â sys.configurations \n" +
                             "where name = 'remote login timeout (s)' ";
@@ -988,7 +968,6 @@ public final class SecureSqlServer {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(SecureSqlServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return remoteLoginTimeout;
     }
     // Karlos acabou aqui.
 }
