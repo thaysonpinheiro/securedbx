@@ -43,39 +43,104 @@ public class ServletSgbd extends HttpServlet {
         ConnectionSGBD con = new ConnectionSGBD(host, port, base, user, password, sgbd); 
 
         if(con.estado == 1){
-
+            
+            ArrayList<JSONObject> r = new ArrayList<>();
             switch(sgbd){
                 case "postgresql":
-                    out.print("sqlserver.jsp");
-                    break;
-                case "oracle":
-                    out.print("oracle.jsp");
-                    break;
-                case "sqlserver":
-                    SecureSqlServer s = new SecureSqlServer(con);
+                    SecurePostgreSql postgresql = new SecurePostgreSql(con);
 
-                    ArrayList<JSONObject> r = new ArrayList<>();
-                    r.add(s.sysAdminUsers);
-                    r.add(s.dbOwnerUser);
-                    r.add(s.saUser);
-                    r.add(s.guestUser);
-                    r.add(s.loginsWithoutPermissions);
-                    r.add(s.usersWithoutLogin);
-                    r.add(s.auditLevel);
-                    r.add(s.administratorsGroup);
-                    r.add(s.localAdministratorsGroup);
-                    r.add(s.numberOfEventLogs);
-                    r.add(s.exampleDatabases);
-                    r.add(s.authenticationMode);
-                    r.add(s.validBackups);
-                    r.add(s.loginFailures);
-                    r.add(s.dbOwnerLogins);
-                    r.add(s.enabledNetworkProtocols);
-                    r.add(s.passwordExpirationPolicy);
-                    r.add(s.authenticationMode);
-                    r.add(s.defaultPort);
-                    r.add(s.loginFailures);
+                    r.add(postgresql.auditingEnabled);
+                    r.add(postgresql.dbHighNumberOfConnections);
+                    r.add(postgresql.dbServerGivesRowSecurity);
+                    r.add(postgresql.dbServerUseSSL);
+                    r.add(postgresql.defaultProceduralLang);
+                    r.add(postgresql.functionsHighNumbersOfParameters);
+                    r.add(postgresql.latestVersionBin);
+                    r.add(postgresql.listenAddressesDefault);
+                    r.add(postgresql.noADMStreamOrOffBackup);
+                    r.add(postgresql.nonTrustedProceduralLang);
+                    r.add(postgresql.objectsInPublicSchema);
+                    r.add(postgresql.perDBUserNames);
+                    r.add(postgresql.publicObjectsInsDelUp);
+                    r.add(postgresql.publicObjectsPrivileges);
+                    r.add(postgresql.securityPolicies);
+                    r.add(postgresql.serverWithDefaultEncription);
+                    r.add(postgresql.shortTimeoutAut);
+                    r.add(postgresql.superUsers);
+                    r.add(postgresql.tablesWithRowSecurity);
+                    r.add(postgresql.usersAccessOtherUsers);
+                    r.add(postgresql.usersEternalPass);
+                    r.add(postgresql.usersNoADMCreateDB);
+
+                    out.print(r);
+                    break;
+                    
+                case "oracle":
+                    SecureOracle oracle = new SecureOracle(con);
+
+                    r.add(oracle.administrativeRoles);
+                    r.add(oracle.auditingIsEnabled);
+                    r.add(oracle.defaultDatabasePassword);
+                    r.add(oracle.deprecatedOptimizer);
+                    r.add(oracle.distinctUsers);
+                    r.add(oracle.enablesSystemAuditing);
+                    r.add(oracle.externalLibraries);
+                    r.add(oracle.failedLogin);
+                    r.add(oracle.invisibleUsers);
+                    r.add(oracle.loginAttempts);
+                    r.add(oracle.loginAttempts2);
+                    r.add(oracle.manyNonSystemUserSessions);
+                    r.add(oracle.nonAdministrativeUsers);
+                    r.add(oracle.nonAdministrativeUsers2);
+                    r.add(oracle.nonAdministrativeUsers3);
+                    r.add(oracle.nonCaseSensitivePasswords);
+                    r.add(oracle.nonDefaultPrivilege);
+                    r.add(oracle.privilegesConfigured);
+                    r.add(oracle.securityRoles);
+                    r.add(oracle.serverVersionInformation);
+                    r.add(oracle.systemPrivileges);     
+                    r.add(oracle.useMaximumMemorySize);  
+                    r.add(oracle.writeFiles);  
+
                     //r.add(s.notificationsAboutEvents);
+                    out.print(r);
+                    break;
+                    
+                case "sqlserver":
+                    SecureSqlServer sqlserver = new SecureSqlServer(con);
+
+                    r.add(sqlserver.administratorsGroup);
+                    r.add(sqlserver.auditLevel);
+                    r.add(sqlserver.autenticationmode);
+                    r.add(sqlserver.authenticationMode);
+                    r.add(sqlserver.certificatesOrSymmetricKeys);
+                    r.add(sqlserver.dbOwnerLogins);
+                    r.add(sqlserver.dbOwnerUser);
+                    r.add(sqlserver.defaultPort);
+                    r.add(sqlserver.directUpdInSystemTables);
+                    r.add(sqlserver.enabledNetworkProtocols);
+                    r.add(sqlserver.encryptedDatabases);
+                    r.add(sqlserver.exampleDatabases);
+                    r.add(sqlserver.filestreamUsers);
+                    r.add(sqlserver.guestUser);
+                    r.add(sqlserver.informationViews);
+                    r.add(sqlserver.lastPatch);
+                    r.add(sqlserver.localAdministratorsGroup);
+                    r.add(sqlserver.loginsWithoutPermissions);
+                    r.add(sqlserver.loginFailures);
+                    r.add(sqlserver.masterKey);
+                    r.add(sqlserver.notificationsAboutEvents);
+                    r.add(sqlserver.numberOfEventLogs);
+                    r.add(sqlserver.passwordExpirationPolicy);
+                    r.add(sqlserver.remoteAccessToServer);
+                    r.add(sqlserver.remoteAdminAccess);
+                    r.add(sqlserver.remoteLoginTimeout);
+                    r.add(sqlserver.saUser);
+                    r.add(sqlserver.sysAdminUsers);
+                    r.add(sqlserver.traceFilesDiagSecIssues);
+                    r.add(sqlserver.usersWithoutLogin);
+                    r.add(sqlserver.validBackups);
+                    
                     out.print(r);
                     break;
             }  
