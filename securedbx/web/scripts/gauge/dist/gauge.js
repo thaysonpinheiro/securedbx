@@ -135,7 +135,7 @@
   };
 
   ValueUpdater = (function() {
-    ValueUpdater.prototype.animationSpeed = 32;
+    ValueUpdater.prototype.animationSpeed = 100;
 
     function ValueUpdater(addToAnimationQueue, clear) {
       if (addToAnimationQueue == null) {

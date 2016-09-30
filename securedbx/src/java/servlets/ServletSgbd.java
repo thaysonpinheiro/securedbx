@@ -77,32 +77,38 @@ public class ServletSgbd extends HttpServlet {
                     
                 case "oracle":
                     SecureOracle oracle = new SecureOracle(con);
-
-                    r.add(oracle.administrativeRoles);
-                    r.add(oracle.auditingIsEnabled);
-                    r.add(oracle.defaultDatabasePassword);
-                    r.add(oracle.deprecatedOptimizer);
-                    r.add(oracle.distinctUsers);
-                    r.add(oracle.enablesSystemAuditing);
-                    r.add(oracle.externalLibraries);
-                    r.add(oracle.failedLogin);
+                                            
+                    //Setando resultado para grupo 1:                                      
                     r.add(oracle.invisibleUsers);
-                    r.add(oracle.loginAttempts);
-                    r.add(oracle.loginAttempts2);
-                    r.add(oracle.manyNonSystemUserSessions);
-                    r.add(oracle.nonAdministrativeUsers);
+                    r.add(oracle.distinctUsers);
+                    r.add(oracle.securityRoles);
                     r.add(oracle.nonAdministrativeUsers2);
                     r.add(oracle.nonAdministrativeUsers3);
-                    r.add(oracle.nonCaseSensitivePasswords);
                     r.add(oracle.nonDefaultPrivilege);
                     r.add(oracle.privilegesConfigured);
-                    r.add(oracle.securityRoles);
-                    r.add(oracle.serverVersionInformation);
-                    r.add(oracle.systemPrivileges);     
-                    r.add(oracle.useMaximumMemorySize);  
-                    r.add(oracle.writeFiles);  
+                    r.add(oracle.administrativeRoles);
+                                                               
+                    //Setando resultado para grupo 2:
+                    r.add(oracle.auditingIsEnabled);
+                    r.add(oracle.manyNonSystemUserSessions);
+                    r.add(oracle.nonAdministrativeUsers);
+                    r.add(oracle.enablesSystemAuditing);
+                    
+                    //Setando resultado para grupo 3:
+                    r.add(oracle.systemPrivileges);
+                    r.add(oracle.externalLibraries);
+                    r.add(oracle.defaultDatabasePassword);
+                    r.add(oracle.writeFiles);
+                    r.add(oracle.deprecatedOptimizer);
+                    r.add(oracle.useMaximumMemorySize);
+                                                              
+                    //Setando resultado para grupo 4;
+                    r.add(oracle.failedLogin);
+                    r.add(oracle.loginAttempts);
+                    r.add(oracle.loginAttempts2);     
+                    r.add(oracle.serverVersionInformation);  
+                    r.add(oracle.nonCaseSensitivePasswords);  
 
-                    //r.add(s.notificationsAboutEvents);
                     out.print(r);
                     break;
                     

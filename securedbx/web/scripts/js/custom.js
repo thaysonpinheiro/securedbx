@@ -5,6 +5,11 @@ function showRow(rowId){
 
 $( document ).ready(function() {
     
+    $('#host').val($.cookie('host'));
+    $('#port').val($.cookie('port'));
+    $('#base').val($.cookie('base'));
+    $('#user').val($.cookie('user'));
+    $('#sgbd').val($.cookie('sgbd'));
     
     $('#btn_connection').click(function(){
         
@@ -22,7 +27,6 @@ $( document ).ready(function() {
                                     $.cookie('port', $('#port').val(), {expires: 1});
                                     $.cookie('base', $('#base').val(), {expires: 1});
                                     $.cookie('user', $('#user').val(), {expires: 1});
-                                    $.cookie('password', $('#password').val(), {expires: 1});
                                     $.cookie('sgbd', $('#sgbd').val(), {expires: 1});
 
                                     if(data==0){
@@ -85,56 +89,56 @@ $( document ).ready(function() {
                                                 $("#system").toggleClass( "invisible" );
                                             }
                                             
-                                            gauge1();
-                                            gauge2();
-                                            gauge3();
-                                            gauge4();
-                                            gauge5();
+                                            gauge(67, "preview1", "graph1");
+                                            gauge(22, "preview2", "graph2");
+                                            gauge(67, "preview3", "graph3");
+                                            gauge(33, "preview4", "graph4");
+                                            gauge(45, "preview5", "graph5");
                                              
                                         }else if($('#sgbd').val() == "oracle"){
                                             
                                             //oracle
                                             //Setando resultado para grupo 1: 
-                                            setIcon("#invisibleUsers", data[7].invisibleUsers);
-                                            setIcon("#distinctUsers", data[4].distinctUsers);
-                                            setIcon("#securityRoles", data[19].securityRoles);
-                                            setIcon("#nonAdministrativeUsers2", data[16].nonAdministrativeUsers2);
-                                            setIcon("#nonAdministrativeUsers3", data[11].nonAdministrativeUsers3);                                            
-                                            setIcon("#nonDefaultPrivilege", data[19].nonDefaultPrivilege);
-                                            setIcon("#privilegesConfigured", data[18].privilegesConfigured);
-                                            setIcon("#administrativeRoles", data[0].administrativeRoles);
+                                            setIcon("#invisibleUsers", data[0].invisibleUsers);
+                                            setIcon("#distinctUsers", data[1].distinctUsers);
+                                            setIcon("#securityRoles", data[2].securityRoles);
+                                            setIcon("#nonAdministrativeUsers2", data[3].nonAdministrativeUsers2);
+                                            setIcon("#nonAdministrativeUsers3", data[4].nonAdministrativeUsers3);                                            
+                                            setIcon("#nonDefaultPrivilege", data[5].nonDefaultPrivilege);
+                                            setIcon("#privilegesConfigured", data[6].privilegesConfigured);
+                                            setIcon("#administrativeRoles", data[7].administrativeRoles);
                                             
                                             //Setando resultado para grupo 2:
-                                            setIcon("#auditingIsEnabled", data[1].auditingIsEnabled);
-                                            setIcon("#manyNonSystemUserSessions", data[15].manyNonSystemUserSessions);
-                                            setIcon("#nonAdministrativeUsers", data[12].nonAdministrativeUsers);
-                                            setIcon("#enablesSystemAuditing", data[5].enablesSystemAuditing);
+                                            setIcon("#auditingIsEnabled", data[8].auditingIsEnabled);
+                                            setIcon("#manyNonSystemUserSessions", data[9].manyNonSystemUserSessions);
+                                            setIcon("#nonAdministrativeUsers", data[10].nonAdministrativeUsers);
+                                            setIcon("#enablesSystemAuditing", data[11].enablesSystemAuditing);
                                                       
                                             //Setando resultado para grupo 3:
-                                            setIcon("#systemPrivileges", data[19].systemPrivileges); 
-                                            setIcon("#externalLibraries", data[6].externalLibraries);
-                                            setIcon("#defaultDatabasePassword", data[2].defaultDatabasePassword);
-                                            setIcon("#writeFiles", data[19].writeFiles); 
-                                            setIcon("#deprecatedOptimizer", data[3].deprecatedOptimizer);
-                                            setIcon("#useMaximumMemorySize", data[19].useMaximumMemorySize); 
+                                            setIcon("#systemPrivileges", data[12].systemPrivileges); 
+                                            setIcon("#externalLibraries", data[13].externalLibraries);
+                                            setIcon("#defaultDatabasePassword", data[14].defaultDatabasePassword);
+                                            setIcon("#writeFiles", data[15].writeFiles); 
+                                            setIcon("#deprecatedOptimizer", data[16].deprecatedOptimizer);
+                                            setIcon("#useMaximumMemorySize", data[17].useMaximumMemorySize); 
                                             
                                             //Setando resultado para grupo 4;
-                                            setIcon("#failedLogin", data[14].failedLogin);
-                                            setIcon("#loginAttempts", data[8].loginAttempts);
-                                            setIcon("#loginAttempts2", data[10].loginAttempts2);
-                                            setIcon("#serverVersionInformation", data[18].serverVersionInformation);
-                                            setIcon("#nonCaseSensitivePasswords", data[18].nonCaseSensitivePasswords);
+                                            setIcon("#failedLogin", data[18].failedLogin);
+                                            setIcon("#loginAttempts", data[19].loginAttempts);
+                                            setIcon("#loginAttempts2", data[20].loginAttempts2);
+                                            setIcon("#serverVersionInformation", data[21].serverVersionInformation);
+                                            setIcon("#nonCaseSensitivePasswords", data[22].nonCaseSensitivePasswords);
                                             
                                             //se tiver invisivel
                                             if($("#system").hasClass("invisible")){
                                                 $("#system").toggleClass( "invisible" );
                                             }
                                             
-                                            gauge1();
-                                            gauge2();
-                                            gauge3();
-                                            gauge4();
-                                            gauge5();
+                                            //avaliando cada grupo e já montando o grafico
+                                            gauge((getAvaliation(data, 0, 8)/8)*100, "preview1", "graph1");
+                                            gauge((getAvaliation(data, 8, 12)/4)*100, "preview2", "graph2");
+                                            gauge((getAvaliation(data, 12, 18)/6)*100, "preview3", "graph3");
+                                            gauge((getAvaliation(data, 18, 23)/5)*100, "preview4", "graph4");
                                             
                                         }else{
                                             //postgres
@@ -175,11 +179,14 @@ $( document ).ready(function() {
                                                 $("#system").toggleClass( "invisible" );
                                             }
                                             
-                                            gauge1();
-                                            gauge2();
-                                            gauge3();
-                                            gauge4();
-                                            gauge5(); 
+                                            //avaliando cada grupo e já montando o grafico
+                                            gauge((getAvaliation(data, 0, 6)/6)*100, "preview1", "graph1");
+                                            gauge((getAvaliation(data, 6, 8)/2)*100, "preview2", "graph2");
+                                            gauge((getAvaliation(data, 8, 16)/8)*100, "preview3", "graph3");
+                                            gauge((getAvaliation(data, 16, 21)/5)*100, "preview4", "graph4");
+                                            gauge((getAvaliation(data, 21, 22))*100, "preview5", "graph5");
+                                            
+                                            
                                         }
                                     }
             });
@@ -200,10 +207,6 @@ $( document ).ready(function() {
         $('#password').val("");
         $('#sgbd').val("oracle");
     });
-    
-    function checkParameters(fields){
-
-    }
     
     function onlyNumber(fields){
         $(fields).unbind('keyup').bind('keyup',function(e){
@@ -234,4 +237,20 @@ function setIcon(div, data){
     }else {
         $(div).html(' <img src="scripts/img/warning.png" style="width:30px;height:55px;padding-top: 25px;">');
     }
+}
+
+function getAvaliation(data, down, up){
+    
+    var cont = 0;
+    for(var i=down; i < up; i++){
+        var obj = data[i];
+        for(var key in obj){
+            var value = obj[key];
+            if(value=="true"){
+                ++cont;
+            }
+        }
+    }
+    
+    return cont;
 }

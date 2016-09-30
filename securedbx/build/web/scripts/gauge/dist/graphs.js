@@ -32,102 +32,20 @@ function update(color) {
     }
  }
  
- function gauge1(){
+ function gauge(valor, div, grafico){
      
-    var target = document.getElementById('graph1');
-    var nivel = 50;
-    var color = colorTest(nivel);
-    
-    gauge1 = new Gauge(target).setOptions(update('#FFD700'));
-    gauge1.setTextField(document.getElementById("preview1"));
-    gauge1.maxValue = 100;
-    
-    gauge1.set(nivel);
+    var target = document.getElementById(grafico);
 
- };
-
- function gauge2(){
-
-    var target = document.getElementById('graph2');
-    var nivel = 25;
-    var color = colorTest(nivel);
+    var color = colorTest(valor);
     
     gauge1 = new Gauge(target).setOptions(update(color));
-    gauge1.setTextField(document.getElementById("preview2"));
+    gauge1.setTextField(document.getElementById(div));
     gauge1.maxValue = 100;
     
-    gauge1.set(nivel);
-
- };
- 
-function gauge3(){
-    
-    var target = document.getElementById('graph3');
-    var nivel = 55;
-    var color = colorTest(nivel);
-    
-    gauge1 = new Gauge(target).setOptions(update(color));
-    gauge1.setTextField(document.getElementById("preview3"));
-    gauge1.maxValue = 100;
-    
-    gauge1.set(nivel);
-
- };
- 
- function gauge4(){
-    
-    var target = document.getElementById('graph4');
-    var nivel = 1;
-    var color = colorTest(nivel);
-    
-    gauge1 = new Gauge(target).setOptions(update(color));
-    gauge1.setTextField(document.getElementById("preview4"));
-    gauge1.maxValue = 100;
-    
-    gauge1.set(nivel);
-
- };
- 
- function gauge5(){
-    
-    var target = document.getElementById('graph5');
-    var nivel = 100;
-    var color = colorTest(nivel);
-    
-    gauge1 = new Gauge(target).setOptions(update(color));
-    gauge1.setTextField(document.getElementById("preview5"));
-    gauge1.maxValue = 100;
-    
-    gauge1.set(nivel);
-
- };
- 
- function gauge6(){
-    
-    var target = document.getElementById('graph6');
-    var nivel = Math.floor( (Math.random() * 100) + 1);
-    var color = colorTest(nivel);
-    
-    gauge1 = new Gauge(target).setOptions(update(color));
-    gauge1.setTextField(document.getElementById("preview6"));
-    gauge1.maxValue = 100;
-    
-    gauge1.set(nivel);
-
- };
- 
- function gauge7(){
-    
-    var target = document.getElementById('graph7');
-    var nivel = Math.floor( (Math.random() * 100) + 1);
-    var color = colorTest(nivel);
-    
-    gauge1 = new Gauge(target).setOptions(update(color));
-    gauge1.setTextField(document.getElementById("preview7"));
-    gauge1.maxValue = 100;
-    
-    gauge1.set(nivel);
-
+    if(valor == 0)
+        gauge1.set(1);
+    else
+        gauge1.set(valor);
  };
  
 

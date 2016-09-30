@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Thayson/Documents/NetBeansProjects/securedbx/securedbx/src/java/servlets/ServletSgbd.java</file>
+            <file>file:/C:/Users/Thayson/Documents/NetBeansProjects/securedbx/securedbx/web/scripts/gauge/dist/gauge.js</file>
+            <file>file:/C:/Users/Thayson/Documents/NetBeansProjects/securedbx/securedbx/web/scripts/js/graphs-results.js</file>
+            <file>file:/C:/Users/Thayson/Documents/NetBeansProjects/securedbx/securedbx/web/scripts/gauge/dist/graphs.js</file>
+            <file>file:/C:/Users/Thayson/Documents/NetBeansProjects/securedbx/securedbx/web/scripts/js/custom.js</file>
+        </group>
     </open-files>
 </project-private>
