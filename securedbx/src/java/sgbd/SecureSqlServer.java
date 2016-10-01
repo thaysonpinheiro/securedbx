@@ -47,7 +47,7 @@ public final class SecureSqlServer {
     public JSONObject masterKey = new JSONObject();
     public JSONObject encryptedDatabases = new JSONObject();
     public JSONObject lastPatch = new JSONObject();
-    public JSONObject autenticationmode = new JSONObject();
+    public JSONObject authenticationmode = new JSONObject();
     public JSONObject filestreamUsers = new JSONObject();
     public JSONObject traceFilesDiagSecIssues = new JSONObject();
     public JSONObject directUpdInSystemTables = new JSONObject();
@@ -63,7 +63,7 @@ public final class SecureSqlServer {
         this.getMasterKey();
         this.getEncryptedDatabases();
         this.getLastPatch();
-        this.getAutenticationmode();
+        this.getAuthenticationmode();
         this.getFilestreamUsers();
         this.getTraceFilesDiagSecIssues();
         this.getDirectUpdInSystemTables();
@@ -360,7 +360,7 @@ public final class SecureSqlServer {
 
         try {
             boolean hasResults = preparedStatement.execute();
-            this.dbOwnerLogins.put("dbOwners", "true");
+            this.dbOwnerLogins.put("dbOwnerLogins", "true");
             while (hasResults) {
                 ResultSet rs = preparedStatement.getResultSet();
                 if(rs.next() && (!rs.getString(3).equals("sa") && !(rs.getString(3) != null) ))
@@ -618,10 +618,10 @@ public final class SecureSqlServer {
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
-
+         
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
-            if (!fields.next()) {
+            if (!fields.next() && fields != null) {
                 this.loginFailures.put("loginFailures", "true");
             } else {
                 this.loginFailures.put("loginFailures", "false");
@@ -732,7 +732,7 @@ public final class SecureSqlServer {
      * @return the masterKey
      */
     public void getMasterKey() {
-        String sql = "SELECT * FROMÂ sys.master_key_passwords";
+        String sql = "SELECT * FROM sys.master_key_passwords";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
@@ -782,7 +782,7 @@ public final class SecureSqlServer {
      * @return the lastPatch
      */
     public void getLastPatch() {
-        String sql = "SELECT SERVERPROPERTY('productversion')";
+        String sql = "SELECT cast (SERVERPROPERTY('productversion') as varchar(20))";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
@@ -803,10 +803,10 @@ public final class SecureSqlServer {
     /**
      * 13
      *
-     * @return the autenticationmode
+     * @return the authenticationmode
      */
-    public void getAutenticationmode() {
-        String sql = "SELECT SERVERPROPERTY ('IsIntegratedSecurityOnly')')";
+    public void getAuthenticationmode() {
+        String sql = "SELECT cast (SERVERPROPERTY ('IsIntegratedSecurityOnly') as varchar(20))";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
@@ -814,9 +814,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getString(1).equals("1")) {
-                this.autenticationmode.put("autenticationmode", "true");
+                this.authenticationmode.put("authenticationMode", "true");
             } else {
-                this.autenticationmode.put("autenticationmode", "false");
+                this.authenticationmode.put("authenticationMode", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -830,16 +830,14 @@ public final class SecureSqlServer {
      * @return the filestreamUsers
      */
     public void getFilestreamUsers() {
-        String sql = "SELECT * Â \n"
-                + "FROM Â sys.configurations \n"
-                + "where name = 'filestream access level' Â ";
+        String sql = "SELECT  cast(value as varchar) as value   FROM sys.configurations where name = 'filestream access level'";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
         ResultSet fields = driver.executeQuery(preparedStatement);
 
         try {
 
-            if (fields.next() && fields.getString(3).equals("0")) {
+            if (fields.next() && fields.getString("value").equals("0")) {
                 this.filestreamUsers.put("filestreamUsers", "true");
             } else {
                 this.filestreamUsers.put("filestreamUsers", "false");
@@ -854,8 +852,8 @@ public final class SecureSqlServer {
      * @return the traceFilesDiagSecIssues
      */
     public void getTraceFilesDiagSecIssues() {
-         String sql = "SELECT * \n" +
-                    "FROM Â sys.configurations\n" +
+         String sql = "SELECT  cast(value as varchar) as value \n" +
+                    "FROM sys.configurations\n" +
                     "where name = 'default trace enabled'";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -863,7 +861,7 @@ public final class SecureSqlServer {
 
         try {
 
-            if (fields.next() && fields.getString(3).equals("1")) {
+            if (fields.next() && fields.getString("value").equals("1")) {
                 this.traceFilesDiagSecIssues.put("traceFilesDiagSecIssues", "true");
             } else {
                 this.traceFilesDiagSecIssues.put("traceFilesDiagSecIssues", "false");
@@ -878,8 +876,8 @@ public final class SecureSqlServer {
      * @return the directUpdInSystemTables
      */
     public void getDirectUpdInSystemTables() {
-        String sql = "SELECT * \n" +
-                    "FROM Â sys.configurations\n" +
+        String sql = "SELECT cast(value as varchar) as value \n" +
+                    "FROM sys.configurations\n" +
                     "where name = 'allow updates'";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -887,7 +885,7 @@ public final class SecureSqlServer {
 
         try {
 
-            if (fields.next() && fields.getString(3).equals("0")) {
+            if (fields.next() && fields.getString("value").equals("0")) {
                 this.directUpdInSystemTables.put("directUpdInSystemTables", "true");
             } else {
                 this.directUpdInSystemTables.put("directUpdInSystemTables", "false");
@@ -902,8 +900,8 @@ public final class SecureSqlServer {
      * @return the remoteAccessToServer
      */
     public void getRemoteAccessToServer() {
-        String sql = "SELECT * \n" +
-                    "FROM Â sys.configurations \n" +
+        String sql = "SELECT cast(value as varchar) as value \n" +
+                    "FROM sys.configurations \n" +
                     "where name = 'remote access' ";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -911,7 +909,7 @@ public final class SecureSqlServer {
 
         try {
 
-            if (fields.next() && fields.getString(3).equals("0")) {
+            if (fields.next() && fields.getString("value").equals("0")) {
                 this.remoteAccessToServer.put("remoteAccessToServer", "true");
             } else {
                 this.remoteAccessToServer.put("remoteAccessToServer", "false");
@@ -926,8 +924,8 @@ public final class SecureSqlServer {
      * @return the remoteAdminAccess
      */
     public void getRemoteAdminAccess() {
-               String sql = "SELECT * \n" +
-                            "FROM Â sys.configurations\n" +
+               String sql = "SELECT cast(value as varchar) as value \n" +
+                            "FROM sys.configurations\n" +
                             "where name = 'remote admin connections'";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -935,7 +933,7 @@ public final class SecureSqlServer {
 
         try {
 
-            if (fields.next() && fields.getString(3).equals("0")) {
+            if (fields.next() && fields.getString("value").equals("0")) {
                 this.remoteAdminAccess.put("remoteAdminAccess", "true");
             } else {
                 this.remoteAdminAccess.put("remoteAdminAccess", "false");
@@ -950,8 +948,8 @@ public final class SecureSqlServer {
      * @return the remoteLoginTimeout
      */
     public void getRemoteLoginTimeout() {
-                String sql = "SELECT * \n" +
-                            "FROM Â sys.configurations \n" +
+                String sql = "SELECT cast(value as varchar) as value \n" +
+                            "FROM sys.configurations \n" +
                             "where name = 'remote login timeout (s)' ";
 
         PreparedStatement preparedStatement = driver.prepareStatement(sql);
@@ -959,7 +957,7 @@ public final class SecureSqlServer {
 
         try {
 
-            if (fields.next() && fields.getInt(3)<=10) {
+            if (fields.next() && fields.getInt("value")<=10) {
                 this.remoteLoginTimeout.put("remoteLoginTimeout", "true");
             } else {
                 this.remoteLoginTimeout.put("remoteLoginTimeout", "false");

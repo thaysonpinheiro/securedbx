@@ -38,7 +38,7 @@ $( document ).ready(function() {
                                         if($('#sgbd').val() == 'sqlserver'){
                                             //sqlserver
                                             //Setando resultado para grupo 1: 
-
+                                          
                                             //Setando resultado para grupo 2:
                                             setIcon("#traceFilesDiagSecIssues", data[0].traceFilesDiagSecIssues);
                                             setIcon("#informationViews", data[1].informationViews);
@@ -50,39 +50,39 @@ $( document ).ready(function() {
                                             setIcon("#administratorsGroup", data[5].administratorsGroup);
                                             setIcon("#localAdministratorsGroup", data[6].localAdministratorsGroup);
                                             setIcon("#sysAdminUsers", data[7].sysAdminUsers);
-                                            setIcon("#dbOwnerUser", data[8].dbOwnerUser);
-                                            setIcon("#passwordExpirationPolicy", data[9].passwordExpirationPolicy);
-                                            setIcon("#exampleDatabases", data[10].exampleDatabases);
-                                            setIcon("#saUser", data[11].saUser);
-                                            setIcon("#guestUser", data[12].guestUser);
-                                            setIcon("#autenticationmode", data[13].autenticationmode);
-                                            setIcon("#enabledNetworkProtocols", data[14].enabledNetworkProtocols);
-                                            setIcon("#loginsWithoutPermissions", data[15].loginsWithoutPermissions);
-                                            setIcon("#usersWithoutLogin", data[16].usersWithoutLogin);
+                                            setIcon("#dbOwnerUsers", data[28].dbOwnerUser);
+                                            setIcon("#passwordExpirationPolicy", data[8].passwordExpirationPolicy);
+                                            setIcon("#exampleDatabases", data[9].exampleDatabases);
+                                            setIcon("#saUser", data[10].saUser);
+                                            setIcon("#guestUser", data[11].guestUser);
+                                            setIcon("#authenticationMode", data[12].authenticationMode);
+                                            setIcon("#enabledNetworkProtocols", data[13].enabledNetworkProtocols);
+                                            setIcon("#loginsWithoutPermissions", data[14].loginsWithoutPermissions);
+                                            setIcon("#usersWithoutLogin", data[15].usersWithoutLogin);
                                             
                                             //grupo 3
-                                            setIcon("#shellFileEnable", data[17].shellFileEnable);
-                                            setIcon("#filestreamUsers", data[18].filestreamUsers);
+                                            setIcon("#shellFileEnable", data[29].shellFileEnable);
+                                            setIcon("#filestreamUsers", data[16].filestreamUsers);
                                             
                                             //grupo 1
-                                            setIcon("#dbOwnerLogins", data[19].dbOwnerLogins);
+                                            setIcon("#dbOwnerLogins", data[17].dbOwnerLogins);
                                             
                                             //grupo 3
-                                            setIcon("#lastPatch", data[20].lastPatch);
+                                            setIcon("#lastPatch", data[18].lastPatch);
                                             
                                             //grupo 1
-                                            setIcon("#validBackups", data[21].validBackups);
+                                            setIcon("#validBackups", data[19].validBackups);
 
                                             //Setando resultado para grupo 4;
-                                            setIcon("#directUpdInSystemTables", data[22].directUpdInSystemTables);
-                                            setIcon("#remoteAccessToServer", data[23].remoteAccessToServer);
-                                            setIcon("#remoteAdminAccess", data[24].remoteAdminAccess);
-                                            setIcon("#remoteLoginTimeout", data[25].remoteLoginTimeout);
-                                            setIcon("#masterKey", data[26].masterKey);
+                                            setIcon("#directUpdInSystemTables", data[20].directUpdInSystemTables);
+                                            setIcon("#remoteAccessToServer", data[21].remoteAccessToServer);
+                                            setIcon("#remoteAdminAccess", data[23].remoteAdminAccess);
+                                            setIcon("#remoteLoginTimeout", data[24].remoteLoginTimeout);
+                                            setIcon("#masterKey", data[25].masterKey);
                                             
                                             //5
-                                            setIcon("#certificatesOrSymmetricKeys", data[27].certificatesOrSymmetricKeys);
-                                            setIcon("#encryptedDatabases", data[28].encryptedDatabases);
+                                            setIcon("#certificatesOrSymmetricKeys", data[26].certificatesOrSymmetricKeys);
+                                            setIcon("#encryptedDatabases", data[27].encryptedDatabases);
 
                                             //se tiver invisivel
                                             if($("#system").hasClass("invisible")){

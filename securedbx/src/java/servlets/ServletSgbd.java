@@ -128,7 +128,7 @@ public class ServletSgbd extends HttpServlet {
                     r.add(sqlserver.exampleDatabases);
                     r.add(sqlserver.saUser);
                     r.add(sqlserver.guestUser);
-                    r.add(sqlserver.autenticationmode);
+                    r.add(sqlserver.authenticationmode);
                     r.add(sqlserver.enabledNetworkProtocols);
                     r.add(sqlserver.loginsWithoutPermissions);
                     r.add(sqlserver.usersWithoutLogin);
@@ -138,14 +138,14 @@ public class ServletSgbd extends HttpServlet {
                     r.add(sqlserver.validBackups);
                     r.add(sqlserver.directUpdInSystemTables);
                     r.add(sqlserver.remoteAccessToServer);
-                    r.add(sqlserver.remoteAccessToServer);
                     r.add(sqlserver.remoteLoginTimeout);
                     r.add(sqlserver.remoteAdminAccess);
                     r.add(sqlserver.remoteLoginTimeout);
                     r.add(sqlserver.masterKey);
                     r.add(sqlserver.certificatesOrSymmetricKeys);
                     r.add(sqlserver.encryptedDatabases);
-                    
+                    r.add(sqlserver.dbOwnerUser);
+                    r.add(sqlserver.shellFileEnable);
                     out.print(r);
                     break;
             }  

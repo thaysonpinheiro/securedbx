@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!--GROUP 1-->
+         <div class="painel">
+             <div class="titulo-table">Assessment of Users and Permissions</div>
+             <table class="table table-bordered tableGroup group">
+                 <thead class="thead-inverse">
+                   <tr>
+                     <th>Item</th>
+                     <th>Desciption</th>
+                     <th>Avaliation</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <th scope="row">1</th>
+                     <td>Sysadmins Users</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                             <div id="sysAdminUsers">
+                                 
+                             </div>
+                         </center>
+                      </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">2</th>
+                     <td >db_owner Users</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                             <div id="dbOwnerUsers">
+                                 
+                             </div>
+                         </center>
+                     </td>  
+
+
+                   </tr>
+                   <tr>
+                     <th scope="row">3</th>
+                     <td >SA User</td>
+                     <td  style="padding-bottom: 0px;">
+                          <center>
+                              <div id="saUser">
+                                 
+                             </div>
+                          </center>
+                     </td>  
+
+                   </tr>
+                   <tr>
+                     <th scope="row">4</th>
+                     <td>Guest User</td>
+                     <td  style="padding-bottom: 0px;">
+                          <center>
+                              <div id="guestUser">
+                                 
+                             </div>
+                          </center>
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">5</th>
+                     <td>Logins without Permissions</td>
+                     <td  style="padding-bottom: 0px;">
+                          <center>
+                              <div id="loginsWithoutPermissions">
+                                 
+                             </div>
+                          </center>
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">6</th>
+                     <td >Users without Login</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                            <div id="usersWithoutLogin">
+                                 
+                            </div>
+                          </center>
+                     </td>  
+                   </tr>
+                 </tbody>
+             </table>
+
+             <div class="group graph">
+                 <div id="preview">
+                     <canvas width=220 height=70 class="canvas-preview" id="graph1"></canvas>
+                     <div class="preview-textfield" id="preview1"></div>
+                 </div>
+             </div>
+         </div>   
+
+        <!--GROUP 2-->
+        <div class="painel">
+            <div class="titulo-table">Monitoring and Auditing</div>
+             <table class="table table-bordered tableGroup group">
+                 <thead class="thead-inverse">
+                   <tr>
+                     <th>Item</th>
+                     <th>Desciption</th>
+                     <th>Avaliation</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <th scope="row">1</th>
+                     <td>Audit Level</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="auditLevel">
+
+                             </div>
+                          </center>
+                     </td>  
+                   </tr>
+
+                   <tr>
+                     <th scope="row">2</th>
+                     <td >db_owner Logins</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="dbOwnerLogins">
+
+                             </div>
+                          </center>
+                     </td>     
+                   </tr>
+
+                    <tr>
+                        <th scope="row">3</th>
+                        <td >Default Trace </td>
+                        <td  style="padding-bottom: 0px;">
+                            <center>
+                                 <div id="traceFilesDiagSecIssues">
+
+                                </div>
+                             </center>
+                        </td>     
+                   </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td >informationViews</td>
+                        <td  style="padding-bottom: 0px;">
+                            <center>
+                                 <div id="informationViews">
+
+                                </div>
+                             </center>
+                        </td>     
+                   </tr>
+                </tbody>
+             </table>
+             <div class="group graph">
+                 <div id="preview">
+                     <canvas width=220 height=70 class="canvas-preview" id="graph2"></canvas>
+                     <div class="preview-textfield" id="preview2"></div>
+                 </div>
+             </div>
+         </div>    
+
+        <!--GROUP 3-->
+        <div class="painel">
+            <div class="titulo-table">Vulnerability and Configuration Management</div> 
+            <table class="table table-bordered tableGroup group">
+                 <thead class="thead-inverse">
+                   <tr>
+                     <th>Item</th>
+                     <th>Desciption</th>
+                     <th>Avaliation</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <th scope="row">1</th>
+                     <td>Administrators Group</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="administratorsGroup">
+                                 
+                             </div>
+                          </center>
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">2</th>
+                     <td >Local Administrators Group</td>
+                     <td  style="padding-bottom: 0px;">
+                          <center>
+                              <div id="localAdministratorsGroup">
+                                     
+                              </div>
+                          </center>    
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">3</th>
+                     <td >Password Expiration Policy</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="passwordExpirationPolicy">
+                                     
+                              </div>
+                          </center>  
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">4</th>
+                     <td >Example Databases</td>
+                     <td  style="padding-bottom: 0px;">
+                        <center>
+                              <div id="exampleDatabases">
+                                     
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">5</th>
+                     <td >Authentication Mode</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="authenticationMode">
+                                     
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">6</th>
+                     <td >Enabled Network Protocols</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="enabledNetworkProtocols">
+                                     
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">7</th>
+                     <td >Valid Backups</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="validBackups">
+                                     
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   
+                   <tr>
+                        <th scope="row">9</th>
+                        <td >shellFileEnable</td>
+                        <td  style="padding-bottom: 0px;">
+                            <center>
+                                 <div id="shellFileEnable">
+
+                                 </div>
+                             </center>  
+                        </td>  
+                   </tr>
+                   <tr>
+                        <th scope="row">9</th>
+                        <td >filestreamUsers</td>
+                        <td  style="padding-bottom: 0px;">
+                            <center>
+                                 <div id="filestreamUsers">
+
+                                 </div>
+                             </center>  
+                        </td>  
+                   </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td >lastPatch</td>
+                        <td  style="padding-bottom: 0px;">
+                            <center>
+                                 <div id="lastPatch">
+
+                                 </div>
+                             </center>  
+                        </td>  
+                   </tr>
+                </tbody>
+             </table>
+             <div class="group graph">
+                 <div id="preview">
+                     <canvas width=220 height=70 class="canvas-preview" id="graph3"></canvas>
+                     <div class="preview-textfield" id="preview3"></div>
+                 </div>
+             </div>
+         </div> 
+
+        <!--GROUP 4-->
+         <div class="painel">
+             <div class="titulo-table">Prevention and Blocking Attacks</div>
+             <table class="table table-bordered tableGroup group">
+                 <thead class="thead-inverse">
+                   <tr>
+                     <th>Item</th>
+                     <th>Desciption</th>
+                     <th>Avaliation</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <th scope="row">1</th>
+                     <td>Login Failures</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="loginFailures">
+                                     
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">2</th>
+                     <td >Default Port</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="defaultPort">
+                                    
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   
+                   <tr>
+                     <th scope="row">3</th>
+                     <td >directUpdInSystemTables</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="directUpdInSystemTables">
+                                    
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">4</th>
+                     <td >remoteAccessToServer</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="remoteAccessToServer">
+                                    
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">5</th>
+                     <td >remoteAdminAccess</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="remoteAdminAccess">
+                                    
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>
+                   <tr>
+                     <th scope="row">6</th>
+                     <td >remoteLoginTimeout</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="remoteLoginTimeout">
+                                    
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>                
+                   <tr>
+                     <th scope="row">7</th>
+                     <td >masterKey</td>
+                     <td  style="padding-bottom: 0px;">
+                         <center>
+                              <div id="masterKey">
+                                    
+                              </div>
+                          </center> 
+                     </td>  
+                   </tr>                   
+                   
+             </tbody>
+             </table>
+             <div class="group graph">
+                 <div id="preview">
+                     <canvas width=220 height=70 class="canvas-preview" id="graph4"></canvas>
+                     <div class="preview-textfield" id="preview4"></div>
+                 </div>
+             </div>
+         </div>                         
+
+        <!--GROUP 5-->
+        <div class="painel">
+            <div class="titulo-table">Encryption, Tokenization and Data Masking</div> 
+            <table class="table table-bordered tableGroup group">
+                 <thead class="thead-inverse">
+                   <tr>
+                     <th>Item</th>
+                     <th>Desciption</th>
+                     <th>Avaliation</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Number of Encrypted Objects!!!</td>
+                        <td  style="padding-bottom: 0px;">
+                            <center><img src="scripts/img/good.png" style="width:30px;height:55px;padding-top: 25px;"></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>certificatesOrSymmetricKeys</td>
+                        <td  style="padding-bottom: 0px;">
+                            <center>
+                                <div id="certificatesOrSymmetricKeys">
+
+                                </div>
+                             </center> 
+                        </td>
+                   </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>encryptedDatabases</td>
+                        <td  style="padding-bottom: 0px;">
+                            <center>
+                                <div id="encryptedDatabases">
+
+                                </div>
+                             </center> 
+                        </td>
+                   </tr>
+                </tbody>
+             </table>
+             <div class="group graph">
+                 <div id="preview">
+                     <canvas width=220 height=70 class="canvas-preview" id="graph5"></canvas>
+                     <div class="preview-textfield" id="preview5"></div>
+                 </div>
+             </div>
+         </div>
+    </body>
+</html>
