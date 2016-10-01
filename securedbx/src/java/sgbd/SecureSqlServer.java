@@ -25,68 +25,59 @@ public final class SecureSqlServer {
 
     private ConnectionSGBD driver;
     
-    public JSONObject sysAdminUsers = new JSONObject();
-    public JSONObject dbOwnerUser = new JSONObject();
-    public JSONObject dbOwnerLogins = new JSONObject();
-    public JSONObject saUser = new JSONObject();
-    public JSONObject guestUser = new JSONObject();
-    public JSONObject usersWithoutLogin = new JSONObject();
-    public JSONObject auditLevel = new JSONObject();
-    public JSONObject loginsWithoutPermissions = new JSONObject();
-    public JSONObject administratorsGroup = new JSONObject();
-    public JSONObject localAdministratorsGroup = new JSONObject();
-    public JSONObject passwordExpirationPolicy = new JSONObject();
-    public JSONObject exampleDatabases = new JSONObject();
-    public JSONObject shellFileEnable = new JSONObject();
-    public JSONObject validBackups = new JSONObject();
-    public JSONObject loginFailures = new JSONObject();
-    public JSONObject enabledNetworkProtocols = new JSONObject();
-    public JSONObject defaultPort = new JSONObject();
-    public JSONObject informationViews = new JSONObject();
-    public JSONObject certificatesOrSymmetricKeys = new JSONObject();
-    public JSONObject masterKey = new JSONObject();
-    public JSONObject encryptedDatabases = new JSONObject();
-    public JSONObject lastPatch = new JSONObject();
-    public JSONObject authenticationmode = new JSONObject();
-    public JSONObject filestreamUsers = new JSONObject();
-    public JSONObject traceFilesDiagSecIssues = new JSONObject();
-    public JSONObject directUpdInSystemTables = new JSONObject();
-    public JSONObject remoteAccessToServer = new JSONObject();
-    public JSONObject remoteAdminAccess = new JSONObject();
-    public JSONObject remoteLoginTimeout = new JSONObject();
+    public JSONObject group1 = new JSONObject();
+    public JSONObject group2 = new JSONObject();
+    public JSONObject group3 = new JSONObject();
+    public JSONObject group4 = new JSONObject();
+    public JSONObject group5 = new JSONObject();
+    
 
     public SecureSqlServer(ConnectionSGBD driver) {
         this.driver = driver;
-
-        this.getInformationViews();
-        this.getCertificatesOrSymmetricKeys();
-        this.getMasterKey();
-        this.getEncryptedDatabases();
-        this.getLastPatch();
-        this.getAuthenticationmode();
-        this.getFilestreamUsers();
-        this.getTraceFilesDiagSecIssues();
-        this.getDirectUpdInSystemTables();
-        this.getRemoteAccessToServer();
-        this.getRemoteAdminAccess();
-        this.getRemoteLoginTimeout();
-        this.getShellFileEnable();
+        
+        //Start: Group1 methods
         this.getSysAdminUsers();
         this.getDBOwnerUser();
         this.getSAUser();
         this.getGuestUser();
         this.getLoginsWithoutPermissions();
         this.getUsersWithoutLogin();
-        this.getDbOwnerLogins();
+        //End: Group2 methods
+        
+        //Start: Group2 methods
         this.getAuditLevel();
+        this.getDbOwnerLogins();
+        this.getTraceFilesDiagSecIssues();
+        this.getInformationViews();
+        //End: Group2 methods
+        
+        //Start: Group3 methods
         this.getAdministratorsGroup();
         this.getLocalAdministratorsGroup();
-        this.getEnabledNetworkProtocols();
         this.getPasswordExpirationPolicy();
         this.getExampleDatabases();
+        this.getAuthenticationmode();
+        this.getEnabledNetworkProtocols();
         this.getValidBackups();
-        this.getDefaultPort();
+        this.getShellFileEnable();
+        this.getFilestreamUsers();
+        this.getLastPatch();
+        //End: Group3 methods
+        
+        //Start: Group4 methods
         this.getLoginFailures();
+        this.getDefaultPort();
+        this.getDirectUpdInSystemTables();
+        this.getRemoteAccessToServer();
+        this.getRemoteAdminAccess();
+        this.getRemoteLoginTimeout();
+        this.getMasterKey();
+        //End: Group4 methods
+        
+        //Start: Group5 methods
+        this.getCertificatesOrSymmetricKeys();
+        this.getEncryptedDatabases();
+        //End: Group5 methods
         
     }
 
@@ -100,11 +91,11 @@ public final class SecureSqlServer {
 
         try {
             //Seta o valor inicial como true e se algum elemento nÃ£o comeÃ§ar como sa nem com NT seta o valor para false
-            this.sysAdminUsers.put("sysAdminUsers", "true");
+            this.group1.put("sysAdminUsers", "true");
             while (fields.next()) {
                 //r.add(fields.getString("MemberName"));
                 if (!fields.getString("MemberName").startsWith("sa") && !fields.getString("MemberName").startsWith("NT")) {
-                    this.sysAdminUsers.put("sysAdminUsers", "false");
+                    this.group1.put("sysAdminUsers", "false");
                 }
             }
 
@@ -126,9 +117,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
             if (!fields.next()) {
-                this.dbOwnerUser.put("dbOwnerUser", "true");
+                this.group1.put("dbOwnerUser", "true");
             } else {
-                this.dbOwnerUser.put("dbOwnerUser", "false");
+                this.group1.put("dbOwnerUser", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -151,14 +142,14 @@ public final class SecureSqlServer {
 
         try {
 
-            this.saUser.put("saUser", "false");
+            this.group1.put("saUser", "false");
 
             while (fields.next()) {
                 if (fields.getString("Renamed").equals("NO")
                         && fields.getString("is_policy_checked").equals("1")
                         && fields.getString("is_expiration_checked").equals("1")
                         && fields.getString("is_disabled").equals("1")) {
-                    this.saUser.put("saUser", "true");
+                    this.group1.put("saUser", "true");
                 }
             }
 
@@ -197,9 +188,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
             if (!fields.next()) {
-                this.guestUser.put("guestUser", "true");
+                this.group1.put("guestUser", "true");
             } else {
-                this.guestUser.put("guestUser", "false");
+                this.group1.put("guestUser", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -263,9 +254,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
             if (!fields.next()) {
-                this.loginsWithoutPermissions.put("loginsWithoutPermissions", "true");
+                this.group1.put("loginsWithoutPermissions", "true");
             } else {
-                this.loginsWithoutPermissions.put("loginsWithoutPermissions", "false");
+                this.group1.put("loginsWithoutPermissions", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -274,7 +265,7 @@ public final class SecureSqlServer {
     }
 
     //FINALIZADO
-    /* Verificar usuÃ¡rios Ã³rfÃ£os do banco de dados */
+    /* Verificar usuário orfãos do banco de dados */
     //16
     public void getUsersWithoutLogin() {
 
@@ -302,9 +293,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
             if (!fields.next()) {
-                this.usersWithoutLogin.put("usersWithoutLogin", "true");
+                this.group1.put("usersWithoutLogin", "true");
             } else {
-                this.usersWithoutLogin.put("usersWithoutLogin", "false");
+                this.group1.put("usersWithoutLogin", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -333,15 +324,15 @@ public final class SecureSqlServer {
             fields.next();
 
             if (fields.getString("AuditLevel").equals("None")) {
-                this.auditLevel.put("auditLevel", "false");
+                this.group2.put("auditLevel", "false");
             }
 
             if (fields.getString("AuditLevel").equals("Successful logins only") || fields.getString("AuditLevel").equals("Failed logins only")) {
-                this.auditLevel.put("auditLevel", "warning");
+                this.group2.put("auditLevel", "warning");
             }
 
             if (fields.getString("AuditLevel").equals("Both failed and successful logins")) {
-                this.auditLevel.put("auditLevel", "true");
+                this.group2.put("auditLevel", "true");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -359,12 +350,14 @@ public final class SecureSqlServer {
         //ResultSet fields = driver.executeQuery(preparedStatement);
 
         try {
+            
             boolean hasResults = preparedStatement.execute();
-            this.dbOwnerLogins.put("dbOwnerLogins", "true");
+            this.group2.put("dbOwnerLogins", "true");
+            
             while (hasResults) {
                 ResultSet rs = preparedStatement.getResultSet();
                 if(rs.next() && (!rs.getString(3).equals("sa") && !(rs.getString(3) != null) ))
-                    this.dbOwnerLogins.put("dbOwners", "true");
+                    this.group2.put("dbOwners", "true");
                 hasResults = preparedStatement.getMoreResults();
             }
 
@@ -389,9 +382,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
             if (!fields.next()) {
-                this.administratorsGroup.put("administratorsGroup", "true");
+                this.group3.put("administratorsGroup", "true");
             } else {
-                this.administratorsGroup.put("administratorsGroup", "false");
+                this.group3.put("administratorsGroup", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -412,9 +405,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
             if (!fields.next()) {
-                this.localAdministratorsGroup.put("localAdministratorsGroup", "true");
+                this.group3.put("localAdministratorsGroup", "true");
             } else {
-                this.localAdministratorsGroup.put("localAdministratorsGroup", "false");
+                this.group3.put("localAdministratorsGroup", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -436,7 +429,7 @@ public final class SecureSqlServer {
         try {
             ArrayList<String> r = new ArrayList<>();
 
-            this.passwordExpirationPolicy.put("passwordExpirationPolicy", "true");
+            this.group3.put("passwordExpirationPolicy", "true");
 
             while (fields.next()) {
                 String name = fields.getString("name");
@@ -446,7 +439,7 @@ public final class SecureSqlServer {
                         && !name.equals("##MS_PolicyTsqlExecutionLogin##")
                         && !name.equals("zm.nestle")) {
 
-                    this.passwordExpirationPolicy.put("passwordExpirationPolicy", "false");
+                    this.group3.put("passwordExpirationPolicy", "false");
 
                 }
             }
@@ -468,9 +461,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
             if (!fields.next()) {
-                this.exampleDatabases.put("exampleDatabases", "true");
+                this.group3.put("exampleDatabases", "true");
             } else {
-                this.exampleDatabases.put("exampleDatabases", "false");
+                this.group3.put("exampleDatabases", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -489,13 +482,13 @@ public final class SecureSqlServer {
 
         try {
 
-            this.shellFileEnable.put("shellFileEnable", "true");
+            this.group3.put("shellFileEnable", "true");
             System.out.println(preparedStatement);
             System.out.println(fields);
             System.out.println(driver);
             while (fields.next()) {
                 if (!fields.getString(1).equals("0")) {
-                    this.shellFileEnable.put("shellFileEnable", "false");
+                    this.group3.put("shellFileEnable", "false");
                 }
             }
 
@@ -517,11 +510,11 @@ public final class SecureSqlServer {
 
         try {
 
-            this.enabledNetworkProtocols.put("enabledNetworkProtocols", "true");
+            this.group3.put("enabledNetworkProtocols", "true");
 
             while (fields.next()) {
                 if (fields.getString("Value").equals("Enabled")) {
-                    this.enabledNetworkProtocols.put("enabledNetworkProtocols", "false");
+                    this.group3.put("enabledNetworkProtocols", "false");
                 }
             }
 
@@ -561,11 +554,11 @@ public final class SecureSqlServer {
 
         try {
 
-            this.validBackups.put("validBackups", "true");
+            this.group3.put("validBackups", "true");
 
             if (!fields.next()) {
 
-                this.validBackups.put("validBackups", "false");
+                this.group3.put("validBackups", "false");
 
             } else {
 
@@ -581,7 +574,7 @@ public final class SecureSqlServer {
                 actualDate = c.getTime();
 
                 if (lastBackupDate.before(actualDate)) {
-                    this.validBackups.put("validBackups", "false");
+                    this.group3.put("validBackups", "false");
                 }
 
             }
@@ -622,9 +615,9 @@ public final class SecureSqlServer {
         try {
             //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© true.
             if (!fields.next() && fields != null) {
-                this.loginFailures.put("loginFailures", "true");
+                this.group4.put("loginFailures", "true");
             } else {
-                this.loginFailures.put("loginFailures", "false");
+                this.group4.put("loginFailures", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -644,12 +637,12 @@ public final class SecureSqlServer {
 
         try {
 
-            this.defaultPort.put("defaultPort", "true");
+            this.group4.put("defaultPort", "true");
 
             while (fields.next()) {
                 if (fields.getString("defaultPort").equals("1433")) {
                     System.out.println(fields.getString("defaultPort"));
-                    this.defaultPort.put("defaultPort", "false");
+                    this.group4.put("defaultPort", "false");
                 }
             }
         } catch (SQLException | JSONException ex) {
@@ -684,9 +677,9 @@ public final class SecureSqlServer {
 
             if (!fields.next()) {
 
-                this.informationViews.put("informationViews", "false");
+                this.group2.put("informationViews", "false");
             } else {
-                this.informationViews.put("informationViews", "true");
+                this.group2.put("informationViews", "true");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -716,9 +709,9 @@ public final class SecureSqlServer {
         try {
 
             if (!fields1.next() && !fields2.next()) {
-                this.certificatesOrSymmetricKeys.put("certificatesOrSymmetricKeys", "false");
+                this.group5.put("certificatesOrSymmetricKeys", "false");
             } else {
-                this.certificatesOrSymmetricKeys.put("certificatesOrSymmetricKeys", "true");
+                this.group5.put("certificatesOrSymmetricKeys", "true");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -740,9 +733,9 @@ public final class SecureSqlServer {
         try {
 
             if (!fields.next()) {
-                this.masterKey.put("masterKey", "false");
+                this.group4.put("masterKey", "false");
             } else {
-                this.masterKey.put("masterKey", "true");
+                this.group4.put("masterKey", "true");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -766,9 +759,9 @@ public final class SecureSqlServer {
         try {
 
             if (!fields.next()) {
-                this.encryptedDatabases.put("encryptedDatabases", "false");
+                this.group5.put("encryptedDatabases", "false");
             } else {
-                this.encryptedDatabases.put("encryptedDatabases", "true");
+                this.group5.put("encryptedDatabases", "true");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -790,9 +783,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getString(1).equals("12.0.2269.0")) {
-                this.lastPatch.put("lastPatch", "true");
+                this.group3.put("lastPatch", "true");
             } else {
-                this.lastPatch.put("lastPatch", "false");
+                this.group3.put("lastPatch", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -814,9 +807,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getString(1).equals("1")) {
-                this.authenticationmode.put("authenticationMode", "true");
+                this.group3.put("authenticationMode", "true");
             } else {
-                this.authenticationmode.put("authenticationMode", "false");
+                this.group3.put("authenticationMode", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -838,9 +831,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getString("value").equals("0")) {
-                this.filestreamUsers.put("filestreamUsers", "true");
+                this.group3.put("filestreamUsers", "true");
             } else {
-                this.filestreamUsers.put("filestreamUsers", "false");
+                this.group3.put("filestreamUsers", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -862,9 +855,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getString("value").equals("1")) {
-                this.traceFilesDiagSecIssues.put("traceFilesDiagSecIssues", "true");
+                this.group2.put("traceFilesDiagSecIssues", "true");
             } else {
-                this.traceFilesDiagSecIssues.put("traceFilesDiagSecIssues", "false");
+                this.group2.put("traceFilesDiagSecIssues", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -886,9 +879,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getString("value").equals("0")) {
-                this.directUpdInSystemTables.put("directUpdInSystemTables", "true");
+                this.group4.put("directUpdInSystemTables", "true");
             } else {
-                this.directUpdInSystemTables.put("directUpdInSystemTables", "false");
+                this.group4.put("directUpdInSystemTables", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -910,9 +903,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getString("value").equals("0")) {
-                this.remoteAccessToServer.put("remoteAccessToServer", "true");
+                this.group4.put("remoteAccessToServer", "true");
             } else {
-                this.remoteAccessToServer.put("remoteAccessToServer", "false");
+                this.group4.put("remoteAccessToServer", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -934,9 +927,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getString("value").equals("0")) {
-                this.remoteAdminAccess.put("remoteAdminAccess", "true");
+                this.group4.put("remoteAdminAccess", "true");
             } else {
-                this.remoteAdminAccess.put("remoteAdminAccess", "false");
+                this.group4.put("remoteAdminAccess", "false");
             }
 
         } catch (SQLException | JSONException ex) {
@@ -958,9 +951,9 @@ public final class SecureSqlServer {
         try {
 
             if (fields.next() && fields.getInt("value")<=10) {
-                this.remoteLoginTimeout.put("remoteLoginTimeout", "true");
+                this.group4.put("remoteLoginTimeout", "true");
             } else {
-                this.remoteLoginTimeout.put("remoteLoginTimeout", "false");
+                this.group4.put("remoteLoginTimeout", "false");
             }
 
         } catch (SQLException | JSONException ex) {

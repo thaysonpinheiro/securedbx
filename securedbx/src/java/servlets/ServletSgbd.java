@@ -115,37 +115,12 @@ public class ServletSgbd extends HttpServlet {
                 case "sqlserver":
                     SecureSqlServer sqlserver = new SecureSqlServer(con);
 
-                    r.add(sqlserver.traceFilesDiagSecIssues);
-                    r.add(sqlserver.informationViews);
-                                            
-                    r.add(sqlserver.defaultPort);
-                    r.add(sqlserver.auditLevel);
-                    r.add(sqlserver.loginFailures);
-                    r.add(sqlserver.administratorsGroup);
-                    r.add(sqlserver.localAdministratorsGroup);
-                    r.add(sqlserver.sysAdminUsers);
-                    r.add(sqlserver.passwordExpirationPolicy);
-                    r.add(sqlserver.exampleDatabases);
-                    r.add(sqlserver.saUser);
-                    r.add(sqlserver.guestUser);
-                    r.add(sqlserver.authenticationmode);
-                    r.add(sqlserver.enabledNetworkProtocols);
-                    r.add(sqlserver.loginsWithoutPermissions);
-                    r.add(sqlserver.usersWithoutLogin);
-                    r.add(sqlserver.filestreamUsers);
-                    r.add(sqlserver.dbOwnerLogins);
-                    r.add(sqlserver.lastPatch);
-                    r.add(sqlserver.validBackups);
-                    r.add(sqlserver.directUpdInSystemTables);
-                    r.add(sqlserver.remoteAccessToServer);
-                    r.add(sqlserver.remoteLoginTimeout);
-                    r.add(sqlserver.remoteAdminAccess);
-                    r.add(sqlserver.remoteLoginTimeout);
-                    r.add(sqlserver.masterKey);
-                    r.add(sqlserver.certificatesOrSymmetricKeys);
-                    r.add(sqlserver.encryptedDatabases);
-                    r.add(sqlserver.dbOwnerUser);
-                    r.add(sqlserver.shellFileEnable);
+                    r.add(sqlserver.group1);
+                    r.add(sqlserver.group2);
+                    r.add(sqlserver.group3);
+                    r.add(sqlserver.group4);
+                    r.add(sqlserver.group5);
+                    
                     out.print(r);
                     break;
             }  
