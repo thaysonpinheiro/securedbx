@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Thayson/Documents/NetBeansProjects/securedbx/securedbx/web/scripts/js/custom.js</file>
+            <file>file:/C:/Users/Italo/Documents/NetBeansProjects/securedbx/securedbx/src/java/servlets/ServletSgbd.java</file>
+            <file>file:/C:/Users/Italo/Documents/NetBeansProjects/securedbx/securedbx/src/java/servlets/ServletConnection.java</file>
+            <file>file:/C:/Users/Italo/Documents/NetBeansProjects/securedbx/securedbx/web/sqlserver.html</file>
+            <file>file:/C:/Users/Italo/Documents/NetBeansProjects/securedbx/securedbx/web/index.jsp</file>
+            <file>file:/C:/Users/Italo/Documents/NetBeansProjects/securedbx/securedbx/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Italo/Documents/NetBeansProjects/securedbx/securedbx/web/scripts/js/custom.js</file>
+            <file>file:/C:/Users/Italo/Documents/NetBeansProjects/securedbx/securedbx/src/java/sgbd/SecureSqlServer.java</file>
         </group>
     </open-files>
 </project-private>
