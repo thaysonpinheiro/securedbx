@@ -111,7 +111,7 @@ aside label{
 
 
 .titulo-table{
-    width: 800px;
+    width: 100%;
     font-weight: bolder; 
     font-size: 16px;
     color: #FFFFFF;
@@ -136,19 +136,33 @@ aside label{
 }
 
 .graph{
-    width: auto;
+    width: 20%;
     height: auto;
+    float: right;
 }
 
 .painel{
-    position: relative;
     float: left;
-    padding-top: 40px;
     padding-left: 40px;
     height: auto;
-    width: auto;
-    
-    
+    width: 850px;    
+}
+
+.paine2{
+    padding:10px;
+    height: auto;
+    width: auto;  
+}
+
+#painel-table{
+    width: 600px;
+}
+
+#relatorio{
+    position: relative;
+    margin-bottom: 15px;
+    left: 50px;
+    width: 100%;
 }
 
 #gresults{
@@ -219,4 +233,22 @@ aside label{
     background-repeat: no-repeat;
     background-position: right;
     background-size: 30px auto;
+}
+
+#box-toggle {
+    width:500px;
+    margin:0 ;
+    text-align:justify;
+    font:12px/1.4 Arial, Helvetica, sans-serif;
+}
+        
+#box-toggle .tgl {margin-bottom:30px;}
+
+#box-toggle span {
+    display:block;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:14px;
+    color:#c30; 
+    margin-top:15px;
 }

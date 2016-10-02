@@ -3,365 +3,430 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css" media="all">
+            #box-toggle {
+        
+                text-align:justify;
+                font:12px/1.4 Arial, Helvetica, sans-serif;
+            }
+            #box-toggle .tgl {margin-bottom:30px;}
+
+        </style>
+        <script type="text/javascript"> 
+            jQuery.fn.toggleText = function(a,b) {
+                return   this.html(this.html().replace(new RegExp("("+a+"|"+b+")"),function(x){return(x==a)?b:a;}));
+            }
+
+            $(document).ready(function(){
+                    $('.tgl').before('<span><img src="scripts/img/plus.png" style="width:30px;height:55px;padding-top: 25px;"></span>');
+                    $('.tgl').css('display', 'none')
+                    $('span', '#box-toggle').click(function() {
+                            $(this).next().slideToggle('slow').siblings('.tgl:visible').slideToggle('fast');
+
+                            $(this).toggleText('Revelar','Esconder')
+                            .siblings('span').next('.tgl:visible').prev()
+                            .toggleText('Revelar','Esconder')
+                    });
+            })
+        </script>
+
     </head>
     <body>
-        <!--GROUP 1-->
-         <div class="painel">
-             <div class="titulo-table">Assessment of Users and Permissions</div>
-             <table class="table table-bordered tableGroup group">
-                 <thead class="thead-inverse">
-                   <tr>
-                     <th>Item</th>
-                     <th>Desciption</th>
-                     <th>Avaliation</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <th scope="row">1</th>
-                     <td>superUsers</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                             <div id="superUsers">
+        <div id="box-toggle">
+            <!--GROUP 1-->
+             <div class="painel">
+                    <div id="painel-table">
+                        <div class="titulo-table">Assessment of Users and Permissions</div>
+                        <table class="table table-bordered tableGroup group">
+                            <thead class="thead-inverse">
+                              <tr>
+                                <th>Item</th>
+                                <th>Desciption</th>
+                                <th>Avaliation</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>superUsers</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center>
+                                        <div id="superUsers">
 
-                             </div>
-                         </center>
-                      </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">2</th>
-                     <td >usersAccessOtherUsers</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                             <div id="usersAccessOtherUsers">
+                                        </div>
+                                    </center>
+                                 </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td >usersAccessOtherUsers</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center>
+                                        <div id="usersAccessOtherUsers">
 
-                             </div>
-                         </center>
-                     </td>  
+                                        </div>
+                                    </center>
+                                </td>  
 
 
-                   </tr>
-                   <tr>
-                     <th scope="row">3</th>
-                     <td >securityPolicies</td>
-                     <td  style="padding-bottom: 0px;">
-                          <center>
-                              <div id="securityPolicies">
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td >securityPolicies</td>
+                                <td  style="padding-bottom: 0px;">
+                                     <center>
+                                         <div id="securityPolicies">
 
-                             </div>
-                          </center>
-                     </td>  
+                                        </div>
+                                     </center>
+                                </td>  
 
-                   </tr>
-                   <tr>
-                     <th scope="row">4</th>
-                     <td>publicObjectsPrivileges</td>
-                     <td  style="padding-bottom: 0px;">
-                          <center>
-                              <div id="publicObjectsPrivileges">
+                              </tr>
+                              <tr>
+                                <th scope="row">4</th>
+                                <td>publicObjectsPrivileges</td>
+                                <td  style="padding-bottom: 0px;">
+                                     <center>
+                                         <div id="publicObjectsPrivileges">
 
-                             </div>
-                          </center>
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">5</th>
-                     <td>usersEternalPass</td>
-                     <td  style="padding-bottom: 0px;">
-                          <center>
-                              <div id="usersEternalPass">
+                                        </div>
+                                     </center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">5</th>
+                                <td>usersEternalPass</td>
+                                <td  style="padding-bottom: 0px;">
+                                     <center>
+                                         <div id="usersEternalPass">
 
-                             </div>
-                          </center>
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">6</th>
-                     <td >usersNoADMCreateDB</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="usersNoADMCreateDB">
+                                        </div>
+                                     </center>
+                                </td>  
+                              </tr>
+                              <tr>
+                                <th scope="row">6</th>
+                                <td >usersNoADMCreateDB</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center>
+                                         <div id="usersNoADMCreateDB">
 
-                             </div>
-                          </center>
-                     </td>  
-                   </tr>
-                 </tbody>
-             </table>
+                                        </div>
+                                     </center>
+                                </td>  
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-             <div class="group graph">
-                 <div id="preview">
-                     <canvas width=220 height=70 class="canvas-preview" id="graph1"></canvas>
-                     <div class="preview-textfield" id="preview1"></div>
-                 </div>
+                    <div id="preview">
+                        <canvas width=150 height=70 class="canvas-preview" id="graph1"></canvas>
+                        <div class="preview-textfield" id="preview1"></div>
+                    </div>
+              
+            </div> 
+
+            <div id="relatorio">          
+               <div class="tgl">
+                   <h2>Conteúdo um</h2>
+                   <p>Teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste</p>
+               </div>
+            </div>
+
+            <!--GROUP 2-->
+             <div class="painel">
+                <div id="painel-table">
+                    <div class="titulo-table">Monitoring and Auditing</div>
+                     <table class="table table-bordered tableGroup group">
+                         <thead class="thead-inverse">
+                           <tr>
+                             <th>Item</th>
+                             <th>Desciption</th>
+                             <th>Avaliation</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <th scope="row">1</th>
+                             <td>auditingEnabled</td>
+                             <td  style="padding-bottom: 0px;">
+                                 <center>
+                                      <div id="auditingEnabled">
+
+                                     </div>
+                                  </center>
+                             </td>  
+                           </tr>
+
+                           <tr>
+                             <th scope="row">2</th>
+                             <td >tablesWithRowSecurity</td>
+                             <td  style="padding-bottom: 0px;">
+                                 <center>
+                                      <div id="tablesWithRowSecurity">
+
+                                     </div>
+                                  </center>
+                             </td>     
+                           </tr>
+
+                         </tbody>
+                     </table>
+                   </div>
+                    <div id="preview">
+                        <canvas width=150 height=70 class="canvas-preview" id="graph2"></canvas>
+                        <div class="preview-textfield" id="preview2"></div>
+                    </div>
+             </div>    
+            <!--RELATORIO DO GROUPO 2-->
+            <div id="relatorio">
+                <div class="tgl">
+                    <h2>Conteúdo um</h2>
+                    <p>Teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste</p>
+                </div>
+            </div>
+
+            <!--GROUP 3-->
+            <div class="painel">
+                <div id="painel-table">
+                    <div class="titulo-table">Vulnerability and Configuration Management</div> 
+                    <table class="table table-bordered tableGroup group">
+                         <thead class="thead-inverse">
+                           <tr>
+                             <th>Item</th>
+                             <th>Desciption</th>
+                             <th>Avaliation</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <th scope="row">1</th>
+                             <td>objectsInPublicSchema</td>
+                             <td  style="padding-bottom: 0px;">
+                                 <center>
+                                      <div id="objectsInPublicSchema">
+
+                                     </div>
+                                  </center>
+                             </td>  
+                           </tr>
+                           <tr>
+                             <th scope="row">2</th>
+                             <td >publicObjectsInsDelUp</td>
+                             <td  style="padding-bottom: 0px;">
+                                  <center>
+                                      <div id="publicObjectsInsDelUp">
+
+                                      </div>
+                                  </center>    
+                             </td>  
+                           </tr>
+                           <tr>
+                             <th scope="row">3</th>
+                             <td >defaultProceduralLang</td>
+                             <td  style="padding-bottom: 0px;">
+                                 <center>
+                                      <div id="defaultProceduralLang">
+
+                                      </div>
+                                  </center>  
+                             </td>  
+                           </tr>
+                           <tr>
+                             <th scope="row">4</th>
+                             <td >nonTrustedProceduralLang</td>
+                             <td  style="padding-bottom: 0px;">
+                                <center>
+                                      <div id="nonTrustedProceduralLang">
+
+                                      </div>
+                                  </center> 
+                             </td>  
+                           </tr>
+                           <tr>
+                             <th scope="row">5</th>
+                             <td >latestVersionBin</td>
+                             <td  style="padding-bottom: 0px;">
+                                 <center>
+                                      <div id="latestVersionBin">
+
+                                      </div>
+                                  </center> 
+                             </td>  
+                           </tr>
+                           <tr>
+                             <th scope="row">6</th>
+                             <td >noADMStreamOrOffBackup</td>
+                             <td  style="padding-bottom: 0px;">
+                                 <center>
+                                      <div id="noADMStreamOrOffBackup">
+
+                                      </div>
+                                  </center> 
+                             </td>  
+                           </tr>
+                           <tr>
+                             <th scope="row">7</th>
+                             <td >listenAddressesDefault</td>
+                             <td  style="padding-bottom: 0px;">
+                                 <center>
+                                      <div id="listenAddressesDefault">
+
+                                      </div>
+                                  </center> 
+                             </td>  
+                           </tr>
+                           <tr>
+                             <th scope="row">8</th>
+                             <td >perDBUserNames</td>
+                             <td  style="padding-bottom: 0px;">
+                                <center>
+                                   <div id="perDBUserNames">
+
+                                   </div>
+                                </center>                      
+
+                             </td>  
+                           </tr>
+                         </tbody>
+                     </table>
+                </div>
+                <div id="preview">
+                    <canvas width=150 height=70 class="canvas-preview" id="graph3"></canvas>
+                    <div class="preview-textfield" id="preview3"></div>
+                </div>
+             </div> 
+             <!--RELATORIO DO GROUPO 3-->
+             <div id="relatorio">
+                <div class="tgl">
+                    <h2>Conteúdo um</h2>
+                    <p>Teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste</p>
+                </div>
              </div>
-         </div>   
 
-        <!--GROUP 2-->
-        <div class="painel">
-            <div class="titulo-table">Monitoring and Auditing</div>
-             <table class="table table-bordered tableGroup group">
-                 <thead class="thead-inverse">
-                   <tr>
-                     <th>Item</th>
-                     <th>Desciption</th>
-                     <th>Avaliation</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <th scope="row">1</th>
-                     <td>auditingEnabled</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="auditingEnabled">
+            <!--GROUP 4-->
+            <div class="painel">
+                <div id="painel-table">
+                    <div class="titulo-table">Prevention and Blocking Attacks</div>
+                    <table class="table table-bordered tableGroup group">
+                        <thead class="thead-inverse">
+                          <tr>
+                            <th>Item</th>
+                            <th>Desciption</th>
+                            <th>Avaliation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>serverWithDefaultEncription</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center>
+                                     <div id="serverWithDefaultEncription">
 
-                             </div>
-                          </center>
-                     </td>  
-                   </tr>
+                                     </div>
+                                 </center> 
+                            </td>  
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td >dbServerGivesRowSecurity</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center>
+                                     <div id="dbServerGivesRowSecurity">
 
-                   <tr>
-                     <th scope="row">2</th>
-                     <td >tablesWithRowSecurity</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="tablesWithRowSecurity">
+                                     </div>
+                                 </center> 
+                            </td>  
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td >shortTimeoutAut</td>
+                            <td  style="padding-bottom: 0px;">
+                                <center>
+                                     <div id="shortTimeoutAut">
 
-                             </div>
-                          </center>
-                     </td>     
-                   </tr>
+                                     </div>
+                                 </center> 
+                            </td>  
+                          </tr>
+                           <tr>
+                               <th scope="row">4</th>
+                               <td >functionsHighNumbersOfParameters</td>
+                               <td  style="padding-bottom: 0px;">
+                                   <center>
+                                        <div id="functionsHighNumbersOfParameters">
 
-                 </tbody>
-             </table>
-             <div class="group graph">
-                 <div id="preview">
-                     <canvas width=220 height=70 class="canvas-preview" id="graph2"></canvas>
-                     <div class="preview-textfield" id="preview2"></div>
-                 </div>
-             </div>
-         </div>    
+                                        </div>
+                                    </center> 
+                               </td>  
+                          </tr>
+                           <tr>
+                               <th scope="row">5</th>
+                               <td >dbHighNumberOfConnections</td>
+                               <td  style="padding-bottom: 0px;">
+                                   <center>
+                                        <div id="dbHighNumberOfConnections">
 
-        <!--GROUP 3-->
-        <div class="painel">
-            <div class="titulo-table">Vulnerability and Configuration Management</div> 
-            <table class="table table-bordered tableGroup group">
-                 <thead class="thead-inverse">
-                   <tr>
-                     <th>Item</th>
-                     <th>Desciption</th>
-                     <th>Avaliation</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <th scope="row">1</th>
-                     <td>objectsInPublicSchema</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="objectsInPublicSchema">
+                                        </div>
+                                    </center> 
+                               </td>  
+                          </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <div id="preview">
+                    <canvas width=150 height=70 class="canvas-preview" id="graph4"></canvas>
+                    <div class="preview-textfield" id="preview4"></div>
+                </div>
+            </div>
+            <!--RELATORIO DO GROUPO 4-->
+            <div id="relatorio">
+                <div class="tgl">
+                    <h2>Conteúdo um</h2>
+                    <p>Teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste</p>
+                </div>
+            </div>
 
-                             </div>
-                          </center>
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">2</th>
-                     <td >publicObjectsInsDelUp</td>
-                     <td  style="padding-bottom: 0px;">
-                          <center>
-                              <div id="publicObjectsInsDelUp">
+            <!--GROUP 5-->
+            <div class="painel">
+                <div id="painel-table">
+                    <div class="titulo-table">Encryption, Tokenization and Data Masking</div> 
+                    <table class="table table-bordered tableGroup group">
+                         <thead class="thead-inverse">
+                           <tr>
+                             <th>Item</th>
+                             <th>Desciption</th>
+                             <th>Avaliation</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <th scope="row">1</th>
+                             <td>dbServerUseSSL</td>
+                                <td  style="padding-bottom: 0px;">
+                                    <center>
+                                         <div id="dbServerUseSSL">
 
-                              </div>
-                          </center>    
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">3</th>
-                     <td >defaultProceduralLang</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="defaultProceduralLang">
-
-                              </div>
-                          </center>  
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">4</th>
-                     <td >nonTrustedProceduralLang</td>
-                     <td  style="padding-bottom: 0px;">
-                        <center>
-                              <div id="nonTrustedProceduralLang">
-
-                              </div>
-                          </center> 
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">5</th>
-                     <td >latestVersionBin</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="latestVersionBin">
-
-                              </div>
-                          </center> 
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">6</th>
-                     <td >noADMStreamOrOffBackup</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="noADMStreamOrOffBackup">
-
-                              </div>
-                          </center> 
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">7</th>
-                     <td >listenAddressesDefault</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="listenAddressesDefault">
-
-                              </div>
-                          </center> 
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">8</th>
-                     <td >perDBUserNames</td>
-                     <td  style="padding-bottom: 0px;">
-                        <center>
-                           <div id="perDBUserNames">
-
-                           </div>
-                        </center>                      
-                         
-                     </td>  
-                   </tr>
-                 </tbody>
-             </table>
-             <div class="group graph">
-                 <div id="preview">
-                     <canvas width=220 height=70 class="canvas-preview" id="graph3"></canvas>
-                     <div class="preview-textfield" id="preview3"></div>
-                 </div>
-             </div>
-         </div> 
-
-        <!--GROUP 4-->
-         <div class="painel">
-             <div class="titulo-table">Prevention and Blocking Attacks</div>
-             <table class="table table-bordered tableGroup group">
-                 <thead class="thead-inverse">
-                   <tr>
-                     <th>Item</th>
-                     <th>Desciption</th>
-                     <th>Avaliation</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <th scope="row">1</th>
-                     <td>serverWithDefaultEncription</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="serverWithDefaultEncription">
-
-                              </div>
-                          </center> 
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">2</th>
-                     <td >dbServerGivesRowSecurity</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="dbServerGivesRowSecurity">
-
-                              </div>
-                          </center> 
-                     </td>  
-                   </tr>
-                   <tr>
-                     <th scope="row">3</th>
-                     <td >shortTimeoutAut</td>
-                     <td  style="padding-bottom: 0px;">
-                         <center>
-                              <div id="shortTimeoutAut">
-
-                              </div>
-                          </center> 
-                     </td>  
-                   </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td >functionsHighNumbersOfParameters</td>
-                        <td  style="padding-bottom: 0px;">
-                            <center>
-                                 <div id="functionsHighNumbersOfParameters">
-
-                                 </div>
-                             </center> 
-                        </td>  
-                   </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td >dbHighNumberOfConnections</td>
-                        <td  style="padding-bottom: 0px;">
-                            <center>
-                                 <div id="dbHighNumberOfConnections">
-                                     
-                                 </div>
-                             </center> 
-                        </td>  
-                   </tr>
-             </tbody>
-             </table>
-             <div class="group graph">
-                 <div id="preview">
-                     <canvas width=220 height=70 class="canvas-preview" id="graph4"></canvas>
-                     <div class="preview-textfield" id="preview4"></div>
-                 </div>
-             </div>
-         </div>                         
-
-        <!--GROUP 5-->
-        <div class="painel">
-            <div class="titulo-table">Encryption, Tokenization and Data Masking</div> 
-            <table class="table table-bordered tableGroup group">
-                 <thead class="thead-inverse">
-                   <tr>
-                     <th>Item</th>
-                     <th>Desciption</th>
-                     <th>Avaliation</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <th scope="row">1</th>
-                     <td>dbServerUseSSL</td>
-                        <td  style="padding-bottom: 0px;">
-                            <center>
-                                 <div id="dbServerUseSSL">
-                                    
-                                 </div>
-                            </center> 
-                        </td>
-                   </tr>
-                 </tbody>
-             </table>
-             <div class="group graph">
-                 <div id="preview">
-                     <canvas width=220 height=70 class="canvas-preview" id="graph5"></canvas>
-                     <div class="preview-textfield" id="preview5"></div>
-                 </div>
-             </div>
-         </div>
+                                         </div>
+                                    </center> 
+                                </td>
+                           </tr>
+                         </tbody>
+                     </table>
+                </div>
+                <div id="preview">
+                    <canvas width=150 height=70 class="canvas-preview" id="graph5"></canvas>
+                    <div class="preview-textfield" id="preview5"></div>
+                </div>
+            </div>
+            <!--RELATORIO DO GROUPO 5-->
+            <div id="relatorio">
+                <div class="tgl">
+                    <h2>Conteúdo um</h2>
+                    <p>Teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste</p>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -2,14 +2,16 @@ function showRow(rowId){
     $(rowId).fadeToggle();
     return false;
 };
-
+jQuery.fn.toggleText = function(a,b) {
+return   this.html(this.html().replace(new RegExp("("+a+"|"+b+")"),function(x){return(x==a)?b:a;}));
+}
 $( document ).ready(function() {
-    
+    /*
     $('#host').val($.cookie('host'));
     $('#port').val($.cookie('port'));
     $('#base').val($.cookie('base'));
     $('#user').val($.cookie('user'));
-    $('#sgbd').val($.cookie('sgbd'));
+    $('#sgbd').val($.cookie('sgbd'));*/
     
     $('#btn_connection').click(function(){
         
@@ -23,11 +25,11 @@ $( document ).ready(function() {
                                     password: $('#password').val(),
                                     sgbd: $('#sgbd').val()}, function( data ){ 
                                     
-                                    $.cookie('host', $('#host').val(), {expires: 1});
+                                   /* $.cookie('host', $('#host').val(), {expires: 1});
                                     $.cookie('port', $('#port').val(), {expires: 1});
                                     $.cookie('base', $('#base').val(), {expires: 1});
                                     $.cookie('user', $('#user').val(), {expires: 1});
-                                    $.cookie('sgbd', $('#sgbd').val(), {expires: 1});
+                                    $.cookie('sgbd', $('#sgbd').val(), {expires: 1});*/
 
                                     if(data==0){
                                         $('#page_sgbd').text("");
@@ -219,6 +221,17 @@ $( document ).ready(function() {
     }
 
     onlyNumber($('input[id="port"]'));
+    
+    $('.tgl').before('<span>Revelar conteúdo</span>');
+    $('.tgl').css('display', 'none');
+    $('span', '#box-toggle').click(function() {
+            $(this).next().slideToggle('slow')
+            .siblings('.tgl:visible').slideToggle('fast');
+
+            $(this).toggleText('Revelar','Esconder')
+            .siblings('span').next('.tgl:visible').prev()
+            .toggleText('Revelar','Esconder');
+    });
 });
 
 function setIcon(div, data){
