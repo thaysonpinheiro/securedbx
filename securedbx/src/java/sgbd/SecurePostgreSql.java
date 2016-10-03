@@ -45,7 +45,7 @@ public class SecurePostgreSql {
     public JSONObject functionsHighNumbersOfParameters = new JSONObject();
     public JSONObject dbHighNumberOfConnections = new JSONObject();
 
-    public SecurePostgreSql(ConnectionSGBD driver) {
+    public SecurePostgreSql(ConnectionSGBD driver)  {
         this.driver = driver;
         
         this.getSuperUsers();
@@ -194,7 +194,7 @@ public class SecurePostgreSql {
         ResultSet fields = driver.executeQuery(preparedStatement);
 
         try {
-            //checa se o result set possui dados, caso ele esteja vazio a resposta Ã© false.
+            //checa se o result set possui dados, caso ele esteja vazio a resposta é false.
             if (fields.next()) {
                 this.tablesWithRowSecurity.put("tablesWithRowSecurity", "true");
             } else {

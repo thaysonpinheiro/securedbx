@@ -101,21 +101,11 @@ $( document ).ready(function() {
                                             
                                             $(function () {
                                                 $('#group1-graph').highcharts({
-                                                    chart: {
-                                                        type: 'bar'
-                                                    },
-                                                    title:{
-                                                        text:'Group - 1'
-                                                    },
-                                                    xAxis: {
-                                                        categories: ['Ok', 'Not ok', 'Warning']
-                                                    },
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 1'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
                                                     plotOptions: {
-                                                        bar: {
-                                                            dataLabels: {
-                                                                enabled: true
-                                                            }
-                                                        }
+                                                        bar: {dataLabels: {enabled: true}}
                                                     },
                                                     series: [{
                                                         name: 'Group - 1',
@@ -126,21 +116,11 @@ $( document ).ready(function() {
                                                     }]
                                                 });
                                                 $('#group2-graph').highcharts({
-                                                    chart: {
-                                                        type: 'bar'
-                                                    },
-                                                    title:{
-                                                        text:'Group - 2'
-                                                    },
-                                                    xAxis: {
-                                                        categories: ['Ok', 'Not ok', 'Warning']
-                                                    },
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 2'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
                                                     plotOptions: {
-                                                        bar: {
-                                                            dataLabels: {
-                                                                enabled: true
-                                                            }
-                                                        }
+                                                        bar: {dataLabels: {enabled: true}}
                                                     },
                                                     series: [{
                                                         name: 'Group - 2',
@@ -152,21 +132,11 @@ $( document ).ready(function() {
                                                 });
                                                 
                                                 $('#group3-graph').highcharts({
-                                                    chart: {
-                                                        type: 'bar'
-                                                    },
-                                                    title:{
-                                                        text:'Group - 3'
-                                                    },
-                                                    xAxis: {
-                                                        categories: ['Ok', 'Not ok', 'Warning']
-                                                    },
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 3'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
                                                     plotOptions: {
-                                                        bar: {
-                                                            dataLabels: {
-                                                                enabled: true
-                                                            }
-                                                        }
+                                                        bar: {dataLabels: {enabled: true}}
                                                     },
                                                     series: [{
                                                         name: 'Group - 3',
@@ -177,21 +147,11 @@ $( document ).ready(function() {
                                                     }]
                                                 });
                                                 $('#group4-graph').highcharts({
-                                                    chart: {
-                                                        type: 'bar'
-                                                    },
-                                                    title:{
-                                                        text:'Group - 4'
-                                                    },
-                                                    xAxis: {
-                                                        categories: ['Ok', 'Not ok', 'Warning']
-                                                    },
+                                                    chart: {type: 'bar' },
+                                                    title:{text:'Group - 4'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
                                                     plotOptions: {
-                                                        bar: {
-                                                            dataLabels: {
-                                                                enabled: true
-                                                            }
-                                                        }
+                                                        bar: {dataLabels: {enabled: true}}
                                                     },
                                                     series: [{
                                                         name: 'Group - 4',
@@ -203,21 +163,11 @@ $( document ).ready(function() {
                                                 });
                                                 
                                                 $('#group5-graph').highcharts({
-                                                    chart: {
-                                                        type: 'bar'
-                                                    },
-                                                    title:{
-                                                        text:'Group - 5'
-                                                    },
-                                                    xAxis: {
-                                                        categories: ['Ok', 'Not ok', 'Warning']
-                                                    },
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 5'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
                                                     plotOptions: {
-                                                        bar: {
-                                                            dataLabels: {
-                                                                enabled: true
-                                                            }
-                                                        }
+                                                        bar: {dataLabels: {enabled: true}}
                                                     },
                                                     series: [{
                                                         name: 'Group - 5',
@@ -226,8 +176,7 @@ $( document ).ready(function() {
                                                         name: 'Total',
                                                         data: [total[0], total[1], total[2]]
                                                     }]
-                                                });
-                                                
+                                                });  
                                             });
                                             
                                             gauge( group1[0]/6*100, "preview1", "graph1");
@@ -277,25 +226,104 @@ $( document ).ready(function() {
                                                 $("#system").toggleClass( "invisible" );
                                             }
                                             
+                                            group1 = getAvaliation(data, 0, 8);
+                                            group2 = getAvaliation(data, 8, 12);
+                                            group3 = getAvaliation(data, 12, 18);
+                                            group4 = getAvaliation(data, 18, 23);
+                                            
+                                             var total = [0, 0, 0];
+                                            
+                                            for(var i = 0; i < total.length; i++){
+                                                total[i] = total[i] + group1[i];
+                                                total[i] = total[i] + group2[i];
+                                                total[i] = total[i] + group3[i];
+                                                total[i] = total[i] + group4[i];
+                                            }
+                                            
+                                            $(function () {
+                                                $('#group1-graph').highcharts({
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 1'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 1',
+                                                        data: [group1[0], group1[1], group1[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });
+                                                $('#group2-graph').highcharts({
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 2'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 2',
+                                                        data: [group2[0], group2[1], group2[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });
+                                                
+                                                $('#group3-graph').highcharts({
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 3'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 3',
+                                                        data: [group3[0], group3[1], group3[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });
+                                                $('#group4-graph').highcharts({
+                                                    chart: {type: 'bar' },
+                                                    title:{text:'Group - 4'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 4',
+                                                        data: [group4[0], group4[1], group4[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });
+                                            });
+                                            
+                                            
                                             //avaliando cada grupo e já montando o grafico
-                                            gauge((getAvaliation(data, 0, 8)/8)*100, "preview1", "graph1");
-                                            gauge((getAvaliation(data, 8, 12)/4)*100, "preview2", "graph2");
-                                            gauge((getAvaliation(data, 12, 18)/6)*100, "preview3", "graph3");
-                                            gauge((getAvaliation(data, 18, 23)/5)*100, "preview4", "graph4");
+                                            gauge((group1[0]/8)*100, "preview1", "graph1");
+                                            gauge((group2[0]/4)*100, "preview2", "graph2");
+                                            gauge((group3[0]/6)*100, "preview3", "graph3");
+                                            gauge((group4[0]/5)*100, "preview4", "graph4");
                                             
                                         }else{
                                             //postgres
                                             //Setando resultado para grupo 1: 
                                             setIcon("#superUsers", data[0].superUsers);
                                             setIcon("#usersAccessOtherUsers", data[1].usersAccessOtherUsers);
-                                            setIcon("#securityPolicies", data[2].securityPolicies);
+                                            //setIcon("#securityPolicies", data[2].securityPolicies);
                                             setIcon("#publicObjectsPrivileges", data[3].publicObjectsPrivileges);
                                             setIcon("#usersEternalPass", data[4].usersEternalPass);
                                             setIcon("#usersNoADMCreateDB", data[5].usersNoADMCreateDB);
                                              
                                             //Setando resultado para grupo 2:
                                             setIcon("#auditingEnabled", data[6].auditingEnabled);
-                                            setIcon("#tablesWithRowSecurity", data[7].tablesWithRowSecurity);
+                                            //setIcon("#tablesWithRowSecurity", data[7].tablesWithRowSecurity);
                                             
                                             //Setando resultado para grupo 3:
                                             setIcon("#objectsInPublicSchema", data[8].objectsInPublicSchema);
@@ -322,12 +350,108 @@ $( document ).ready(function() {
                                                 $("#system").toggleClass( "invisible" );
                                             }
                                             
+                                            group1 = getAvaliation(data, 0, 6);
+                                            group2 = getAvaliation(data, 6, 8);
+                                            group3 = getAvaliation(data, 8, 16);
+                                            group4 = getAvaliation(data, 16, 21);
+                                            group5 = getAvaliation(data, 21, 22);
+                                            
+                                            var total = [0, 0, 0];
+                                            
+                                            for(var i = 0; i < total.length; i++){
+                                                total[i] = total[i] + group1[i];
+                                                total[i] = total[i] + group2[i];
+                                                total[i] = total[i] + group3[i];
+                                                total[i] = total[i] + group4[i];
+                                                total[i] = total[i] + group5[i];
+                                            }
+                                            
+                                             $(function () {
+                                                $('#group1-graph').highcharts({
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 1'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 1',
+                                                        data: [group1[0], group1[1], group1[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });
+                                                $('#group2-graph').highcharts({
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 2'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 2',
+                                                        data: [group2[0], group2[1], group2[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });
+                                                
+                                                $('#group3-graph').highcharts({
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 3'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 3',
+                                                        data: [group3[0], group3[1], group3[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });
+                                                $('#group4-graph').highcharts({
+                                                    chart: {type: 'bar' },
+                                                    title:{text:'Group - 4'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 4',
+                                                        data: [group4[0], group4[1], group4[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });
+                                                
+                                                $('#group5-graph').highcharts({
+                                                    chart: {type: 'bar'},
+                                                    title:{text:'Group - 5'},
+                                                    xAxis: {categories: ['Ok', 'Not ok', 'Warning']},
+                                                    plotOptions: {
+                                                        bar: {dataLabels: {enabled: true}}
+                                                    },
+                                                    series: [{
+                                                        name: 'Group - 5',
+                                                        data: [group5[0], group5[1], group5[2]]
+                                                    }, {
+                                                        name: 'Total',
+                                                        data: [total[0], total[1], total[2]]
+                                                    }]
+                                                });  
+                                            });
+                                            
                                             //avaliando cada grupo e já montando o grafico
-                                            gauge((getAvaliation(data, 0, 6)/6)*100, "preview1", "graph1");
-                                            gauge((getAvaliation(data, 6, 8)/2)*100, "preview2", "graph2");
-                                            gauge((getAvaliation(data, 8, 16)/8)*100, "preview3", "graph3");
-                                            gauge((getAvaliation(data, 16, 21)/5)*100, "preview4", "graph4");
-                                            gauge((getAvaliation(data, 21, 22))*100, "preview5", "graph5");
+                                            gauge((group1[0]/6)*100, "preview1", "graph1");
+                                            gauge((group2[0]/2)*100, "preview2", "graph2");
+                                            gauge((group3[0]/8)*100, "preview3", "graph3");
+                                            gauge((group4[0]/5)*100, "preview4", "graph4");
+                                            gauge((group5[0])*100, "preview5", "graph5");
                                             
                                             
                                         }
